@@ -9,7 +9,4 @@ analysis/*png
 analysis/*html
 analysis/*_cache
 analysis/site_libs
-*png
-*pdf
-*tif
-*tiff
+data/
