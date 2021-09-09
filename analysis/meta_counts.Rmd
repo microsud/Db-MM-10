@@ -1,0 +1,190 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "RNASeq processing"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+
+The analysis here is based on triplicates.    
+Read outputs of DIAMOND analysis into R. The code follows the R scripts from SAMSA2 pipeline.  
+
+## Setup
+
+```{r message=FALSE, warning=FALSE}
+
+# import other necessary packages
+#library(optparse)
+library(tidyverse)
+#library(EnhancedVolcano)
+library(ggplot2)
+
+
+```
+
+
+# Read counts  
+
+Input files here were obtained from SAMSA2 pipeline.
+## Get file names  
+```{r}
+
+
+# GET FILE NAMES Control 24h
+control_files <- list.files(path = "data_raw/04_metatrans/samsa_output",
+                            pattern = "control_*", 
+                            full.names = T, recursive = FALSE)
+
+control_names <- ""
+for (name in control_files) {
+  
+  x <- gsub("data_raw/04_metatrans/samsa_output/", "", name)
+  x <- gsub(".merged.RefSeq_annotated_BLAST.txt", "", x)
+  control_names <- c(control_names, x)
+}
+control_names
+
+control_names_trimmed <- control_names[-1]
+
+# Experimental 48h
+
+exp_files <- list.files(path = "data_raw/04_metatrans/samsa_output",
+                        pattern = "experimental_*",
+                        full.names = T,
+                        recursive = FALSE)
+exp_names = ""
+for (name in exp_files) {
+  
+  x <- gsub("data_raw/04_metatrans/samsa_output/", "", name)
+  x <- gsub(".merged.RefSeq_annotated_BLAST.txt", "", x)
+  exp_names <- c(exp_names, x)
+}
+
+
+exp_names_trimmed <- exp_names[-1]
+
+# sanity check
+if (length(exp_files) == 0 || length(control_files) == 0) {
+  print ("\nWARNING: No files found.  Is the directory correct?  Are the files named with 'control_' and 'experimental_' as prefixes?")
+  stop()
+}
+
+#head(control_names_trimmed)
+#head(exp_names_trimmed)
+
+```
+
+## Read files  
+
+```{r}
+
+# loading the control table
+y <- 0
+for (x in control_files) {
+  y <- y + 1
+  if (y == 1) {
+    control_table <- read.table(file = x, header = F, quote = "", sep = "\t")
+    colnames(control_table) = c(x, "V2")
+    control_table <- control_table[,c(2,1)]      }
+  if (y > 1) {
+    temp_table <- read.table(file = x, header = F, quote = "", sep = "\t")
+    colnames(temp_table) = c( x, "V2")
+    temp_table <- temp_table[,c(1,2)]
+    control_table <- merge(control_table, temp_table, by = "V2", all = T)  }
+}
+
+#head(control_table)
+
+control_table[is.na(control_table)] <- 0
+rownames(control_table)= control_table$V2
+ 
+control_table_trimmed <- data.frame(control_table[,-1])
+
+# loading the experimental table
+z <- 0
+for (x in exp_files) {
+  z <- z + 1
+  if (z == 1) {
+    exp_table <- read.table(file = x, header=F, quote = "", sep = "\t")
+    colnames(exp_table) = c(x, "V2")
+    exp_table <- exp_table[,c(2,1)]  }
+  if (z > 1) {
+    temp_table <- read.table(file = x, header = F, quote = "", sep = "\t")
+    colnames(temp_table) = c(x, "V2")
+    exp_table <- merge(exp_table, temp_table[,c(1,2)], by = "V2", all = T)  }
+}
+exp_table[is.na(exp_table)] <- 0
+rownames(exp_table) = exp_table$V2
+exp_table_trimmed <- exp_table[,-1]
+
+```
+
+check control_table 24h
+```{r}
+head(control_table_trimmed)
+```
+
+
+check control_table_trimmed 48h
+```{r}
+head(exp_table_trimmed)
+```
+
+
+
+Format the two tables.   
+## Create main table  
+```{r}
+
+# getting the column names simplified
+colnames(control_table_trimmed) = control_names_trimmed
+colnames(exp_table_trimmed) = exp_names_trimmed
+
+# merging the two tables (time-consuming step)
+complete_table <- merge(control_table_trimmed, exp_table_trimmed, by=0, all = TRUE)
+complete_table[is.na(complete_table)] <- 0
+# reducing stuff down to avoid duplicates
+complete_table <- aggregate(. ~  Row.names, data = complete_table, sum)
+
+rownames(complete_table) <- complete_table$Row.names
+
+complete_table <- complete_table[!(complete_table$Row.names == ""), ]
+
+# removing extra Row.names column
+complete_table <- complete_table[,-1]
+complete_table.a <- complete_table
+#colnames(complete_table.a)
+#head(complete_table)
+
+colnames(complete_table) <- gsub("control_", "", colnames(complete_table))
+colnames(complete_table) <- gsub("experimental_", "", colnames(complete_table))
+```
+
+
+Store the complete table for later analysis.  
+
+## Save objects  
+```{r}
+
+raw_counts_table <- complete_table
+saveRDS(raw_counts_table, "data/04_metatrans/rds/raw_counts_tables.rds")
+
+write.table(raw_counts_table, "data/04_metatrans/tables/raw_counts_tables.txt", col.names=NA, sep = "\t")
+
+```
+
+Here, the `raw_counts_tables.rds` contains locus tag counts in each sample.  
+
+```{r eval=FALSE}
+sessionInfo()
+```
+

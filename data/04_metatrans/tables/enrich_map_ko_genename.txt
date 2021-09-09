@@ -1,0 +1,78 @@
+	KO	category	foldChange	GeneName
+1	K00024	Carbon metabolism	-2.940963133	 mdh; malate dehydrogenase [EC:1.1.1.37]
+7	K00033	Carbon metabolism	-2.89569097	" PGD, gnd, gntZ; 6-phosphogluconate dehydrogenase [EC:1.1.1.44 1.1.1.343]"
+8	K00036	Carbon metabolism	-2.17892864	" G6PD, zwf; glucose-6-phosphate 1-dehydrogenase [EC:1.1.1.49 1.1.1.363]"
+9	K00053	Pantothenate and CoA biosynthesis	-1.666087007	 ilvC; ketol-acid reductoisomerase [EC:1.1.1.86]
+10	K00128	beta-Alanine metabolism	1.523144416	 ALDH; aldehyde dehydrogenase (NAD+) [EC:1.2.1.3]
+15	K00170	Nitrotoluene degradation	2.492077526	 porB; pyruvate ferredoxin oxidoreductase beta subunit [EC:1.2.7.1]
+24	K00171	Methane metabolism	3.300088181	 porD; pyruvate ferredoxin oxidoreductase delta subunit [EC:1.2.7.1]
+33	K00174	Citrate cycle (TCA cycle)	-1.500087121	" korA, oorA, oforA; 2-oxoglutarate/2-oxoacid ferredoxin oxidoreductase subunit alpha [EC:1.2.7.3 1.2.7.11]"
+39	K00175	Butanoate metabolism	-1.575530448	" korB, oorB, oforB; 2-oxoglutarate/2-oxoacid ferredoxin oxidoreductase subunit beta [EC:1.2.7.3 1.2.7.11]"
+45	K00177	Citrate cycle (TCA cycle)	-1.635841267	" korC, oorC; 2-oxoglutarate ferredoxin oxidoreductase subunit gamma [EC:1.2.7.3]"
+48	K00198	Carbon metabolism	1.548160021	" cooS, acsA; anaerobic carbon-monoxide dehydrogenase catalytic subunit [EC:1.2.7.4]"
+52	K00226	Pyrimidine metabolism	-2.126457192	 pyrD; dihydroorotate dehydrogenase (fumarate) [EC:1.3.98.1]
+53	K00239	Butanoate metabolism	-2.081429282	" sdhA, frdA; succinate dehydrogenase / fumarate reductase, flavoprotein subunit [EC:1.3.5.1 1.3.5.4]"
+57	K00240	Carbon fixation pathways in prokaryotes	-1.990282625	" sdhB, frdB; succinate dehydrogenase / fumarate reductase, iron-sulfur subunit [EC:1.3.5.1 1.3.5.4]"
+61	K00241	Carbon fixation pathways in prokaryotes	-2.796318716	" sdhC, frdC; succinate dehydrogenase / fumarate reductase, cytochrome b subunit"
+65	K00425	Two-component system	-2.839602389	 cydA; cytochrome bd ubiquinol oxidase subunit I [EC:7.1.1.7]
+66	K00426	Two-component system	-2.308043445	 cydB; cytochrome bd ubiquinol oxidase subunit II [EC:7.1.1.7]
+67	K00605	Carbon metabolism	-2.019767021	" gcvT, AMT; aminomethyltransferase [EC:2.1.2.10]"
+69	K00627	Citrate cycle (TCA cycle)	1.905093884	" DLAT, aceF, pdhC; pyruvate dehydrogenase E2 component (dihydrolipoamide acetyltransferase) [EC:2.3.1.12]"
+73	K00632	"Valine, leucine and isoleucine degradation"	1.979160364	" fadA, fadI; acetyl-CoA acyltransferase [EC:2.3.1.16]"
+74	K00895	Glycolysis / Gluconeogenesis	-1.735444921	" pfp, PFP; diphosphate-dependent phosphofructokinase [EC:2.7.1.90]"
+75	K00940	Pyrimidine metabolism	-2.851471674	" ndk, NME; nucleoside-diphosphate kinase [EC:2.7.4.6]"
+76	K00954	Pantothenate and CoA biosynthesis	-1.7194372	" E2.7.7.3A, coaD, kdtB; pantetheine-phosphate adenylyltransferase [EC:2.7.7.3]"
+77	K01007	Glycolysis / Gluconeogenesis	1.69460496	" pps, ppsA; pyruvate, water dikinase [EC:2.7.9.2]"
+82	K01029	Butanoate metabolism	2.235891212	" E2.8.3.5B, scoB; 3-oxoacid CoA-transferase subunit B [EC:2.8.3.5]"
+84	K01057	Carbon metabolism	-1.891908087	" PGLS, pgl, devB; 6-phosphogluconolactonase [EC:3.1.1.31]"
+85	K01176	Starch and sucrose metabolism	-2.40482529	" AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]"
+86	K01193	Starch and sucrose metabolism	3.750748141	" INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]"
+87	K01200	Starch and sucrose metabolism	-1.8079678	 pulA; pullulanase [EC:3.2.1.41]
+88	K01596	Citrate cycle (TCA cycle)	-2.50670876	" E4.1.1.32, pckA, PCK; phosphoenolpyruvate carboxykinase (GTP) [EC:4.1.1.32]"
+91	K01676	Pyruvate metabolism	-1.752159015	" E4.2.1.2A, fumA, fumB; fumarate hydratase, class I [EC:4.2.1.2]"
+95	K01838	Starch and sucrose metabolism	-2.474373416	 pgmB; beta-phosphoglucomutase [EC:5.4.2.6]
+96	K01847	Carbon fixation pathways in prokaryotes	-1.66061317	 MUT; methylmalonyl-CoA mutase [EC:5.4.99.2]
+101	K01848	Propanoate metabolism	2.859384768	" E5.4.99.2A, mcmA1; methylmalonyl-CoA mutase, N-terminal domain [EC:5.4.99.2]"
+106	K01849	Carbon fixation pathways in prokaryotes	2.476115838	" E5.4.99.2B, mcmA2; methylmalonyl-CoA mutase, C-terminal domain [EC:5.4.99.2]"
+111	K01902	Propanoate metabolism	-1.548621838	 sucD; succinyl-CoA synthetase alpha subunit [EC:6.2.1.5]
+115	K01960	Citrate cycle (TCA cycle)	-2.314755702	 pycB; pyruvate carboxylase subunit B [EC:6.4.1.1]
+119	K02106	Two-component system	1.964239824	 atoE; short-chain fatty acids transporter
+120	K02387	Flagellar assembly	-1.559083084	 flgB; flagellar basal-body rod protein FlgB
+121	K02388	Flagellar assembly	-1.702725394	 flgC; flagellar basal-body rod protein FlgC
+122	K02390	Flagellar assembly	-1.508946239	 flgE; flagellar hook protein FlgE
+123	K02406	Flagellar assembly	-2.690605962	 fliC; flagellin
+125	K02407	Flagellar assembly	-2.078650091	 fliD; flagellar hook-associated protein 2
+126	K02408	Flagellar assembly	-1.56431571	 fliE; flagellar hook-basal body complex protein FliE
+127	K02414	Flagellar assembly	-2.387339802	 fliK; flagellar hook-length control protein FliK
+128	K02422	Flagellar assembly	-2.16507034	 fliS; flagellar protein FliS
+129	K02437	Glyoxylate and dicarboxylate metabolism	-1.987413357	" gcvH, GCSH; glycine cleavage system H protein"
+131	K02650	Two-component system	-2.791886625	 pilA; type IV pilus assembly protein PilA
+132	K03389	Methane metabolism	1.795721621	 hdrB2; heterodisulfide reductase subunit B2 [EC:1.8.7.3 1.8.98.4 1.8.98.5 1.8.98.6]
+134	K03407	Bacterial chemotaxis	-1.679723679	" cheA; two-component system, chemotaxis family, sensor kinase CheA [EC:2.7.13.3]"
+136	K03408	Bacterial chemotaxis	-1.693992423	 cheW; purine-binding chemotaxis protein CheW
+138	K03412	Two-component system	-1.583489771	" cheB; two-component system, chemotaxis family, protein-glutamate methylesterase/glutaminase [EC:3.1.1.61 3.5.1.44]"
+140	K03415	Bacterial chemotaxis	-1.727935902	" cheV; two-component system, chemotaxis family, chemotaxis protein CheV"
+142	K03781	Carbon metabolism	-2.325853795	" katE, CAT, catB, srpA; catalase [EC:1.11.1.6]"
+144	K05341	Starch and sucrose metabolism	4.106092483	 E2.4.1.4; amylosucrase [EC:2.4.1.4]
+145	K06016	Pyrimidine metabolism	1.97250915	 pydC; beta-ureidopropionase / N-carbamoyl-L-amino-acid hydrolase [EC:3.5.1.6 3.5.1.87]
+146	K06896	Starch and sucrose metabolism	1.500822763	 mapP; maltose 6'-phosphate phosphatase [EC:3.1.3.90]
+147	K07250	Propanoate metabolism	1.99025276	 gabT; 4-aminobutyrate aminotransferase / (S)-3-amino-2-methylpropionate transaminase / 5-aminovalerate transaminase [EC:2.6.1.19 2.6.1.22 2.6.1.48]
+151	K07405	Starch and sucrose metabolism	-1.926050547	 E3.2.1.1A; alpha-amylase [EC:3.2.1.1]
+152	K07652	Two-component system	1.897802324	" vicK; two-component system, OmpR family, sensor histidine kinase VicK [EC:2.7.13.3]"
+153	K07668	Two-component system	1.571841869	" vicR; two-component system, OmpR family, response regulator VicR"
+154	K07777	Two-component system	-2.06544005	" degS; two-component system, NarL family, sensor histidine kinase DegS [EC:2.7.13.3]"
+155	K08722	Pyrimidine metabolism	1.75014663	 yfbR; 5'-deoxynucleotidase [EC:3.1.3.89]
+156	K10540	Bacterial chemotaxis	-1.795907068	 mglB; methyl-galactoside transport system substrate-binding protein
+157	K10914	Two-component system	4.88980285	" crp; CRP/FNR family transcriptional regulator, cyclic AMP receptor protein"
+158	K11261	Carbon metabolism	1.754816962	" fwdE, fmdE; formylmethanofuran dehydrogenase subunit E [EC:1.2.7.12]"
+160	K11645	Methane metabolism	-1.868479985	" fbaB; fructose-bisphosphate aldolase, class I [EC:4.1.2.13]"
+163	K17722	Pantothenate and CoA biosynthesis	5.064830406	 preT; dihydropyrimidine dehydrogenase (NAD+) subunit PreT [EC:1.3.1.1]
+166	K17723	beta-Alanine metabolism	1.884507402	 preA; dihydropyrimidine dehydrogenase (NAD+) subunit PreA [EC:1.3.1.1]
+169	K18118	Carbon metabolism	2.627689522	" aarC, cat1; succinyl-CoA:acetate CoA-transferase [EC:2.8.3.18]"
+173	K18344	Vancomycin resistance	1.57943495	" vanRB, vanR, vanRD; two-component system, OmpR family, response regulator VanR"
+175	K18348	Vancomycin resistance	2.592029297	 vanT; serine/alanine racemase [EC:5.1.1.18 5.1.1.1]
+177	K18856	Two-component system	2.704648183	" vanC, vanE, vanG; D-alanine---D-serine ligase [EC:6.3.2.35]"
+179	K18866	Two-component system	2.642703916	 vanXY; zinc D-Ala-D-Ala dipeptidase/carboxypeptidase [EC:3.4.13.22 3.4.17.14]
+181	K20489	Two-component system	2.340271422	 nisI; lantibiotic immunity protein
+182	K22373	Pyruvate metabolism	-2.313882677	 larA; lactate racemase [EC:5.1.2.1]
+183	K23259	Propanoate metabolism	-2.144366951	 adh; isopropanol dehydrogenase (NADP+) [EC:1.1.1.80]

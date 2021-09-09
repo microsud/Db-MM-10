@@ -1,0 +1,121 @@
+Number,Replicate,Timepoint,PH,OD,BacterialStrain
+Sample 1,AR1,T0,7.55,0.68,Agathobacter rectalis
+Sample 2,AR1,T24,7.22,1.56,Agathobacter rectalis
+Sample 3,AR1,T48,6.95,1.13,Agathobacter rectalis
+Sample 4,AR1,T72,7,0.82,Agathobacter rectalis
+Sample 5,AR1,T96,6.97,0.69,Agathobacter rectalis
+Sample 6,AR1,T168,6.97,0.54,Agathobacter rectalis
+Sample 7,AR2,T0,7.61,0.61,Agathobacter rectalis
+Sample 8,AR2,T24,7.36,1.55,Agathobacter rectalis
+Sample 9,AR2,T48,7.12,1.1,Agathobacter rectalis
+Sample 10,AR2,T72,7.01,0.8,Agathobacter rectalis
+Sample 11,AR2,T96,7.03,0.64,Agathobacter rectalis
+Sample 12,AR2,T168,7.05,0.51,Agathobacter rectalis
+Sample 13,BO1,T0,7.35,0.67,Bacteroides ovatus
+Sample 14,BO1,T24,6.95,1.44,Bacteroides ovatus
+Sample 15,BO1,T48,5.77,1.48,Bacteroides ovatus
+Sample 16,BO1,T72,5.77,1.37,Bacteroides ovatus
+Sample 17,BO1,T96,5.74,1.35,Bacteroides ovatus
+Sample 18,BO1,T168,5.74,1.34,Bacteroides ovatus
+Sample 19,BO2,T0,7.28,0.77,Bacteroides ovatus
+Sample 20,BO2,T24,6.25,1.6,Bacteroides ovatus
+Sample 21,BO2,T48,6,1.6,Bacteroides ovatus
+Sample 22,BO2,T72,6,1.47,Bacteroides ovatus
+Sample 23,BO2,T96,6.09,1.45,Bacteroides ovatus
+Sample 24,BO2,T168,6.1,1.43,Bacteroides ovatus
+Sample 25,BX1,T0,7.35,0.67,Bacteroides xylanisolvens
+Sample 26,BX1,T24,6.91,1.68,Bacteroides xylanisolvens
+Sample 27,BX1,T48,6.38,2.6,Bacteroides xylanisolvens
+Sample 28,BX1,T72,6.35,1.93,Bacteroides xylanisolvens
+Sample 29,BX1,T96,6.12,1.85,Bacteroides xylanisolvens
+Sample 30,BX1,T168,5.8,1.8,Bacteroides xylanisolvens
+Sample 31,BX2,T0,7.37,0.6,Bacteroides xylanisolvens
+Sample 32,BX2,T24,6.83,1.66,Bacteroides xylanisolvens
+Sample 33,BX2,T48,6.44,3,Bacteroides xylanisolvens
+Sample 34,BX2,T72,6.45,1.88,Bacteroides xylanisolvens
+Sample 35,BX2,T96,6.19,1.8,Bacteroides xylanisolvens
+Sample 36,BX2,T168,5.93,1.73,Bacteroides xylanisolvens
+Sample 37,CC1,T0,7.57,0.71,Coprococcus catus
+Sample 38,CC1,T24,7.56,0.77,Coprococcus catus
+Sample 39,CC1,T48,7.54,0.77,Coprococcus catus
+Sample 40,CC1,T72,7.48,0.81,Coprococcus catus
+Sample 41,CC1,T96,7.52,0.84,Coprococcus catus
+Sample 42,CC1,T168,7.52,0.83,Coprococcus catus
+Sample 43,CC2,T0,8.01,0.58,Coprococcus catus
+Sample 44,CC2,T24,7.52,0.79,Coprococcus catus
+Sample 45,CC2,T48,7.41,0.78,Coprococcus catus
+Sample 46,CC2,T72,7.45,0.8,Coprococcus catus
+Sample 47,CC2,T96,7.45,0.83,Coprococcus catus
+Sample 48,CC2,T168,7.54,0.85,Coprococcus catus
+Sample 49,EH1,T0,7.42,0.63,Anaerobutyricum soehngenii
+Sample 50,EH1,T24,7.44,0.62,Anaerobutyricum soehngenii
+Sample 51,EH1,T48,7.37,0.62,Anaerobutyricum soehngenii
+Sample 52,EH1,T72,7.47,0.59,Anaerobutyricum soehngenii
+Sample 53,EH1,T96,7.39,0.59,Anaerobutyricum soehngenii
+Sample 54,EH1,T168,7.38,0.6,Anaerobutyricum soehngenii
+Sample 55,EH2,T0,7.46,0.66,Anaerobutyricum soehngenii
+Sample 56,EH2,T24,7.38,0.61,Anaerobutyricum soehngenii
+Sample 57,EH2,T48,7.3,0.6,Anaerobutyricum soehngenii
+Sample 58,EH2,T72,7.4,0.59,Anaerobutyricum soehngenii
+Sample 59,EH2,T96,7.37,0.58,Anaerobutyricum soehngenii
+Sample 60,EH2,T168,7.33,0.59,Anaerobutyricum soehngenii
+Sample 61,ES1,T0,7.56,0.7,Eubacterium siraeum
+Sample 62,ES1,T24,7.38,0.89,Eubacterium siraeum
+Sample 63,ES1,T48,7.34,0.89,Eubacterium siraeum
+Sample 64,ES1,T72,7.27,0.91,Eubacterium siraeum
+Sample 65,ES1,T96,7.23,0.9,Eubacterium siraeum
+Sample 66,ES1,T168,7.3,0.82,Eubacterium siraeum
+Sample 67,ES2,T0,7.57,0.77,Eubacterium siraeum
+Sample 68,ES2,T24,7.43,0.94,Eubacterium siraeum
+Sample 69,ES2,T48,7.25,0.95,Eubacterium siraeum
+Sample 70,ES2,T72,7.35,1,Eubacterium siraeum
+Sample 71,ES2,T96,7.27,0.99,Eubacterium siraeum
+Sample 72,ES2,T168,7.32,0.9,Eubacterium siraeum
+Sample 73,FP1,T0,7.56,0.66,Faecalibacterium prausnitzii
+Sample 74,FP1,T24,7.4,1.29,Faecalibacterium prausnitzii
+Sample 75,FP1,T48,7.2,1.33,Faecalibacterium prausnitzii
+Sample 76,FP1,T72,7.24,1.35,Faecalibacterium prausnitzii
+Sample 77,FP1,T96,7.17,1.29,Faecalibacterium prausnitzii
+Sample 78,FP1,T168,7.2,1.19,Faecalibacterium prausnitzii
+Sample 79,FP2,T0,7.58,0.6,Faecalibacterium prausnitzii
+Sample 80,FP2,T24,7.39,1.31,Faecalibacterium prausnitzii
+Sample 81,FP2,T48,7.15,1.24,Faecalibacterium prausnitzii
+Sample 82,FP2,T72,7.17,1.28,Faecalibacterium prausnitzii
+Sample 83,FP2,T96,7.18,1.23,Faecalibacterium prausnitzii
+Sample 84,FP2,T168,7.17,1.11,Faecalibacterium prausnitzii
+Sample 85,LF1,T0,7.5,0.62,Lachnospiraceae bacterium 7_1_58FAA
+Sample 86,LF1,T24,7.4,0.66,Lachnospiraceae bacterium 7_1_58FAA
+Sample 87,LF1,T48,7.49,0.76,Lachnospiraceae bacterium 7_1_58FAA
+Sample 88,LF1,T72,7.56,0.72,Lachnospiraceae bacterium 7_1_58FAA
+Sample 89,LF1,T96,7.54,0.67,Lachnospiraceae bacterium 7_1_58FAA
+Sample 90,LF1,T168,7.47,0.61,Lachnospiraceae bacterium 7_1_58FAA
+Sample 91,LF2,T0,7.41,0.62,Lachnospiraceae bacterium 7_1_58FAA
+Sample 92,LF2,T24,7.43,0.66,Lachnospiraceae bacterium 7_1_58FAA
+Sample 93,LF2,T48,7.41,0.76,Lachnospiraceae bacterium 7_1_58FAA
+Sample 94,LF2,T72,7.47,0.72,Lachnospiraceae bacterium 7_1_58FAA
+Sample 95,LF2,T96,7.44,0.67,Lachnospiraceae bacterium 7_1_58FAA
+Sample 96,LF2,T168,7.32,0.61,Lachnospiraceae bacterium 7_1_58FAA
+Sample 97,RI1,T0,7.32,0.68,Roseburia intestinalis
+Sample 98,RI1,T24,7.1,1.79,Roseburia intestinalis
+Sample 99,RI1,T48,7.04,1.37,Roseburia intestinalis
+Sample 100,RI1,T72,7.09,0.87,Roseburia intestinalis
+Sample 101,RI1,T96,7.09,0.76,Roseburia intestinalis
+Sample 102,RI1,T168,6.98,0.7,Roseburia intestinalis
+Sample 103,RI2,T0,7.33,0.59,Roseburia intestinalis
+Sample 104,RI2,T24,7.13,1.83,Roseburia intestinalis
+Sample 105,RI2,T48,7.09,1.47,Roseburia intestinalis
+Sample 106,RI2,T72,6.95,0.92,Roseburia intestinalis
+Sample 107,RI2,T96,6.97,0.79,Roseburia intestinalis
+Sample 108,RI2,T168,6.92,0.72,Roseburia intestinalis
+Sample 109,SV1,T0,7.37,0.7,Subdoligranulum variabile
+Sample 110,SV1,T24,7.38,0.82,Subdoligranulum variabile
+Sample 111,SV1,T48,7.28,0.79,Subdoligranulum variabile
+Sample 112,SV1,T72,7.38,0.78,Subdoligranulum variabile
+Sample 113,SV1,T96,7.36,0.77,Subdoligranulum variabile
+Sample 114,SV1,T168,7.29,0.8,Subdoligranulum variabile
+Sample 115,SV2,T0,7.4,0.69,Subdoligranulum variabile
+Sample 116,SV2,T24,7.35,0.81,Subdoligranulum variabile
+Sample 117,SV2,T48,7.3,0.79,Subdoligranulum variabile
+Sample 118,SV2,T72,7.34,0.79,Subdoligranulum variabile
+Sample 119,SV2,T96,7.35,0.77,Subdoligranulum variabile
+Sample 120,SV2,T168,7.31,0.82,Subdoligranulum variabile

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sudarshan A. Shetty" />
+
+
+<title>Assembly diet based minimal microbiome (Db-MM10)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DbMM</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="core_microbiota_metagenomic.html">Core Microbiota</a>
+</li>
+<li>
+  <a href="wetlab_anlaysis.html">Growth and Metabolites</a>
+</li>
+<li>
+  <a href="dada2_processing.html">DADA2 processing</a>
+</li>
+<li>
+  <a href="qmp_analysis.html">Microbiota profile</a>
+</li>
+<li>
+  <a href="meta_counts.html">RNASeq processing</a>
+</li>
+<li>
+  <a href="active_composition_metatrans.html">RNAseq Active Contribution</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Assembly diet based minimal microbiome (Db-MM10)</h1>
+<h3 class="subtitle">Link locus tags to KEGG KO IDs for pathway and metabolic module analysis</h3>
+<h4 class="author">Sudarshan A. Shetty</h4>
+<h4 class="date">Mon Apr 05 11:07:05 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-04-05
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>DbMM/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210404code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210404)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210404code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210404)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongNocommitsyet"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> No commits yet </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongNocommitsyet" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  DbMM.Rproj
+    Untracked:  Ocucpancy_relationship.csv
+    Untracked:  README.md
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  bin/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  data_raw/
+    Untracked:  output/
+    Untracked:  structure.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>For detailed metabolic pathway analysis, we focus on KEGG as a useful resource. We will link locus tags to KEGG KO IDs for pathway and metabolic module analysis.</p>
+<p>This way we can, for each sample, reconstruct metabolic pathways that are active in the DbMM.</p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<pre class="r"><code># import other necessary packages
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(tidyverse)
+  #library(EnhancedVolcano)
+  library(ggplot2)
+  library(data.table)
+})
+
+#library(optparse)</code></pre>
+<p>For this we need to first link the locus tags with respective KO ids that we identified by doing GhostKola for concatenated aminoacid seqences that was used as database for DIAMOND.</p>
+<p>Link the locus tags to KEGG orthologs.</p>
+</div>
+<div id="read-keeg-brite-classification" class="section level2">
+<h2>Read KEEG BRITE classification</h2>
+<p>The KEGG htext was downloaded from KEGG website.</p>
+<pre class="r"><code>keg.brite &lt;- fread(&quot;data_raw/04_metatrans/kegg_brite/KEGG_htext_classificationDb.txt&quot;, header = F, sep = &quot;\t&quot;)
+
+#head(keg.brite)
+#DT::datatable(keg.brite.x)
+colnames(keg.brite) &lt;- c(&quot;Level_1&quot;, &quot;Level_2&quot;, &quot;Level_3&quot;, &quot;Level_4&quot;, &quot;KO&quot;)</code></pre>
+<p>Edit to seprate last column.</p>
+<pre class="r"><code>keg.brite2 &lt;- keg.brite %&gt;% mutate(Level_4 = str_replace(Level_4, &quot;\\s&quot;, &quot;|&quot;)) %&gt;%
+  separate(Level_4, into = c(&quot;KOID&quot;, &quot;GeneName&quot;), sep = &quot;\\|&quot;)
+
+#head(keg.brite2)
+
+#write.csv(keg.brite2, &quot;tables/01_kegg_brite_full_list.csv&quot;)
+  
+#DT::datatable(keg.brite2)</code></pre>
+</div>
+<div id="ghostkola-of-db-mm" class="section level2">
+<h2>GhostKola of Db-MM</h2>
+<p>Load the KO annotation for DB-MM locus tags obained form online GHOSTKola annotation. The concatenated amino acid fasta of all then strains was uploaded to GhostKola for annotation using default parameters.</p>
+<pre class="r"><code>ghostko &lt;- fread(&quot;data_raw/04_metatrans/kegg_brite/GhostKola_DbMM_ko_list.txt&quot;, header = F, sep = &quot;\t&quot;)
+#head(ghostko)
+colnames(ghostko) &lt;- c(&quot;LocusTag&quot;, &quot;KO&quot;)
+#head(ghostko)</code></pre>
+<p>Now read in this session, the <code>raw_counts_tables.rds</code> file created from <code>01_meta_counts.rmd</code> file.</p>
+<pre class="r"><code># Read the raw counts table 
+
+complete_table &lt;- readRDS(&quot;data/04_metatrans/rds/raw_counts_tables.rds&quot;)
+
+#head(complete_table)
+
+# filter to keep only those that are annotated in Db-MM
+
+ko_locus &lt;- subset(ghostko, ghostko$LocusTag %in% rownames(complete_table))
+
+dim(ko_locus)</code></pre>
+<pre><code>[1] 36291     2</code></pre>
+<pre class="r"><code>dim(complete_table)</code></pre>
+<pre><code>[1] 36170     6</code></pre>
+<pre class="r"><code>complete_table.ko &lt;- complete_table
+complete_table.ko$LocusTag &lt;- rownames(complete_table)
+complete_table.ko &lt;- merge(complete_table.ko, ko_locus, by = &quot;LocusTag&quot;)
+#DT::datatable(complete_table.ko)
+
+#dim(complete_table.ko)
+saveRDS(complete_table.ko, &quot;data/04_metatrans/rds/complete_table_with_ko.rds&quot;)
+write.table(complete_table.ko, &quot;data/04_metatrans/tables/complete_table_with_ko.txt&quot;, sep=&quot;\t&quot;, col.names = F)</code></pre>
+<p>Now add BRITE classification.</p>
+<pre class="r"><code># keg.brite2
+keg.brite.sub &lt;- subset(keg.brite2, KO %in% complete_table.ko$KO)
+
+#dim(keg.brite2)
+#dim(keg.brite.sub)
+#dim(ghostko)
+#dim(complete_table.ko)
+
+keg.brite.sub.na &lt;- subset(keg.brite.sub, !(is.na(KO)))
+dim(keg.brite.sub.na)</code></pre>
+<pre><code>[1] 4461    6</code></pre>
+<pre class="r"><code>complete_table.brite &lt;- merge(complete_table.ko, keg.brite.sub, by = &quot;KO&quot;)
+
+# Store all intermediate files to check and explore manually interesting features 
+write.csv(keg.brite.sub.na, &quot;data/04_metatrans/tables/kegg_brite_sub_without_NA.csv&quot;)
+dim(keg.brite.sub.na)</code></pre>
+<pre><code>[1] 4461    6</code></pre>
+<pre class="r"><code>dim(complete_table.brite)</code></pre>
+<pre><code>[1] 28772    13</code></pre>
+<pre class="r"><code>write.csv(complete_table.brite, &quot;data/04_metatrans/tables/complete_table_ko_brite.csv&quot;)</code></pre>
+</div>
+<div id="prep-file-for-input-to-gmm-species-function-anlaysis" class="section level2">
+<h2>Prep file for input to gmm species-function anlaysis</h2>
+<p>We want to make use of the manually curated database of human gut metabolic modules by <a href="https://www.nature.com/articles/nmicrobiol201688">Vieira-Silva et al. 2016</a>.</p>
+<p>We need to format the KO counts file.</p>
+<pre class="r"><code>complete_table.brite$BacterialStrain &lt;- complete_table.brite$LocusTag
+
+complete_table.brite &lt;-separate(complete_table.brite, BacterialStrain, c(&quot;Bacteria&quot;, &quot;Locus&quot;), extra = &quot;merge&quot;, fill = &quot;right&quot;)
+complete_table.brite &lt;-separate(complete_table.brite, Locus, c(&quot;Species&quot;, &quot;Locus&quot;), extra = &quot;merge&quot;, fill = &quot;right&quot;)
+complete_table.brite &lt;- complete_table.brite %&gt;% unite(BacterialStrain, Bacteria,Species,Species) 
+
+head(complete_table.brite)</code></pre>
+<pre><code>      KO                         LocusTag B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+1 K00003      Agathobacter_rectalis_00645   476   612   783   324   699   856
+2 K00003      Agathobacter_rectalis_00645   476   612   783   324   699   856
+3 K00003      Agathobacter_rectalis_00645   476   612   783   324   699   856
+4 K00003 Anaerobutyricum_soehngenii_01021    21    62     9    14    35    52
+5 K00003 Anaerobutyricum_soehngenii_01021    21    62     9    14    35    52
+6 K00003 Anaerobutyricum_soehngenii_01021    21    62     9    14    35    52
+           Level_1                     Level_2
+1 09100 Metabolism 09105 Amino acid metabolism
+2 09100 Metabolism 09105 Amino acid metabolism
+3 09100 Metabolism 09105 Amino acid metabolism
+4 09100 Metabolism 09105 Amino acid metabolism
+5 09100 Metabolism 09105 Amino acid metabolism
+6 09100 Metabolism 09105 Amino acid metabolism
+                                                        Level_3   KOID
+1       00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+2                      00300 Lysine biosynthesis [PATH:ko00300] K00003
+3 00260 Glycine, serine and threonine metabolism [PATH:ko00260] K00003
+4       00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+5                      00300 Lysine biosynthesis [PATH:ko00300] K00003
+6 00260 Glycine, serine and threonine metabolism [PATH:ko00260] K00003
+                                     GeneName            BacterialStrain Locus
+1  hom; homoserine dehydrogenase [EC:1.1.1.3]      Agathobacter_rectalis 00645
+2  hom; homoserine dehydrogenase [EC:1.1.1.3]      Agathobacter_rectalis 00645
+3  hom; homoserine dehydrogenase [EC:1.1.1.3]      Agathobacter_rectalis 00645
+4  hom; homoserine dehydrogenase [EC:1.1.1.3] Anaerobutyricum_soehngenii 01021
+5  hom; homoserine dehydrogenase [EC:1.1.1.3] Anaerobutyricum_soehngenii 01021
+6  hom; homoserine dehydrogenase [EC:1.1.1.3] Anaerobutyricum_soehngenii 01021</code></pre>
+<pre class="r"><code>complete_table.brite &lt;- complete_table.brite %&gt;% distinct(LocusTag, .keep_all = TRUE)
+
+head(complete_table.brite)</code></pre>
+<pre><code>      KO                           LocusTag B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+1 K00003        Agathobacter_rectalis_00645   476   612   783   324   699   856
+2 K00003   Anaerobutyricum_soehngenii_01021    21    62     9    14    35    52
+3 K00003          Eubacterium_siraeum_00090   852  1124   356   455   442   475
+4 K00003            Coprococcus_catus_01702    88   116    57    62    38   336
+5 K00003 Faecalibacterium_prausnitzii_01040   147   187   504   802   877   684
+6 K00003   Anaerobutyricum_soehngenii_02720    51    86    11    37    78   200
+           Level_1                     Level_2
+1 09100 Metabolism 09105 Amino acid metabolism
+2 09100 Metabolism 09105 Amino acid metabolism
+3 09100 Metabolism 09105 Amino acid metabolism
+4 09100 Metabolism 09105 Amino acid metabolism
+5 09100 Metabolism 09105 Amino acid metabolism
+6 09100 Metabolism 09105 Amino acid metabolism
+                                                  Level_3   KOID
+1 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+2 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+3 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+4 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+5 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+6 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+                                     GeneName              BacterialStrain
+1  hom; homoserine dehydrogenase [EC:1.1.1.3]        Agathobacter_rectalis
+2  hom; homoserine dehydrogenase [EC:1.1.1.3]   Anaerobutyricum_soehngenii
+3  hom; homoserine dehydrogenase [EC:1.1.1.3]          Eubacterium_siraeum
+4  hom; homoserine dehydrogenase [EC:1.1.1.3]            Coprococcus_catus
+5  hom; homoserine dehydrogenase [EC:1.1.1.3] Faecalibacterium_prausnitzii
+6  hom; homoserine dehydrogenase [EC:1.1.1.3]   Anaerobutyricum_soehngenii
+  Locus
+1 00645
+2 01021
+3 00090
+4 01702
+5 01040
+6 02720</code></pre>
+<pre class="r"><code>unique(complete_table.brite$BacterialStrain)</code></pre>
+<pre><code> [1] &quot;Agathobacter_rectalis&quot;        &quot;Anaerobutyricum_soehngenii&quot;  
+ [3] &quot;Eubacterium_siraeum&quot;          &quot;Coprococcus_catus&quot;           
+ [5] &quot;Faecalibacterium_prausnitzii&quot; &quot;Lachnospiraceae_bacterium&quot;   
+ [7] &quot;Roseburia_intestinalis&quot;       &quot;Subdoligranulum_variabile&quot;   
+ [9] &quot;Bacteroides_xylanisolvens&quot;    &quot;Bacteroides_ovatus&quot;          </code></pre>
+<pre class="r"><code>class(complete_table.brite)</code></pre>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<pre class="r"><code># store this also for manual inspection
+write.csv(complete_table.brite, &quot;data/04_metatrans/tables/complete_table_brite_species.csv&quot;)</code></pre>
+<div id="save-file" class="section level3">
+<h3>Save file</h3>
+<pre class="r"><code>complete_table.brite_filter &lt;- complete_table.brite[, c(-15)]
+
+head(complete_table.brite_filter)</code></pre>
+<pre><code>      KO                           LocusTag B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+1 K00003        Agathobacter_rectalis_00645   476   612   783   324   699   856
+2 K00003   Anaerobutyricum_soehngenii_01021    21    62     9    14    35    52
+3 K00003          Eubacterium_siraeum_00090   852  1124   356   455   442   475
+4 K00003            Coprococcus_catus_01702    88   116    57    62    38   336
+5 K00003 Faecalibacterium_prausnitzii_01040   147   187   504   802   877   684
+6 K00003   Anaerobutyricum_soehngenii_02720    51    86    11    37    78   200
+           Level_1                     Level_2
+1 09100 Metabolism 09105 Amino acid metabolism
+2 09100 Metabolism 09105 Amino acid metabolism
+3 09100 Metabolism 09105 Amino acid metabolism
+4 09100 Metabolism 09105 Amino acid metabolism
+5 09100 Metabolism 09105 Amino acid metabolism
+6 09100 Metabolism 09105 Amino acid metabolism
+                                                  Level_3   KOID
+1 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+2 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+3 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+4 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+5 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+6 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+                                     GeneName              BacterialStrain
+1  hom; homoserine dehydrogenase [EC:1.1.1.3]        Agathobacter_rectalis
+2  hom; homoserine dehydrogenase [EC:1.1.1.3]   Anaerobutyricum_soehngenii
+3  hom; homoserine dehydrogenase [EC:1.1.1.3]          Eubacterium_siraeum
+4  hom; homoserine dehydrogenase [EC:1.1.1.3]            Coprococcus_catus
+5  hom; homoserine dehydrogenase [EC:1.1.1.3] Faecalibacterium_prausnitzii
+6  hom; homoserine dehydrogenase [EC:1.1.1.3]   Anaerobutyricum_soehngenii</code></pre>
+<pre class="r"><code>saveRDS(complete_table.brite_filter, &quot;data/04_metatrans/rds/complete_table_brite_filter.rds&quot;)</code></pre>
+<p>Next, we will prepare the files for KEGG mapping using <code>pathview R pkg</code>. This can take fold changes of KOs and mapping to KEGG maps.<br />
+This is at community level. Hence, we aggregate KO counts per sample.<br />
+## Aggregate by KEGG IDs</p>
+<pre class="r"><code>count.aggregate.kegg &lt;- complete_table.brite %&gt;% group_by(KO) %&gt;% 
+  summarise(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#colSums(count.aggregate.kegg)
+
+head(count.aggregate.kegg)</code></pre>
+<pre><code># A tibble: 6 x 7
+  KO    `sum(B1T24)` `sum(B2T24)` `sum(B3T24)` `sum(B1T48)` `sum(B2T48)`
+  &lt;chr&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 K000~         1790         2347         2008         2134         2646
+2 K000~         3028         4974          742         2808         2109
+3 K000~          749          824          721         1112         1205
+4 K000~          423          461         1054          782         1211
+5 K000~         1240         1631         1833         1694         2545
+6 K000~         1277         1521         2428         2506         3394
+# ... with 1 more variable: `sum(B3T48)` &lt;dbl&gt;</code></pre>
+<pre class="r"><code>colnames(count.aggregate.kegg) &lt;- c(&quot;KOID&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+# store this
+write.table(count.aggregate.kegg, &quot;data/04_metatrans/tables/count_aggregate_kegg.txt&quot;, sep=&quot;\t&quot;, col.names = T, row.names = F)</code></pre>
+</div>
+</div>
+<div id="deseq2-analysis-of-kos" class="section level2">
+<h2>DESeq2 analysis of KOs</h2>
+<pre class="r"><code>count.aggregate.kegg &lt;- as.data.frame(count.aggregate.kegg)
+rownames(count.aggregate.kegg) &lt;- count.aggregate.kegg$KOID
+count.aggregate.kegg &lt;- count.aggregate.kegg[,-1]
+head(count.aggregate.kegg)</code></pre>
+<pre><code>       B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+K00003  1790  2347  2008  2134  2646  3093
+K00005  3028  4974   742  2808  2109  2206
+K00008   749   824   721  1112  1205  1865
+K00012   423   461  1054   782  1211  1983
+K00013  1240  1631  1833  1694  2545  3007
+K00014  1277  1521  2428  2506  3394  3758</code></pre>
+<pre class="r"><code>#DT::datatable(count.aggregate.kegg)
+
+coldata.df &lt;- data.frame(SampleID = c(&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;),
+                            condition = c(&quot;24h&quot;,&quot;24h&quot;,&quot;24h&quot;, &quot;48h&quot;,&quot;48h&quot;,&quot;48h&quot;))
+coldata.df</code></pre>
+<pre><code>  SampleID condition
+1    B1T24       24h
+2    B2T24       24h
+3    B3T24       24h
+4    B1T48       48h
+5    B2T48       48h
+6    B3T48       48h</code></pre>
+<pre class="r"><code>#write.table(coldata.df, &quot;tables/coldata_df.txt&quot;, sep = &quot;\t&quot;)
+dds &lt;- DESeqDataSetFromMatrix(countData = count.aggregate.kegg,
+                              colData = coldata.df,
+                              design = ~ condition)</code></pre>
+<pre><code>converting counts to integer mode</code></pre>
+<pre><code>Warning in DESeqDataSet(se, design = design, ignoreRank): some variables in
+design formula are characters, converting to factors</code></pre>
+<pre class="r"><code>dds</code></pre>
+<pre><code>class: DESeqDataSet 
+dim: 2237 6 
+metadata(1): version
+assays(1): counts
+rownames(2237): K00003 K00005 ... K23536 K23537
+rowData names(0):
+colnames(6): B1T24 B2T24 ... B2T48 B3T48
+colData names(2): SampleID condition</code></pre>
+<p>Filter our KOOs with low counts across samples.</p>
+<pre class="r"><code>keep &lt;- rowSums(counts(dds)) &gt;= 10
+dds &lt;- dds[keep,]
+
+dds &lt;- DESeq(dds,fitType= &quot;local&quot;)</code></pre>
+<pre><code>estimating size factors</code></pre>
+<pre><code>estimating dispersions</code></pre>
+<pre><code>gene-wise dispersion estimates</code></pre>
+<pre><code>mean-dispersion relationship</code></pre>
+<pre><code>final dispersion estimates</code></pre>
+<pre><code>fitting model and testing</code></pre>
+<pre class="r"><code>res &lt;- results(dds)
+ko_results &lt;- data.frame(res)
+sorted_ko_results &lt;- ko_results[order(-ko_results$baseMean),]
+colnames(sorted_ko_results)[1] &lt;- &quot;LocusTag&quot;
+head(sorted_ko_results)</code></pre>
+<pre><code>        LocusTag log2FoldChange     lfcSE      stat       pvalue         padj
+K02650 155421.64     -2.7918866 0.9408656 -2.967360 3.003693e-03 1.006192e-02
+K03737  84328.22     -1.0907318 0.4558674 -2.392652 1.672711e-02 4.274707e-02
+K01193  65553.82      3.7507481 0.4026422  9.315338 1.215644e-20 1.232774e-18
+K02355  61466.28     -0.7548164 0.3516763 -2.146339 3.184596e-02 7.354900e-02
+K17318  60486.54      2.6798880 0.3740224  7.165048 7.775956e-13 2.282652e-11
+K00134  58441.16     -0.5614539 0.2825060 -1.987405 4.687750e-02 9.969847e-02</code></pre>
+<pre class="r"><code>saveRDS(sorted_ko_results, &quot;data/04_metatrans/rds/sorted_ko_deseq2_results.rds&quot;)</code></pre>
+<p>The <code>sorted_ko_deseq2_results.rds</code> will be used for <code>kegg_pathway_analysis</code>.</p>
+<pre class="r"><code>sessionInfo()</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] data.table_1.13.0           forcats_0.5.0              
+ [3] stringr_1.4.0               dplyr_1.0.2                
+ [5] purrr_0.3.4                 readr_1.4.0                
+ [7] tidyr_1.1.2                 tibble_3.0.4               
+ [9] ggplot2_3.3.2               tidyverse_1.3.0            
+[11] DESeq2_1.29.16              SummarizedExperiment_1.20.0
+[13] Biobase_2.50.0              MatrixGenerics_1.2.0       
+[15] matrixStats_0.57.0          GenomicRanges_1.42.0       
+[17] GenomeInfoDb_1.26.0         IRanges_2.24.0             
+[19] S4Vectors_0.28.0            BiocGenerics_0.36.0        
+
+loaded via a namespace (and not attached):
+ [1] bitops_1.0-6           fs_1.5.0               lubridate_1.7.9       
+ [4] bit64_4.0.5            RColorBrewer_1.1-2     httr_1.4.2            
+ [7] rprojroot_1.3-2        tools_4.0.3            backports_1.2.0       
+[10] utf8_1.1.4             R6_2.5.0               DBI_1.1.0             
+[13] colorspace_1.4-1       withr_2.3.0            tidyselect_1.1.0      
+[16] bit_4.0.4              compiler_4.0.3         git2r_0.27.1          
+[19] cli_2.1.0              rvest_0.3.6            xml2_1.3.2            
+[22] DelayedArray_0.16.0    scales_1.1.1           genefilter_1.71.0     
+[25] digest_0.6.27          rmarkdown_2.4          XVector_0.30.0        
+[28] pkgconfig_2.0.3        htmltools_0.5.1.1      dbplyr_1.4.4          
+[31] rlang_0.4.8            readxl_1.3.1           rstudioapi_0.11       
+[34] RSQLite_2.2.1          generics_0.1.0         jsonlite_1.7.1        
+[37] BiocParallel_1.24.0    RCurl_1.98-1.2         magrittr_1.5          
+[40] GenomeInfoDbData_1.2.4 Matrix_1.2-18          fansi_0.4.1           
+[43] Rcpp_1.0.5             munsell_0.5.0          lifecycle_0.2.0       
+[46] stringi_1.5.3          yaml_2.2.1             zlibbioc_1.36.0       
+[49] grid_4.0.3             blob_1.2.1             promises_1.1.1        
+[52] crayon_1.3.4           lattice_0.20-41        haven_2.3.1           
+[55] splines_4.0.3          annotate_1.67.2        hms_0.5.3             
+[58] locfit_1.5-9.4         knitr_1.30             pillar_1.4.6          
+[61] geneplotter_1.67.0     reprex_0.3.0           XML_3.99-0.5          
+[64] glue_1.4.2             evaluate_0.14          modelr_0.1.8          
+[67] vctrs_0.3.4            httpuv_1.5.4           cellranger_1.1.0      
+[70] gtable_0.3.0           assertthat_0.2.1       xfun_0.17             
+[73] xtable_1.8-4           broom_0.7.1            later_1.1.0.1         
+[76] survival_3.2-7         AnnotationDbi_1.51.3   memoise_1.1.0         
+[79] workflowr_1.6.2        ellipsis_0.3.1        </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

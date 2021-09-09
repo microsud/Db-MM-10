@@ -1,0 +1,805 @@
+"","KO","GeneName","Species","Module","Rep","TimePoint","value"
+"1","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Agathobacter_rectalis","starch_degradation","B1","24",668.250321274193
+"2","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Anaerobutyricum_soehngenii","starch_degradation","B1","24",75.3923439386269
+"3","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_ovatus","starch_degradation","B1","24",110.596207017407
+"4","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_xylanisolvens","starch_degradation","B1","24",60.4384905954282
+"5","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Coprococcus_catus","starch_degradation","B1","24",37.0730947466802
+"6","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Eubacterium_siraeum","starch_degradation","B1","24",3231.90155379882
+"7","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Faecalibacterium_prausnitzii","starch_degradation","B1","24",286.615522411309
+"8","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Lachnospiraceae_bacterium","starch_degradation","B1","24",26.792320573231
+"9","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Roseburia_intestinalis","starch_degradation","B1","24",80.3769617196931
+"10","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Subdoligranulum_variabile","starch_degradation","B1","24",77.2615756065267
+"11","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Agathobacter_rectalis","starch_degradation","B1","24",586.315666497917
+"12","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Anaerobutyricum_soehngenii","starch_degradation","B1","24",66.0461855991277
+"13","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_ovatus","starch_degradation","B1","24",79.7538844970599
+"14","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_xylanisolvens","starch_degradation","B1","24",39.2538650258967
+"15","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Coprococcus_catus","starch_degradation","B1","24",22.4307800147981
+"16","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Eubacterium_siraeum","starch_degradation","B1","24",1809.10471591573
+"17","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Faecalibacterium_prausnitzii","starch_degradation","B1","24",246.115502940146
+"18","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Lachnospiraceae_bacterium","starch_degradation","B1","24",7.788465282916
+"19","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Roseburia_intestinalis","starch_degradation","B1","24",93.1500447836754
+"20","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Subdoligranulum_variabile","starch_degradation","B1","24",39.8769422485299
+"21","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Agathobacter_rectalis","fructan_degradation","B1","24",531.484870906188
+"22","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Anaerobutyricum_soehngenii","fructan_degradation","B1","24",2.49230889053312
+"23","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_ovatus","fructan_degradation","B1","24",22.7423186261147
+"24","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_xylanisolvens","fructan_degradation","B1","24",70.7192647688773
+"25","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Faecalibacterium_prausnitzii","fructan_degradation","B1","24",70.4077261575607
+"26","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Lachnospiraceae_bacterium","fructan_degradation","B1","24",31.7769383542973
+"27","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Roseburia_intestinalis","fructan_degradation","B1","24",27.4153977958643
+"28","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Subdoligranulum_variabile","fructan_degradation","B1","24",14.3307761205654
+"29","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Anaerobutyricum_soehngenii","pectindegradationII","B1","24",1.5576930565832
+"30","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_ovatus","pectindegradationII","B1","24",87.5423497799759
+"31","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_xylanisolvens","pectindegradationII","B1","24",24.6115502940146
+"32","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Eubacterium_siraeum","pectindegradationII","B1","24",102.496203123175
+"33","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Faecalibacterium_prausnitzii","pectindegradationII","B1","24",135.830834534055
+"34","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Lachnospiraceae_bacterium","pectindegradationII","B1","24",101.873125900541
+"35","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Roseburia_intestinalis","pectindegradationII","B1","24",233.030881264847
+"36","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Subdoligranulum_variabile","pectindegradationII","B1","24",33.3346314108805
+"37","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_ovatus","pectindegradationI","B1","24",41.4346353051131
+"38","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_xylanisolvens","pectindegradationI","B1","24",54.8307955917287
+"39","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Faecalibacterium_prausnitzii","pectindegradationI","B1","24",126.484676194556
+"40","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Roseburia_intestinalis","pectindegradationI","B1","24",25.8577047392811
+"41","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Agathobacter_rectalis","starch_degradation","B1","24",142.996222594338
+"42","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B1","24",21.4961641808482
+"43","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Eubacterium_siraeum","starch_degradation","B1","24",1362.04680867635
+"44","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Roseburia_intestinalis","starch_degradation","B1","24",61.6846450406947
+"45","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_ovatus","Arabinoxylan_degradation","B1","24",14.6423147318821
+"46","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B1","24",44.5500214182795
+"47","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","24",278.20397990576
+"48","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Agathobacter_rectalis","starch_degradation","B1","24",112.15390007399
+"49","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Coprococcus_catus","starch_degradation","B1","24",3.42692472448304
+"50","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Roseburia_intestinalis","starch_degradation","B1","24",127.730830639822
+"51","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Agathobacter_rectalis","starch_degradation","B1","24",411.542505549282
+"52","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_ovatus","starch_degradation","B1","24",143.619299816971
+"53","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_xylanisolvens","starch_degradation","B1","24",190.9731687371
+"54","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Faecalibacterium_prausnitzii","starch_degradation","B1","24",216.519334865065
+"55","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Roseburia_intestinalis","starch_degradation","B1","24",71.3423419915106
+"56","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Subdoligranulum_variabile","starch_degradation","B1","24",9.96923556213248
+"57","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Agathobacter_rectalis","fructan_degradation","B1","24",907.823513376689
+"58","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Anaerobutyricum_soehngenii","fructan_degradation","B1","24",4.36154055843296
+"59","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_ovatus","fructan_degradation","B1","24",10.2807741734491
+"60","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_xylanisolvens","fructan_degradation","B1","24",15.8884691771486
+"61","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Eubacterium_siraeum","fructan_degradation","B1","24",59.8154133727949
+"62","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Faecalibacterium_prausnitzii","fructan_degradation","B1","24",581.954125939484
+"63","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Subdoligranulum_variabile","fructan_degradation","B1","24",11.215390007399
+"64","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Agathobacter_rectalis","Arabinoxylan_degradation","B1","24",95.6423536742085
+"65","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_ovatus","Arabinoxylan_degradation","B1","24",65.1115697651778
+"66","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B1","24",67.6038786557109
+"67","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Eubacterium_siraeum","Arabinoxylan_degradation","B1","24",56.0769500369952
+"68","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","24",279.13859573971
+"69","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Subdoligranulum_variabile","Arabinoxylan_degradation","B1","24",89.1000428365591
+"70","K01200"," pulA; pullulanase [EC:3.2.1.41]","Agathobacter_rectalis","starch_degradation","B1","24",135.519295922738
+"71","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_ovatus","starch_degradation","B1","24",20.2500097355816
+"72","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_xylanisolvens","starch_degradation","B1","24",60.7500292067448
+"73","K01200"," pulA; pullulanase [EC:3.2.1.41]","Eubacterium_siraeum","starch_degradation","B1","24",1478.87378792009
+"74","K01200"," pulA; pullulanase [EC:3.2.1.41]","Faecalibacterium_prausnitzii","starch_degradation","B1","24",101.561587289225
+"75","K01200"," pulA; pullulanase [EC:3.2.1.41]","Roseburia_intestinalis","starch_degradation","B1","24",47.6654075314459
+"76","K01200"," pulA; pullulanase [EC:3.2.1.41]","Subdoligranulum_variabile","starch_degradation","B1","24",12.7730830639822
+"77","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Agathobacter_rectalis","starch_degradation","B1","24",201.565481521866
+"78","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Roseburia_intestinalis","starch_degradation","B1","24",48.6000233653958
+"79","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Agathobacter_rectalis","Arabinoxylan_degradation","B1","24",141.750068149071
+"80","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_ovatus","Arabinoxylan_degradation","B1","24",18.3807780676818
+"81","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B1","24",15.2653919545154
+"82","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B1","24",349.54632189727
+"83","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","24",130.846216752989
+"84","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Subdoligranulum_variabile","Arabinoxylan_degradation","B1","24",39.5654036372133
+"85","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Anaerobutyricum_soehngenii","pectindegradationII","B1","24",1.86923166789984
+"86","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_ovatus","pectindegradationII","B1","24",75.7038825499435
+"87","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_xylanisolvens","pectindegradationII","B1","24",19.3153939016317
+"88","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Faecalibacterium_prausnitzii","pectindegradationII","B1","24",84.7385022781261
+"89","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Lachnospiraceae_bacterium","pectindegradationII","B1","24",52.6500253125122
+"90","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Roseburia_intestinalis","pectindegradationII","B1","24",230.538572374314
+"91","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Subdoligranulum_variabile","pectindegradationII","B1","24",17.4461622337318
+"92","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_ovatus","pectindegradationII","B1","24",78.8192686631099
+"93","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_xylanisolvens","pectindegradationII","B1","24",43.9269441956463
+"94","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Faecalibacterium_prausnitzii","pectindegradationII","B1","24",57.0115658709451
+"95","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Roseburia_intestinalis","pectindegradationII","B1","24",23.365395848748
+"96","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_ovatus","fructan_degradation","B1","24",34.8923244674637
+"97","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_xylanisolvens","fructan_degradation","B1","24",57.6346430935784
+"98","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Roseburia_intestinalis","fructan_degradation","B1","24",68.5384944896608
+"99","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Eubacterium_siraeum","starch_degradation","B1","24",300.946298531874
+"100","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Subdoligranulum_variabile","starch_degradation","B1","24",10.2807741734491
+"101","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B1","24",65.1115697651778
+"102","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_xylanisolvens","starch_degradation","B1","24",66.0461855991277
+"103","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Agathobacter_rectalis","fructan_degradation","B1","24",1599.12769188831
+"104","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","24",95.0192764515752
+"105","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Coprococcus_catus","fructan_degradation","B1","24",15.2653919545154
+"106","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Eubacterium_siraeum","fructan_degradation","B1","24",3657.15175824604
+"107","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","24",410.919428326648
+"108","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Lachnospiraceae_bacterium","fructan_degradation","B1","24",370.419408855485
+"109","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Roseburia_intestinalis","fructan_degradation","B1","24",65.1115697651778
+"110","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Subdoligranulum_variabile","fructan_degradation","B1","24",163.557770941236
+"111","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Agathobacter_rectalis","fructan_degradation","B1","24",2977.06296974181
+"112","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","24",160.753923439386
+"113","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Coprococcus_catus","fructan_degradation","B1","24",60.1269519841115
+"114","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","24",833.677323883329
+"115","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Roseburia_intestinalis","fructan_degradation","B1","24",247.361657385412
+"116","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Subdoligranulum_variabile","fructan_degradation","B1","24",68.5384944896608
+"117","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B1","24",507.18485922349
+"118","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","24",22.7423186261147
+"119","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B1","24",3.1153861131664
+"120","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","24",72.2769578254605
+"121","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B1","24",56.3884886483118
+"122","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B1","24",11.215390007399
+"123","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B1","24",504.692550332957
+"124","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","24",19.003855290315
+"125","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B1","24",4.98461778106624
+"126","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","24",69.7846489349274
+"127","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B1","24",62.307722263328
+"128","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B1","24",4.05000194711632
+"129","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Agathobacter_rectalis","Arabinoxylan_degradation","B1","24",80.6885003310098
+"130","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","24",36.4500175240469
+"131","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Subdoligranulum_variabile","Arabinoxylan_degradation","B1","24",31.4653997429806
+"132","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B1","24",927.761984500954
+"133","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","24",56.3884886483118
+"134","K15922"," yihQ; sulfoquinovosidase [EC:3.2.1.199]","Agathobacter_rectalis","starch_degradation","B1","24",128.042369251139
+"135","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Agathobacter_rectalis","starch_degradation","B2","24",705.097064909486
+"136","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Anaerobutyricum_soehngenii","starch_degradation","B2","24",100.507740418482
+"137","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_ovatus","starch_degradation","B2","24",99.6260935727063
+"138","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_xylanisolvens","starch_degradation","B2","24",51.5763404779055
+"139","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Coprococcus_catus","starch_degradation","B2","24",41.2169900400356
+"140","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Eubacterium_siraeum","starch_degradation","B2","24",3663.02223248851
+"141","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Faecalibacterium_prausnitzii","starch_degradation","B2","24",284.110696051368
+"142","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Lachnospiraceae_bacterium","starch_degradation","B2","24",20.7187008757398
+"143","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Roseburia_intestinalis","starch_degradation","B2","24",64.8010431645479
+"144","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Subdoligranulum_variabile","starch_degradation","B2","24",46.5068711146926
+"145","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Agathobacter_rectalis","starch_degradation","B2","24",686.141657725298
+"146","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Anaerobutyricum_soehngenii","starch_degradation","B2","24",78.4665692740784
+"147","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_ovatus","starch_degradation","B2","24",69.6501008163168
+"148","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_xylanisolvens","starch_degradation","B2","24",54.0008693037899
+"149","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Coprococcus_catus","starch_degradation","B2","24",18.7349954727434
+"150","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Eubacterium_siraeum","starch_degradation","B2","24",2080.68655603174
+"151","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Faecalibacterium_prausnitzii","starch_degradation","B2","24",301.302809544003
+"152","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Lachnospiraceae_bacterium","starch_degradation","B2","24",5.9511162089891
+"153","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Roseburia_intestinalis","starch_degradation","B2","24",88.8259197119483
+"154","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Subdoligranulum_variabile","starch_degradation","B2","24",29.3147576220574
+"155","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Agathobacter_rectalis","fructan_degradation","B2","24",482.040412928117
+"156","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Anaerobutyricum_soehngenii","fructan_degradation","B2","24",1.76329369155232
+"157","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_ovatus","fructan_degradation","B2","24",19.8370540299636
+"158","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_xylanisolvens","fructan_degradation","B2","24",100.728152129927
+"159","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Faecalibacterium_prausnitzii","fructan_degradation","B2","24",56.2049864182303
+"160","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Lachnospiraceae_bacterium","fructan_degradation","B2","24",21.82075943296
+"161","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Roseburia_intestinalis","fructan_degradation","B2","24",23.1432297016243
+"162","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Subdoligranulum_variabile","fructan_degradation","B2","24",14.1063495324186
+"163","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Anaerobutyricum_soehngenii","pectindegradationII","B2","24",1.76329369155232
+"164","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_ovatus","pectindegradationII","B2","24",101.389387264259
+"165","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_xylanisolvens","pectindegradationII","B2","24",50.6946936321293
+"166","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Eubacterium_siraeum","pectindegradationII","B2","24",84.4176854830675
+"167","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Faecalibacterium_prausnitzii","pectindegradationII","B2","24",123.430558408663
+"168","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Lachnospiraceae_bacterium","pectindegradationII","B2","24",71.8542179307572
+"169","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Roseburia_intestinalis","pectindegradationII","B2","24",144.149259284403
+"170","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Subdoligranulum_variabile","pectindegradationII","B2","24",31.5188747364978
+"171","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_ovatus","pectindegradationI","B2","24",30.6372278907216
+"172","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_xylanisolvens","pectindegradationI","B2","24",44.5231657116962
+"173","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Faecalibacterium_prausnitzii","pectindegradationI","B2","24",126.295910657435
+"174","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Roseburia_intestinalis","pectindegradationI","B2","24",24.6861116817325
+"175","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Agathobacter_rectalis","starch_degradation","B2","24",112.409972836461
+"176","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B2","24",13.6655261095305
+"177","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Eubacterium_siraeum","starch_degradation","B2","24",2001.33833991189
+"178","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Roseburia_intestinalis","starch_degradation","B2","24",43.8619305773641
+"179","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_ovatus","Arabinoxylan_degradation","B2","24",36.3679323882667
+"180","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B2","24",90.3688016920566
+"181","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","24",233.416002419239
+"182","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Agathobacter_rectalis","starch_degradation","B2","24",88.1646845776162
+"183","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Coprococcus_catus","starch_degradation","B2","24",2.42452882588445
+"184","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Roseburia_intestinalis","starch_degradation","B2","24",91.2504485378328
+"185","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Agathobacter_rectalis","starch_degradation","B2","24",301.523221255447
+"186","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_ovatus","starch_degradation","B2","24",131.365380020648
+"187","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_xylanisolvens","starch_degradation","B2","24",221.072946578373
+"188","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Faecalibacterium_prausnitzii","starch_degradation","B2","24",230.77106188191
+"189","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Roseburia_intestinalis","starch_degradation","B2","24",44.9639891345843
+"190","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Subdoligranulum_variabile","starch_degradation","B2","24",3.30617567166061
+"191","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Agathobacter_rectalis","fructan_degradation","B2","24",847.483030502336
+"192","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Anaerobutyricum_soehngenii","fructan_degradation","B2","24",1.98370540299636
+"193","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_ovatus","fructan_degradation","B2","24",4.84905765176889
+"194","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_xylanisolvens","fructan_degradation","B2","24",16.7512900697471
+"195","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Eubacterium_siraeum","fructan_degradation","B2","24",55.1029278610101
+"196","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Faecalibacterium_prausnitzii","fructan_degradation","B2","24",501.436643535192
+"197","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Subdoligranulum_variabile","fructan_degradation","B2","24",7.49399818909738
+"198","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Agathobacter_rectalis","Arabinoxylan_degradation","B2","24",65.6826900103241
+"199","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_ovatus","Arabinoxylan_degradation","B2","24",64.8010431645479
+"200","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B2","24",136.655261095305
+"201","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Eubacterium_siraeum","Arabinoxylan_degradation","B2","24",48.931399940577
+"202","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","24",227.685297921694
+"203","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Subdoligranulum_variabile","Arabinoxylan_degradation","B2","24",61.9356909157754
+"204","K01200"," pulA; pullulanase [EC:3.2.1.41]","Agathobacter_rectalis","starch_degradation","B2","24",127.177557503211
+"205","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_ovatus","starch_degradation","B2","24",14.9879963781948
+"206","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_xylanisolvens","starch_degradation","B2","24",46.5068711146926
+"207","K01200"," pulA; pullulanase [EC:3.2.1.41]","Eubacterium_siraeum","starch_degradation","B2","24",2209.84781893795
+"208","K01200"," pulA; pullulanase [EC:3.2.1.41]","Faecalibacterium_prausnitzii","starch_degradation","B2","24",69.2092773934287
+"209","K01200"," pulA; pullulanase [EC:3.2.1.41]","Roseburia_intestinalis","starch_degradation","B2","24",41.6578134629237
+"210","K01200"," pulA; pullulanase [EC:3.2.1.41]","Subdoligranulum_variabile","starch_degradation","B2","24",7.49399818909738
+"211","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Agathobacter_rectalis","starch_degradation","B2","24",142.606377304294
+"212","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Roseburia_intestinalis","starch_degradation","B2","24",31.7392864479418
+"213","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Agathobacter_rectalis","Arabinoxylan_degradation","B2","24",114.614089950901
+"214","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_ovatus","Arabinoxylan_degradation","B2","24",15.6492315125269
+"215","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B2","24",12.1226441294222
+"216","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B2","24",350.454621196025
+"217","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","24",95.4382710552696
+"218","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Subdoligranulum_variabile","Arabinoxylan_degradation","B2","24",33.0617567166061
+"219","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Anaerobutyricum_soehngenii","pectindegradationII","B2","24",1.1020585572202
+"220","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_ovatus","pectindegradationII","B2","24",80.2298629656308
+"221","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_xylanisolvens","pectindegradationII","B2","24",29.9759927563895
+"222","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Faecalibacterium_prausnitzii","pectindegradationII","B2","24",80.4502746770748
+"223","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Lachnospiraceae_bacterium","pectindegradationII","B2","24",37.0291675225988
+"224","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Roseburia_intestinalis","pectindegradationII","B2","24",164.20672502581
+"225","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Subdoligranulum_variabile","pectindegradationII","B2","24",13.0042909751984
+"226","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_ovatus","pectindegradationII","B2","24",92.572918806497
+"227","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_xylanisolvens","pectindegradationII","B2","24",79.5686278312986
+"228","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Faecalibacterium_prausnitzii","pectindegradationII","B2","24",59.511162089891
+"229","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Roseburia_intestinalis","pectindegradationII","B2","24",13.2247026866424
+"230","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_ovatus","fructan_degradation","B2","24",27.331052219061
+"231","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_xylanisolvens","fructan_degradation","B2","24",55.3233395724542
+"232","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Roseburia_intestinalis","fructan_degradation","B2","24",42.5394603086998
+"233","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Eubacterium_siraeum","starch_degradation","B2","24",283.229049205592
+"234","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Subdoligranulum_variabile","starch_degradation","B2","24",7.49399818909738
+"235","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B2","24",94.5566242094934
+"236","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_xylanisolvens","starch_degradation","B2","24",126.736734080323
+"237","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Agathobacter_rectalis","fructan_degradation","B2","24",1731.11358168149
+"238","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","24",130.483733174872
+"239","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Coprococcus_catus","fructan_degradation","B2","24",12.3430558408663
+"240","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Eubacterium_siraeum","fructan_degradation","B2","24",4033.53431942594
+"241","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","24",412.610723823244
+"242","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Lachnospiraceae_bacterium","fructan_degradation","B2","24",213.578948389275
+"243","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Roseburia_intestinalis","fructan_degradation","B2","24",50.4742819206853
+"244","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Subdoligranulum_variabile","fructan_degradation","B2","24",118.140677334006
+"245","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Agathobacter_rectalis","fructan_degradation","B2","24",2862.7073082352
+"246","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","24",211.815654697723
+"247","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Coprococcus_catus","fructan_degradation","B2","24",39.4536963484833
+"248","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","24",1169.94536434497
+"249","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Roseburia_intestinalis","fructan_degradation","B2","24",267.579817693065
+"250","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Subdoligranulum_variabile","fructan_degradation","B2","24",47.3885179604687
+"251","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B2","24",432.447777853208
+"252","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","24",34.3842269852703
+"253","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B2","24",2.86535224877253
+"254","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","24",76.262452159638
+"255","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B2","24",46.0660476918045
+"256","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B2","24",7.49399818909738
+"257","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B2","24",453.82771386328
+"258","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","24",27.110640507617
+"259","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B2","24",5.06946936321293
+"260","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","24",93.6749773637172
+"261","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B2","24",46.2864594032485
+"262","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B2","24",3.74699909454869
+"263","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Agathobacter_rectalis","Arabinoxylan_degradation","B2","24",58.1886918212267
+"264","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","24",35.2658738310465
+"265","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Subdoligranulum_variabile","Arabinoxylan_degradation","B2","24",20.2778774528517
+"266","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B2","24",1042.76780684176
+"267","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","24",34.3842269852703
+"268","K15922"," yihQ; sulfoquinovosidase [EC:3.2.1.199]","Agathobacter_rectalis","starch_degradation","B2","24",76.042040448194
+"269","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Agathobacter_rectalis","starch_degradation","B3","24",881.466002019537
+"270","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Anaerobutyricum_soehngenii","starch_degradation","B3","24",18.119023374846
+"271","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_ovatus","starch_degradation","B3","24",252.197217244479
+"272","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_xylanisolvens","starch_degradation","B3","24",106.2656235768
+"273","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Coprococcus_catus","starch_degradation","B3","24",5.22350223418985
+"274","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Eubacterium_siraeum","starch_degradation","B3","24",1398.59272320433
+"275","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Faecalibacterium_prausnitzii","starch_degradation","B3","24",1172.83948602044
+"276","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Lachnospiraceae_bacterium","starch_degradation","B3","24",23.1792911642174
+"277","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Roseburia_intestinalis","starch_degradation","B3","24",40.4821423149713
+"278","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Subdoligranulum_variabile","starch_degradation","B3","24",58.2746968001805
+"279","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Agathobacter_rectalis","starch_degradation","B3","24",817.804568540348
+"280","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Anaerobutyricum_soehngenii","starch_degradation","B3","24",5.71320556864514
+"281","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_ovatus","starch_degradation","B3","24",106.918561356073
+"282","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_xylanisolvens","starch_degradation","B3","24",67.5790601548311
+"283","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Coprococcus_catus","starch_degradation","B3","24",5.87644001346358
+"284","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Eubacterium_siraeum","starch_degradation","B3","24",764.916608419176
+"285","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Faecalibacterium_prausnitzii","starch_degradation","B3","24",726.556513886844
+"286","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Lachnospiraceae_bacterium","starch_degradation","B3","24",10.936707802835
+"287","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Roseburia_intestinalis","starch_degradation","B3","24",100.878886897791
+"288","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Subdoligranulum_variabile","starch_degradation","B3","24",111.162656921353
+"289","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Agathobacter_rectalis","fructan_degradation","B3","24",384.580351992227
+"290","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Anaerobutyricum_soehngenii","fructan_degradation","B3","24",0.652937779273731
+"291","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_ovatus","fructan_degradation","B3","24",45.5424101043427
+"292","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_xylanisolvens","fructan_degradation","B3","24",127.486101403196
+"293","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Faecalibacterium_prausnitzii","fructan_degradation","B3","24",91.0848202086854
+"294","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Lachnospiraceae_bacterium","fructan_degradation","B3","24",13.221990030293
+"295","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Roseburia_intestinalis","fructan_degradation","B3","24",9.95730113392439
+"296","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Subdoligranulum_variabile","fructan_degradation","B3","24",44.5630034354321
+"297","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Anaerobutyricum_soehngenii","pectindegradationII","B3","24",NA
+"298","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_ovatus","pectindegradationII","B3","24",372.011299741208
+"299","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_xylanisolvens","pectindegradationII","B3","24",207.634213809046
+"300","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Eubacterium_siraeum","pectindegradationII","B3","24",30.5248411810469
+"301","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Faecalibacterium_prausnitzii","pectindegradationII","B3","24",229.834098304353
+"302","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Lachnospiraceae_bacterium","pectindegradationII","B3","24",78.6790024024846
+"303","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Roseburia_intestinalis","pectindegradationII","B3","24",137.606636981939
+"304","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Subdoligranulum_variabile","pectindegradationII","B3","24",50.4394434488957
+"305","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_ovatus","pectindegradationI","B3","24",70.6805146063814
+"306","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_xylanisolvens","pectindegradationI","B3","24",75.4143135061159
+"307","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Faecalibacterium_prausnitzii","pectindegradationI","B3","24",233.26202164554
+"308","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Roseburia_intestinalis","pectindegradationI","B3","24",4.08086112046082
+"309","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Agathobacter_rectalis","starch_degradation","B3","24",169.927057055988
+"310","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B3","24",40.8086112046082
+"311","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Eubacterium_siraeum","starch_degradation","B3","24",865.305791982512
+"312","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Roseburia_intestinalis","starch_degradation","B3","24",17.1396167059354
+"313","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_ovatus","Arabinoxylan_degradation","B3","24",90.1054135397748
+"314","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B3","24",76.7201890646634
+"315","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","24",249.258997237747
+"316","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Agathobacter_rectalis","starch_degradation","B3","24",125.853756955012
+"317","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Coprococcus_catus","starch_degradation","B3","24",0.652937779273731
+"318","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Roseburia_intestinalis","starch_degradation","B3","24",36.5645156393289
+"319","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Agathobacter_rectalis","starch_degradation","B3","24",412.983145390635
+"320","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_ovatus","starch_degradation","B3","24",325.489482967955
+"321","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_xylanisolvens","starch_degradation","B3","24",406.943470932353
+"322","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Faecalibacterium_prausnitzii","starch_degradation","B3","24",724.107997214567
+"323","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Roseburia_intestinalis","starch_degradation","B3","24",23.6689944986727
+"324","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Subdoligranulum_variabile","starch_degradation","B3","24",11.9161144717456
+"325","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Agathobacter_rectalis","fructan_degradation","B3","24",810.785487413155
+"326","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Anaerobutyricum_soehngenii","fructan_degradation","B3","24",0.489703334455298
+"327","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_ovatus","fructan_degradation","B3","24",12.7322866958378
+"328","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_xylanisolvens","fructan_degradation","B3","24",25.1381045020386
+"329","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Eubacterium_siraeum","fructan_degradation","B3","24",15.1808033681142
+"330","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Faecalibacterium_prausnitzii","fructan_degradation","B3","24",764.753373974357
+"331","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Subdoligranulum_variabile","fructan_degradation","B3","24",33.6262956325971
+"332","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Agathobacter_rectalis","Arabinoxylan_degradation","B3","24",114.917049152177
+"333","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_ovatus","Arabinoxylan_degradation","B3","24",95.0024468843278
+"334","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B3","24",155.399191467148
+"335","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Eubacterium_siraeum","Arabinoxylan_degradation","B3","24",21.7101811608515
+"336","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","24",166.988837049257
+"337","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Subdoligranulum_variabile","Arabinoxylan_degradation","B3","24",22.1998844953068
+"338","K01200"," pulA; pullulanase [EC:3.2.1.41]","Agathobacter_rectalis","starch_degradation","B3","24",138.259574761212
+"339","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_ovatus","starch_degradation","B3","24",31.8307167395944
+"340","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_xylanisolvens","starch_degradation","B3","24",68.7217012685602
+"341","K01200"," pulA; pullulanase [EC:3.2.1.41]","Eubacterium_siraeum","starch_degradation","B3","24",902.196776511477
+"342","K01200"," pulA; pullulanase [EC:3.2.1.41]","Faecalibacterium_prausnitzii","starch_degradation","B3","24",89.778944650138
+"343","K01200"," pulA; pullulanase [EC:3.2.1.41]","Roseburia_intestinalis","starch_degradation","B3","24",16.6499133714801
+"344","K01200"," pulA; pullulanase [EC:3.2.1.41]","Subdoligranulum_variabile","starch_degradation","B3","24",22.5263533849437
+"345","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Agathobacter_rectalis","starch_degradation","B3","24",197.676912675122
+"346","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Roseburia_intestinalis","starch_degradation","B3","24",19.4248989333935
+"347","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Agathobacter_rectalis","Arabinoxylan_degradation","B3","24",132.709603637386
+"348","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_ovatus","Arabinoxylan_degradation","B3","24",38.6865634219686
+"349","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B3","24",19.9146022678488
+"350","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B3","24",77.3731268439371
+"351","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","24",40.4821423149713
+"352","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Subdoligranulum_variabile","Arabinoxylan_degradation","B3","24",14.2013966992036
+"353","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Anaerobutyricum_soehngenii","pectindegradationII","B3","24",1.14264111372903
+"354","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_ovatus","pectindegradationII","B3","24",301.657254024464
+"355","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_xylanisolvens","pectindegradationII","B3","24",129.934618075472
+"356","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Faecalibacterium_prausnitzii","pectindegradationII","B3","24",141.034560323126
+"357","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Lachnospiraceae_bacterium","pectindegradationII","B3","24",44.3997689906137
+"358","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Roseburia_intestinalis","pectindegradationII","B3","24",61.0496823620938
+"359","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Subdoligranulum_variabile","pectindegradationII","B3","24",25.3013389468571
+"360","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_ovatus","pectindegradationII","B3","24",241.750212776099
+"361","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_xylanisolvens","pectindegradationII","B3","24",186.250501537832
+"362","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Faecalibacterium_prausnitzii","pectindegradationII","B3","24",149.196282564047
+"363","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Roseburia_intestinalis","pectindegradationII","B3","24",44.7262378802506
+"364","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_ovatus","fructan_degradation","B3","24",37.707156753058
+"365","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_xylanisolvens","fructan_degradation","B3","24",61.3761512517307
+"366","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Roseburia_intestinalis","fructan_degradation","B3","24",16.4866789266617
+"367","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Eubacterium_siraeum","starch_degradation","B3","24",72.6393279442025
+"368","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Subdoligranulum_variabile","starch_degradation","B3","24",16.4866789266617
+"369","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B3","24",142.830139216129
+"370","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_xylanisolvens","starch_degradation","B3","24",147.400703671045
+"371","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Agathobacter_rectalis","fructan_degradation","B3","24",1934.16493665361
+"372","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","24",8.4881911305585
+"373","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Coprococcus_catus","fructan_degradation","B3","24",8.81466002019537
+"374","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Eubacterium_siraeum","fructan_degradation","B3","24",928.640756572064
+"375","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","24",937.455416592259
+"376","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Lachnospiraceae_bacterium","fructan_degradation","B3","24",86.1877868641325
+"377","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Roseburia_intestinalis","fructan_degradation","B3","24",208.123917143502
+"378","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Subdoligranulum_variabile","fructan_degradation","B3","24",82.1069257436716
+"379","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Agathobacter_rectalis","fructan_degradation","B3","24",2417.66536220581
+"380","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","24",11.4264111372903
+"381","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Coprococcus_catus","fructan_degradation","B3","24",8.32495668574007
+"382","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","24",2502.22080462175
+"383","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Roseburia_intestinalis","fructan_degradation","B3","24",238.975227214185
+"384","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Subdoligranulum_variabile","fructan_degradation","B3","24",354.218745255999
+"385","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B3","24",458.852024384614
+"386","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","24",0.979406668910596
+"387","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B3","24",0.489703334455298
+"388","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","24",237.50611721082
+"389","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B3","24",23.9954633883096
+"390","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B3","24",37.8703911978764
+"391","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B3","24",456.077038822701
+"392","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","24",0.326468889636865
+"393","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B3","24",1.46911000336589
+"394","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","24",279.294135084338
+"395","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B3","24",25.1381045020386
+"396","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B3","24",29.2189656224995
+"397","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Agathobacter_rectalis","Arabinoxylan_degradation","B3","24",82.9230979677638
+"398","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","24",100.715652452973
+"399","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Subdoligranulum_variabile","Arabinoxylan_degradation","B3","24",8.16172224092163
+"400","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B3","24",87.9833657571352
+"401","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","24",15.5072722577511
+"402","K15922"," yihQ; sulfoquinovosidase [EC:3.2.1.199]","Agathobacter_rectalis","starch_degradation","B3","24",117.528800269272
+"403","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Agathobacter_rectalis","starch_degradation","B1","48",167.94568629608
+"404","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Anaerobutyricum_soehngenii","starch_degradation","B1","48",32.2441923381592
+"405","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_ovatus","starch_degradation","B1","48",104.836732308025
+"406","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_xylanisolvens","starch_degradation","B1","48",74.1443994941628
+"407","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Coprococcus_catus","starch_degradation","B1","48",7.75929762148215
+"408","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Eubacterium_siraeum","starch_degradation","B1","48",1277.35281733199
+"409","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Faecalibacterium_prausnitzii","starch_degradation","B1","48",809.725814010671
+"410","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Lachnospiraceae_bacterium","starch_degradation","B1","48",56.3842293827703
+"411","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Roseburia_intestinalis","starch_degradation","B1","48",17.2428836032937
+"412","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Subdoligranulum_variabile","starch_degradation","B1","48",172.428836032937
+"413","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Agathobacter_rectalis","starch_degradation","B1","48",122.252044747352
+"414","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Anaerobutyricum_soehngenii","starch_degradation","B1","48",41.2104918118719
+"415","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_ovatus","starch_degradation","B1","48",88.6284217209294
+"416","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_xylanisolvens","starch_degradation","B1","48",43.9693531883988
+"417","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Coprococcus_catus","starch_degradation","B1","48",31.3820481579945
+"418","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Eubacterium_siraeum","starch_degradation","B1","48",687.128911591253
+"419","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Faecalibacterium_prausnitzii","starch_degradation","B1","48",543.495691175816
+"420","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Lachnospiraceae_bacterium","starch_degradation","B1","48",53.6253680062433
+"421","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Roseburia_intestinalis","starch_degradation","B1","48",21.72603334015
+"422","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Subdoligranulum_variabile","starch_degradation","B1","48",90.1802812452259
+"423","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Agathobacter_rectalis","fructan_degradation","B1","48",146.21965295593
+"424","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Anaerobutyricum_soehngenii","fructan_degradation","B1","48",1.03457301619762
+"425","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_ovatus","fructan_degradation","B1","48",42.4174936641024
+"426","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_xylanisolvens","fructan_degradation","B1","48",65.6953865285489
+"427","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Faecalibacterium_prausnitzii","fructan_degradation","B1","48",1987.24233527959
+"428","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Lachnospiraceae_bacterium","fructan_degradation","B1","48",48.2800740892223
+"429","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Roseburia_intestinalis","fructan_degradation","B1","48",8.4490129656139
+"430","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Subdoligranulum_variabile","fructan_degradation","B1","48",37.9343439272461
+"431","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Anaerobutyricum_soehngenii","pectindegradationII","B1","48",0.51728650809881
+"432","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_ovatus","pectindegradationII","B1","48",38.106772763279
+"433","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_xylanisolvens","pectindegradationII","B1","48",10.0008724899103
+"434","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Eubacterium_siraeum","pectindegradationII","B1","48",52.5907949900457
+"435","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Faecalibacterium_prausnitzii","pectindegradationII","B1","48",269.678699555513
+"436","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Lachnospiraceae_bacterium","pectindegradationII","B1","48",75.1789725103604
+"437","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Roseburia_intestinalis","pectindegradationII","B1","48",144.150506923535
+"438","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Subdoligranulum_variabile","pectindegradationII","B1","48",56.0393717107044
+"439","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_ovatus","pectindegradationI","B1","48",85.6971315083695
+"440","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_xylanisolvens","pectindegradationI","B1","48",77.9378338868874
+"441","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Faecalibacterium_prausnitzii","pectindegradationI","B1","48",440.728104900186
+"442","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Roseburia_intestinalis","pectindegradationI","B1","48",5.34529391702104
+"443","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Agathobacter_rectalis","starch_degradation","B1","48",113.803031781738
+"444","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B1","48",28.1059002733687
+"445","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Eubacterium_siraeum","starch_degradation","B1","48",122.596902419418
+"446","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Roseburia_intestinalis","starch_degradation","B1","48",8.10415529354802
+"447","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_ovatus","Arabinoxylan_degradation","B1","48",13.7943068826349
+"448","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B1","48",43.4520666803
+"449","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","48",117.768895010496
+"450","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Agathobacter_rectalis","starch_degradation","B1","48",58.2809465791326
+"451","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Coprococcus_catus","starch_degradation","B1","48",5.00043624495516
+"452","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Roseburia_intestinalis","starch_degradation","B1","48",24.3124658806441
+"453","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Agathobacter_rectalis","starch_degradation","B1","48",179.843275982353
+"454","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_ovatus","starch_degradation","B1","48",217.605191073566
+"455","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_xylanisolvens","starch_degradation","B1","48",235.882647693057
+"456","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Faecalibacterium_prausnitzii","starch_degradation","B1","48",973.360779405927
+"457","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Roseburia_intestinalis","starch_degradation","B1","48",10.5181589980091
+"458","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Subdoligranulum_variabile","starch_degradation","B1","48",13.9667357186679
+"459","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Agathobacter_rectalis","fructan_degradation","B1","48",299.853745861277
+"460","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Anaerobutyricum_soehngenii","fructan_degradation","B1","48",3.10371904859286
+"461","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_ovatus","fructan_degradation","B1","48",19.4844584717218
+"462","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_xylanisolvens","fructan_degradation","B1","48",24.484894716677
+"463","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Eubacterium_siraeum","fructan_degradation","B1","48",54.487512186408
+"464","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Faecalibacterium_prausnitzii","fructan_degradation","B1","48",33693.8015626881
+"465","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Subdoligranulum_variabile","fructan_degradation","B1","48",62.4192386439231
+"466","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Agathobacter_rectalis","Arabinoxylan_degradation","B1","48",70.695822773504
+"467","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_ovatus","Arabinoxylan_degradation","B1","48",124.321190779747
+"468","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B1","48",67.2472460528453
+"469","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Eubacterium_siraeum","Arabinoxylan_degradation","B1","48",51.3837931378151
+"470","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","48",75.3514013463933
+"471","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Subdoligranulum_variabile","Arabinoxylan_degradation","B1","48",55.1772275305397
+"472","K01200"," pulA; pullulanase [EC:3.2.1.41]","Agathobacter_rectalis","starch_degradation","B1","48",73.6271129860639
+"473","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_ovatus","starch_degradation","B1","48",43.7969243523659
+"474","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_xylanisolvens","starch_degradation","B1","48",76.3859743625909
+"475","K01200"," pulA; pullulanase [EC:3.2.1.41]","Eubacterium_siraeum","starch_degradation","B1","48",107.595593684552
+"476","K01200"," pulA; pullulanase [EC:3.2.1.41]","Faecalibacterium_prausnitzii","starch_degradation","B1","48",176.911985769793
+"477","K01200"," pulA; pullulanase [EC:3.2.1.41]","Roseburia_intestinalis","starch_degradation","B1","48",5.1728650809881
+"478","K01200"," pulA; pullulanase [EC:3.2.1.41]","Subdoligranulum_variabile","starch_degradation","B1","48",22.7606063563476
+"479","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Agathobacter_rectalis","starch_degradation","B1","48",107.42316484852
+"480","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Roseburia_intestinalis","starch_degradation","B1","48",5.34529391702104
+"481","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Agathobacter_rectalis","Arabinoxylan_degradation","B1","48",79.8345510832497
+"482","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_ovatus","Arabinoxylan_degradation","B1","48",33.1063365183238
+"483","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B1","48",17.0704547672607
+"484","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B1","48",160.186388674598
+"485","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","48",29.1404732895663
+"486","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Subdoligranulum_variabile","Arabinoxylan_degradation","B1","48",57.9360889070667
+"487","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Anaerobutyricum_soehngenii","pectindegradationII","B1","48",0.51728650809881
+"488","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_ovatus","pectindegradationII","B1","48",30.002617469731
+"489","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_xylanisolvens","pectindegradationII","B1","48",7.58686878544921
+"490","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Faecalibacterium_prausnitzii","pectindegradationII","B1","48",176.73955693376
+"491","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Lachnospiraceae_bacterium","pectindegradationII","B1","48",63.2813828240877
+"492","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Roseburia_intestinalis","pectindegradationII","B1","48",95.353146326214
+"493","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Subdoligranulum_variabile","pectindegradationII","B1","48",22.4157486842818
+"494","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_ovatus","pectindegradationII","B1","48",50.3492201216175
+"495","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_xylanisolvens","pectindegradationII","B1","48",23.6227505365123
+"496","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Faecalibacterium_prausnitzii","pectindegradationII","B1","48",173.635837885167
+"497","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Roseburia_intestinalis","pectindegradationII","B1","48",10.3457301619762
+"498","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_ovatus","fructan_degradation","B1","48",58.2809465791326
+"499","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_xylanisolvens","fructan_degradation","B1","48",90.1802812452259
+"500","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Roseburia_intestinalis","fructan_degradation","B1","48",10.3457301619762
+"501","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Eubacterium_siraeum","starch_degradation","B1","48",162.427963543026
+"502","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Subdoligranulum_variabile","starch_degradation","B1","48",20.1741738158536
+"503","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B1","48",30.1750463057639
+"504","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_xylanisolvens","starch_degradation","B1","48",22.5881775203147
+"505","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Agathobacter_rectalis","fructan_degradation","B1","48",285.887010142609
+"506","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","48",37.0721997470814
+"507","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Coprococcus_catus","fructan_degradation","B1","48",39.4862034515425
+"508","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Eubacterium_siraeum","fructan_degradation","B1","48",1204.070562018
+"509","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","48",6653.33906716689
+"510","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Lachnospiraceae_bacterium","fructan_degradation","B1","48",134.149634433625
+"511","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Roseburia_intestinalis","fructan_degradation","B1","48",46.5557857288929
+"512","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Subdoligranulum_variabile","fructan_degradation","B1","48",224.157486842818
+"513","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Agathobacter_rectalis","fructan_degradation","B1","48",370.721997470814
+"514","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","48",101.905442095466
+"515","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Coprococcus_catus","fructan_degradation","B1","48",184.671283391275
+"516","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","48",876.110915883351
+"517","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Roseburia_intestinalis","fructan_degradation","B1","48",31.8993346660933
+"518","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Subdoligranulum_variabile","fructan_degradation","B1","48",215.536045041171
+"519","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B1","48",194.154869373087
+"520","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","48",5.86258042511985
+"521","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B1","48",13.4494492105691
+"522","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","48",94.3185733100163
+"523","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B1","48",7.24201111338334
+"524","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B1","48",23.6227505365123
+"525","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B1","48",146.909368300062
+"526","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B1","48",8.96629947371271
+"527","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B1","48",21.3811756680841
+"528","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B1","48",111.389028077277
+"529","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B1","48",7.75929762148215
+"530","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B1","48",16.5531682591619
+"531","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Agathobacter_rectalis","Arabinoxylan_degradation","B1","48",60.6949502835937
+"532","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","48",4.13829206479048
+"533","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Subdoligranulum_variabile","Arabinoxylan_degradation","B1","48",32.9339076822909
+"534","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B1","48",658.160867137719
+"535","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B1","48",5.1728650809881
+"536","K15922"," yihQ; sulfoquinovosidase [EC:3.2.1.199]","Agathobacter_rectalis","starch_degradation","B1","48",74.1443994941628
+"537","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Agathobacter_rectalis","starch_degradation","B2","48",337.807958469255
+"538","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Anaerobutyricum_soehngenii","starch_degradation","B2","48",44.2214655030366
+"539","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_ovatus","starch_degradation","B2","48",143.123415321031
+"540","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_xylanisolvens","starch_degradation","B2","48",131.74693871859
+"541","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Coprococcus_catus","starch_degradation","B2","48",8.44061167277877
+"542","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Eubacterium_siraeum","starch_degradation","B2","48",849.932897137201
+"543","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Faecalibacterium_prausnitzii","starch_degradation","B2","48",603.320243045578
+"544","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Lachnospiraceae_bacterium","starch_degradation","B2","48",54.4969927568542
+"545","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Roseburia_intestinalis","starch_degradation","B2","48",26.0558012507519
+"546","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Subdoligranulum_variabile","starch_degradation","B2","48",132.113921834798
+"547","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Agathobacter_rectalis","starch_degradation","B2","48",236.887601512117
+"548","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Anaerobutyricum_soehngenii","starch_degradation","B2","48",50.2766869204648
+"549","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_ovatus","starch_degradation","B2","48",144.591347785862
+"550","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_xylanisolvens","starch_degradation","B2","48",87.8924563317616
+"551","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Coprococcus_catus","starch_degradation","B2","48",16.147257113142
+"552","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Eubacterium_siraeum","starch_degradation","B2","48",375.240236322448
+"553","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Faecalibacterium_prausnitzii","starch_degradation","B2","48",489.188493904961
+"554","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Lachnospiraceae_bacterium","starch_degradation","B2","48",45.3224148516599
+"555","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Roseburia_intestinalis","starch_degradation","B2","48",28.4411915061024
+"556","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Subdoligranulum_variabile","starch_degradation","B2","48",107.15906993267
+"557","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Agathobacter_rectalis","fructan_degradation","B2","48",237.438076186429
+"558","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Anaerobutyricum_soehngenii","fructan_degradation","B2","48",4.40379739449327
+"559","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_ovatus","fructan_degradation","B2","48",48.0747882232182
+"560","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_xylanisolvens","fructan_degradation","B2","48",115.416190047344
+"561","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Faecalibacterium_prausnitzii","fructan_degradation","B2","48",1351.41532543512
+"562","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Lachnospiraceae_bacterium","fructan_degradation","B2","48",63.4880791039447
+"563","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Roseburia_intestinalis","fructan_degradation","B2","48",10.6425103700254
+"564","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Subdoligranulum_variabile","fructan_degradation","B2","48",48.2582797813221
+"565","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Anaerobutyricum_soehngenii","pectindegradationII","B2","48",4.95427206880493
+"566","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_ovatus","pectindegradationII","B2","48",35.0468875978423
+"567","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_xylanisolvens","pectindegradationII","B2","48",17.798681136077
+"568","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Eubacterium_siraeum","pectindegradationII","B2","48",85.8740491926188
+"569","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Faecalibacterium_prausnitzii","pectindegradationII","B2","48",286.61381375827
+"570","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Lachnospiraceae_bacterium","pectindegradationII","B2","48",123.673310162019
+"571","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Roseburia_intestinalis","pectindegradationII","B2","48",234.502211256767
+"572","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Subdoligranulum_variabile","pectindegradationII","B2","48",57.4328576865164
+"573","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_ovatus","pectindegradationI","B2","48",101.470831631449
+"574","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_xylanisolvens","pectindegradationI","B2","48",143.123415321031
+"575","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Faecalibacterium_prausnitzii","pectindegradationI","B2","48",345.698095467722
+"576","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Roseburia_intestinalis","pectindegradationI","B2","48",6.78918764984379
+"577","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Agathobacter_rectalis","starch_degradation","B2","48",234.685702814871
+"578","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B2","48",19.6335967171158
+"579","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Eubacterium_siraeum","starch_degradation","B2","48",128.260599114617
+"580","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Roseburia_intestinalis","starch_degradation","B2","48",19.2666136009081
+"581","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_ovatus","Arabinoxylan_degradation","B2","48",15.4132908807264
+"582","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B2","48",83.6721504953722
+"583","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","48",255.42024888061
+"584","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Agathobacter_rectalis","starch_degradation","B2","48",142.756432204824
+"585","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Coprococcus_catus","starch_degradation","B2","48",4.58728895259716
+"586","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Roseburia_intestinalis","starch_degradation","B2","48",36.8818031788811
+"587","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Agathobacter_rectalis","starch_degradation","B2","48",406.433801200108
+"588","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_ovatus","starch_degradation","B2","48",304.229003336244
+"589","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_xylanisolvens","starch_degradation","B2","48",415.057904430991
+"590","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Faecalibacterium_prausnitzii","starch_degradation","B2","48",861.309373739642
+"591","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Roseburia_intestinalis","starch_degradation","B2","48",17.0647149036614
+"592","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Subdoligranulum_variabile","starch_degradation","B2","48",20.5510545076353
+"593","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Agathobacter_rectalis","fructan_degradation","B2","48",383.86433955333
+"594","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Anaerobutyricum_soehngenii","fructan_degradation","B2","48",8.073628556571
+"595","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_ovatus","fructan_degradation","B2","48",28.0742083898946
+"596","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_xylanisolvens","fructan_degradation","B2","48",51.9281109433998
+"597","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Eubacterium_siraeum","fructan_degradation","B2","48",94.8651355397092
+"598","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Faecalibacterium_prausnitzii","fructan_degradation","B2","48",24455.9383556441
+"599","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Subdoligranulum_variabile","fructan_degradation","B2","48",74.1305894739701
+"600","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Agathobacter_rectalis","Arabinoxylan_degradation","B2","48",153.765925691057
+"601","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_ovatus","Arabinoxylan_degradation","B2","48",186.97789770786
+"602","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B2","48",125.14124262685
+"603","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Eubacterium_siraeum","Arabinoxylan_degradation","B2","48",110.828901094747
+"604","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","48",103.8562218868
+"605","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Subdoligranulum_variabile","Arabinoxylan_degradation","B2","48",68.2588596146457
+"606","K01200"," pulA; pullulanase [EC:3.2.1.41]","Agathobacter_rectalis","starch_degradation","B2","48",145.508805576382
+"607","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_ovatus","starch_degradation","B2","48",47.5243135489066
+"608","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_xylanisolvens","starch_degradation","B2","48",126.609175091682
+"609","K01200"," pulA; pullulanase [EC:3.2.1.41]","Eubacterium_siraeum","starch_degradation","B2","48",137.985651694123
+"610","K01200"," pulA; pullulanase [EC:3.2.1.41]","Faecalibacterium_prausnitzii","starch_degradation","B2","48",238.90600865126
+"611","K01200"," pulA; pullulanase [EC:3.2.1.41]","Roseburia_intestinalis","starch_degradation","B2","48",12.4774259510643
+"612","K01200"," pulA; pullulanase [EC:3.2.1.41]","Subdoligranulum_variabile","starch_degradation","B2","48",28.2576999479985
+"613","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Agathobacter_rectalis","starch_degradation","B2","48",238.722517093156
+"614","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Roseburia_intestinalis","starch_degradation","B2","48",12.4774259510643
+"615","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Agathobacter_rectalis","Arabinoxylan_degradation","B2","48",203.49213793721
+"616","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_ovatus","Arabinoxylan_degradation","B2","48",45.6893979678677
+"617","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B2","48",40.0011596666472
+"618","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B2","48",156.151315946407
+"619","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","48",33.7624466911151
+"620","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Subdoligranulum_variabile","Arabinoxylan_degradation","B2","48",76.8829628455284
+"621","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Anaerobutyricum_soehngenii","pectindegradationII","B2","48",4.22030583638939
+"622","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_ovatus","pectindegradationII","B2","48",35.4138707140501
+"623","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_xylanisolvens","pectindegradationII","B2","48",11.376476602441
+"624","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Faecalibacterium_prausnitzii","pectindegradationII","B2","48",169.546199687991
+"625","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Lachnospiraceae_bacterium","pectindegradationII","B2","48",80.73628556571
+"626","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Roseburia_intestinalis","pectindegradationII","B2","48",166.793826316433
+"627","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Subdoligranulum_variabile","pectindegradationII","B2","48",27.3402421574791
+"628","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_ovatus","pectindegradationII","B2","48",54.3135011987504
+"629","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_xylanisolvens","pectindegradationII","B2","48",45.5059064097638
+"630","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Faecalibacterium_prausnitzii","pectindegradationII","B2","48",146.976738041213
+"631","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Roseburia_intestinalis","pectindegradationII","B2","48",12.6609175091682
+"632","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_ovatus","fructan_degradation","B2","48",80.0023193332944
+"633","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_xylanisolvens","fructan_degradation","B2","48",152.848467900537
+"634","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Roseburia_intestinalis","fructan_degradation","B2","48",19.450105159012
+"635","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Eubacterium_siraeum","starch_degradation","B2","48",197.069933403574
+"636","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Subdoligranulum_variabile","starch_degradation","B2","48",26.0558012507519
+"637","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B2","48",35.5973622721539
+"638","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_xylanisolvens","starch_degradation","B2","48",40.368142782855
+"639","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Agathobacter_rectalis","fructan_degradation","B2","48",258.172622252168
+"640","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","48",41.4690921314783
+"641","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Coprococcus_catus","fructan_degradation","B2","48",12.6609175091682
+"642","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Eubacterium_siraeum","fructan_degradation","B2","48",530.290602920231
+"643","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","48",6406.42425963909
+"644","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Lachnospiraceae_bacterium","fructan_degradation","B2","48",102.755272538176
+"645","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Roseburia_intestinalis","fructan_degradation","B2","48",48.2582797813221
+"646","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Subdoligranulum_variabile","fructan_degradation","B2","48",235.236177489182
+"647","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Agathobacter_rectalis","fructan_degradation","B2","48",557.630845077711
+"648","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","48",93.580694632982
+"649","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Coprococcus_catus","fructan_degradation","B2","48",91.1953043776315
+"650","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","48",742.957318762636
+"651","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Roseburia_intestinalis","fructan_degradation","B2","48",30.4595986452451
+"652","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Subdoligranulum_variabile","fructan_degradation","B2","48",217.987971027417
+"653","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B2","48",379.277050600733
+"654","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","48",8.073628556571
+"655","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B2","48",11.1929850443371
+"656","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","48",95.232118655917
+"657","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B2","48",8.62410323088266
+"658","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B2","48",25.1383434602324
+"659","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B2","48",322.211176030424
+"660","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B2","48",13.7618668577915
+"661","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B2","48",12.6609175091682
+"662","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B2","48",102.204797863865
+"663","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B2","48",11.5599681605448
+"664","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B2","48",18.7161389265964
+"665","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Agathobacter_rectalis","Arabinoxylan_degradation","B2","48",110.094934862332
+"666","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","48",5.3212551850127
+"667","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Subdoligranulum_variabile","Arabinoxylan_degradation","B2","48",33.945938249219
+"668","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B2","48",641.853470247394
+"669","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B2","48",13.3948837415837
+"670","K15922"," yihQ; sulfoquinovosidase [EC:3.2.1.199]","Agathobacter_rectalis","starch_degradation","B2","48",197.987391194093
+"671","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Agathobacter_rectalis","starch_degradation","B3","48",387.649250911705
+"672","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Anaerobutyricum_soehngenii","starch_degradation","B3","48",78.9876255694993
+"673","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_ovatus","starch_degradation","B3","48",176.123067183215
+"674","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Bacteroides_xylanisolvens","starch_degradation","B3","48",129.26600116741
+"675","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Coprococcus_catus","starch_degradation","B3","48",87.466523229502
+"676","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Eubacterium_siraeum","starch_degradation","B3","48",1081.43133312667
+"677","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Faecalibacterium_prausnitzii","starch_degradation","B3","48",574.482504612818
+"678","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Lachnospiraceae_bacterium","starch_degradation","B3","48",58.4597680768611
+"679","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Roseburia_intestinalis","starch_degradation","B3","48",22.0153833979019
+"680","K00688"," PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]","Subdoligranulum_variabile","starch_degradation","B3","48",157.677745957946
+"681","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Agathobacter_rectalis","starch_degradation","B3","48",292.001335203253
+"682","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Anaerobutyricum_soehngenii","starch_degradation","B3","48",96.837936432663
+"683","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_ovatus","starch_degradation","B3","48",153.363920832681
+"684","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Bacteroides_xylanisolvens","starch_degradation","B3","48",83.8964610568693
+"685","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Coprococcus_catus","starch_degradation","B3","48",40.460704623171
+"686","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Eubacterium_siraeum","starch_degradation","B3","48",581.920134139136
+"687","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Faecalibacterium_prausnitzii","starch_degradation","B3","48",341.833453029585
+"688","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Lachnospiraceae_bacterium","starch_degradation","B3","48",34.2130958210637
+"689","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Roseburia_intestinalis","starch_degradation","B3","48",19.189084177901
+"690","K00705"," malQ; 4-alpha-glucanotransferase [EC:2.4.1.25]","Subdoligranulum_variabile","starch_degradation","B3","48",176.271819773741
+"691","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Agathobacter_rectalis","fructan_degradation","B3","48",320.710585174841
+"692","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Anaerobutyricum_soehngenii","fructan_degradation","B3","48",5.20634066842274
+"693","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_ovatus","fructan_degradation","B3","48",60.6910569347565
+"694","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Bacteroides_xylanisolvens","fructan_degradation","B3","48",116.770783563196
+"695","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Faecalibacterium_prausnitzii","fructan_degradation","B3","48",1029.07042126139
+"696","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Lachnospiraceae_bacterium","fructan_degradation","B3","48",66.9386657368638
+"697","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Roseburia_intestinalis","fructan_degradation","B3","48",3.12380440105364
+"698","K00847"," E2.7.1.4, scrK; fructokinase [EC:2.7.1.4]","Subdoligranulum_variabile","fructan_degradation","B3","48",65.5998924221265
+"699","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Anaerobutyricum_soehngenii","pectindegradationII","B3","48",5.8013510305282
+"700","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_ovatus","pectindegradationII","B3","48",41.6507253473819
+"701","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Bacteroides_xylanisolvens","pectindegradationII","B3","48",19.189084177901
+"702","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Eubacterium_siraeum","pectindegradationII","B3","48",44.0307667958037
+"703","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Faecalibacterium_prausnitzii","pectindegradationII","B3","48",223.277638380072
+"704","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Lachnospiraceae_bacterium","pectindegradationII","B3","48",125.844691585304
+"705","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Roseburia_intestinalis","pectindegradationII","B3","48",154.405188966366
+"706","K00874"," kdgK; 2-dehydro-3-deoxygluconokinase [EC:2.7.1.45]","Subdoligranulum_variabile","pectindegradationII","B3","48",74.5250478537084
+"707","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_ovatus","pectindegradationI","B3","48",146.521301668469
+"708","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Bacteroides_xylanisolvens","pectindegradationI","B3","48",146.372549077942
+"709","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Faecalibacterium_prausnitzii","pectindegradationI","B3","48",310.744161609574
+"710","K01051"," E3.1.1.11; pectinesterase [EC:3.1.1.11]","Roseburia_intestinalis","pectindegradationI","B3","48",1.48752590526364
+"711","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Agathobacter_rectalis","starch_degradation","B3","48",262.102064507453
+"712","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B3","48",31.6843017821155
+"713","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Eubacterium_siraeum","starch_degradation","B3","48",217.625039940071
+"714","K01176"," AMY, amyA, malS; alpha-amylase [EC:3.2.1.1]","Roseburia_intestinalis","starch_degradation","B3","48",3.57006217263274
+"715","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_ovatus","Arabinoxylan_degradation","B3","48",19.9328471305328
+"716","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B3","48",81.8139247895002
+"717","K01181"," E3.2.1.8, xynA; endo-1,4-beta-xylanase [EC:3.2.1.8]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","48",216.137514034807
+"718","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Agathobacter_rectalis","starch_degradation","B3","48",164.520365122159
+"719","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Coprococcus_catus","starch_degradation","B3","48",8.47889766000275
+"720","K01182"," IMA, malL; oligo-1,6-glucosidase [EC:3.2.1.10]","Roseburia_intestinalis","starch_degradation","B3","48",7.28887693579184
+"721","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Agathobacter_rectalis","starch_degradation","B3","48",446.109018988566
+"722","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_ovatus","starch_degradation","B3","48",390.921807903285
+"723","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Bacteroides_xylanisolvens","starch_degradation","B3","48",449.530328570672
+"724","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Faecalibacterium_prausnitzii","starch_degradation","B3","48",627.884684611783
+"725","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Roseburia_intestinalis","starch_degradation","B3","48",3.42130958210637
+"726","K01187"," malZ; alpha-glucosidase [EC:3.2.1.20]","Subdoligranulum_variabile","starch_degradation","B3","48",52.8071696368592
+"727","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Agathobacter_rectalis","fructan_degradation","B3","48",462.620556536992
+"728","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Anaerobutyricum_soehngenii","fructan_degradation","B3","48",7.14012434526547
+"729","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_ovatus","fructan_degradation","B3","48",33.4693328684319
+"730","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Bacteroides_xylanisolvens","fructan_degradation","B3","48",49.6833652358056
+"731","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Eubacterium_siraeum","fructan_degradation","B3","48",24.2466722557973
+"732","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Faecalibacterium_prausnitzii","fructan_degradation","B3","48",16664.7527166686
+"733","K01193"," INV, sacA; beta-fructofuranosidase [EC:3.2.1.26]","Subdoligranulum_variabile","fructan_degradation","B3","48",170.916726514792
+"734","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Agathobacter_rectalis","Arabinoxylan_degradation","B3","48",179.544376765321
+"735","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_ovatus","Arabinoxylan_degradation","B3","48",235.624103393761
+"736","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B3","48",146.075043896889
+"737","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Eubacterium_siraeum","Arabinoxylan_degradation","B3","48",26.4779611136928
+"738","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","48",54.1459429515965
+"739","K01198"," xynB; xylan 1,4-beta-xylosidase [EC:3.2.1.37]","Subdoligranulum_variabile","Arabinoxylan_degradation","B3","48",106.655607407403
+"740","K01200"," pulA; pullulanase [EC:3.2.1.41]","Agathobacter_rectalis","starch_degradation","B3","48",172.553005010582
+"741","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_ovatus","starch_degradation","B3","48",75.1200582158138
+"742","K01200"," pulA; pullulanase [EC:3.2.1.41]","Bacteroides_xylanisolvens","starch_degradation","B3","48",146.818806849521
+"743","K01200"," pulA; pullulanase [EC:3.2.1.41]","Eubacterium_siraeum","starch_degradation","B3","48",214.947493310596
+"744","K01200"," pulA; pullulanase [EC:3.2.1.41]","Faecalibacterium_prausnitzii","starch_degradation","B3","48",166.454148799001
+"745","K01200"," pulA; pullulanase [EC:3.2.1.41]","Roseburia_intestinalis","starch_degradation","B3","48",2.67754662947455
+"746","K01200"," pulA; pullulanase [EC:3.2.1.41]","Subdoligranulum_variabile","starch_degradation","B3","48",62.922345792652
+"747","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Agathobacter_rectalis","starch_degradation","B3","48",247.821815816922
+"748","K01208"," cd, ma, nplT; cyclomaltodextrinase / maltogenic alpha-amylase / neopullulanase [EC:3.2.1.54 3.2.1.133 3.2.1.135]","Roseburia_intestinalis","starch_degradation","B3","48",4.76008289684365
+"749","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Agathobacter_rectalis","Arabinoxylan_degradation","B3","48",199.030966124275
+"750","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_ovatus","Arabinoxylan_degradation","B3","48",66.3436553747584
+"751","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Bacteroides_xylanisolvens","Arabinoxylan_degradation","B3","48",38.2294157652756
+"752","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B3","48",137.744898827413
+"753","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","48",11.3051968800037
+"754","K01209"," abfA; alpha-L-arabinofuranosidase [EC:3.2.1.55]","Subdoligranulum_variabile","Arabinoxylan_degradation","B3","48",80.3263988842366
+"755","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Anaerobutyricum_soehngenii","pectindegradationII","B3","48",4.16507253473819
+"756","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_ovatus","pectindegradationII","B3","48",32.279312144221
+"757","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Bacteroides_xylanisolvens","pectindegradationII","B3","48",10.4126813368455
+"758","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Faecalibacterium_prausnitzii","pectindegradationII","B3","48",115.283257657932
+"759","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Lachnospiraceae_bacterium","pectindegradationII","B3","48",89.2515543158184
+"760","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Roseburia_intestinalis","pectindegradationII","B3","48",89.6978120873975
+"761","K01625"," eda; 2-dehydro-3-deoxyphosphogluconate aldolase / (4S)-4-hydroxy-2-oxoglutarate aldolase [EC:4.1.2.14 4.1.3.42]","Subdoligranulum_variabile","pectindegradationII","B3","48",39.5681890800128
+"762","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_ovatus","pectindegradationII","B3","48",62.4760880210729
+"763","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Bacteroides_xylanisolvens","pectindegradationII","B3","48",42.9894986621192
+"764","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Faecalibacterium_prausnitzii","pectindegradationII","B3","48",105.763091864245
+"765","K01815"," kduI; 4-deoxy-L-threo-5-hexosulose-uronate ketol-isomerase [EC:5.3.1.17]","Roseburia_intestinalis","pectindegradationII","B3","48",5.50384584947547
+"766","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_ovatus","fructan_degradation","B3","48",106.655607407403
+"767","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Bacteroides_xylanisolvens","fructan_degradation","B3","48",162.586581445316
+"768","K03332"," fruA; fructan beta-fructosidase [EC:3.2.1.80]","Roseburia_intestinalis","fructan_degradation","B3","48",6.24760880210729
+"769","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Eubacterium_siraeum","starch_degradation","B3","48",107.548122950561
+"770","K05343"," treS; maltose alpha-D-glucosyltransferase / alpha-amylase [EC:5.4.99.16 3.2.1.1]","Subdoligranulum_variabile","starch_degradation","B3","48",45.9645504726465
+"771","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_ovatus","starch_degradation","B3","48",44.6257771579092
+"772","K07405"," E3.2.1.1A; alpha-amylase [EC:3.2.1.1]","Bacteroides_xylanisolvens","starch_degradation","B3","48",45.5182927010674
+"773","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Agathobacter_rectalis","fructan_degradation","B3","48",369.947692639067
+"774","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","48",124.654670861093
+"775","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Coprococcus_catus","fructan_degradation","B3","48",37.7831579936965
+"776","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Eubacterium_siraeum","fructan_degradation","B3","48",621.04206544757
+"777","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","48",3518.89128149167
+"778","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Lachnospiraceae_bacterium","fructan_degradation","B3","48",75.7150685779193
+"779","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Roseburia_intestinalis","fructan_degradation","B3","48",47.8983341494892
+"780","K10112"," msmX, msmK, malK, sugC, ggtA, msiK; multiple sugar transport system ATP-binding protein","Subdoligranulum_variabile","fructan_degradation","B3","48",234.136577488497
+"781","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Agathobacter_rectalis","fructan_degradation","B3","48",727.102662492867
+"782","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","48",226.2526901906
+"783","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Coprococcus_catus","fructan_degradation","B3","48",82.557687742132
+"784","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","48",699.880938426543
+"785","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Roseburia_intestinalis","fructan_degradation","B3","48",19.189084177901
+"786","K10117"," msmE; raffinose/stachyose/melibiose transport system substrate-binding protein","Subdoligranulum_variabile","fructan_degradation","B3","48",275.638550245353
+"787","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B3","48",394.78937525697
+"788","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","48",21.4203730357964
+"789","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B3","48",11.45394947053
+"790","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","48",81.5164196084475
+"791","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B3","48",4.46257771579092
+"792","K10118"," msmF; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B3","48",48.3445919210683
+"793","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Agathobacter_rectalis","fructan_degradation","B3","48",345.552267792744
+"794","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Anaerobutyricum_soehngenii","fructan_degradation","B3","48",29.6017655147464
+"795","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Coprococcus_catus","fructan_degradation","B3","48",11.45394947053
+"796","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Faecalibacterium_prausnitzii","fructan_degradation","B3","48",92.3753587168721
+"797","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Roseburia_intestinalis","fructan_degradation","B3","48",4.01631994421183
+"798","K10119"," msmG; raffinose/stachyose/melibiose transport system permease protein","Subdoligranulum_variabile","fructan_degradation","B3","48",25.2879403894819
+"799","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Agathobacter_rectalis","Arabinoxylan_degradation","B3","48",132.53855815899
+"800","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","48",10.8589391084246
+"801","K15531"," rexA; oligosaccharide reducing-end xylanase [EC:3.2.1.156]","Subdoligranulum_variabile","Arabinoxylan_degradation","B3","48",49.9808704168583
+"802","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Eubacterium_siraeum","Arabinoxylan_degradation","B3","48",150.388869022154
+"803","K15921"," xynD; arabinoxylan arabinofuranohydrolase [EC:3.2.1.55]","Roseburia_intestinalis","Arabinoxylan_degradation","B3","48",1.93378367684273
+"804","K15922"," yihQ; sulfoquinovosidase [EC:3.2.1.199]","Agathobacter_rectalis","starch_degradation","B3","48",197.245935037959

@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sudarshan A. Shetty" />
+
+
+<title>Assembly diet based minimal microbiome (Db-MM10)</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DbMM Analysis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Exploration of Metagenomic Data
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="core_microbiota_metagenomic.html">Core Microbiota</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Growth, Metabolites and Composition
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="wetlab_anlaysis.html">Growth and Metabolites</a>
+    </li>
+    <li>
+      <a href="dada2_processing.html">DADA2 processing</a>
+    </li>
+    <li>
+      <a href="qmp_analysis.html">Microbiota profile</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Metatranscriptomics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="meta_counts.html">RNASeq processing</a>
+    </li>
+    <li>
+      <a href="active_composition_metatrans.html">RNAseq Active Contribution</a>
+    </li>
+    <li>
+      <a href="keeg_anlaysis_initiate.html">KEGG Analysis Setup</a>
+    </li>
+    <li>
+      <a href="kegg_pathway_analysis.html">KEGG Pathway Analysis</a>
+    </li>
+    <li>
+      <a href="reveco_anlaysis.html">Competition and Complimentarity</a>
+    </li>
+    <li>
+      <a href="gmm_species_function.html">Species Functions</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Assembly diet based minimal microbiome (Db-MM10)</h1>
+<h3 class="subtitle">Species function relationships via gut metabolic modules</h3>
+<h4 class="author">Sudarshan A. Shetty</h4>
+<h4 class="date">Sun Jul 18 12:20:21 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-07-18
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>DbMM/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210404code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210404)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210404code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210404)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongNocommitsyet"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> No commits yet </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongNocommitsyet" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  DbMM.Rproj
+    Untracked:  Ocucpancy_relationship.csv
+    Untracked:  README.md
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  bin/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  data_raw/
+    Untracked:  ko00010.Glycolysis.png
+    Untracked:  ko00010.png
+    Untracked:  ko00010.xml
+    Untracked:  ko00640.png
+    Untracked:  ko00640.propanoate_metabolism.png
+    Untracked:  ko00640.xml
+    Untracked:  ko00650.butanoate_metabolism.png
+    Untracked:  ko00650.png
+    Untracked:  ko00650.xml
+    Untracked:  output/
+    Untracked:  structure.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>For disentangling the strain-level active metabolic process, transcriptomic profiles were analysed using the gut metabolic modules (GMMs) framework. The GMMs reported previously were curated to include modules based on physiological information of the 10 Db-MM strains (see methods for curation steps)</p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<pre class="r"><code>suppressPackageStartupMessages({
+  library(tidyverse)
+  library(data.table)
+  library(circlize)
+  #library(omixerRpm)
+  library(ggpubr)
+  library(RColorBrewer)
+  library(edgeR)
+  library(reshape2)
+  library(patchwork)
+})</code></pre>
+<pre class="r"><code>library(omixerRpm)</code></pre>
+</div>
+</div>
+<div id="gmm-prep" class="section level1">
+<h1>GMM prep</h1>
+<p>Convert the KEGG annotation and counts file in input format required by <code>omixerRpm</code> R package from <a href="https://github.com/raeslab/omixer-rpm">Raes lab</a>.</p>
+<pre class="r"><code>#dir.create(&quot;gmm_input&quot;)
+
+complete_table_brite &lt;- readRDS(&quot;data/04_metatrans/rds/complete_table_brite_filter.rds&quot;)
+#head(tpm_table_brite)
+#DT::datatable(complete_table_brite)
+#DT::datatable(complete_table_brite_sum)
+complete_table_brite_sum &lt;- complete_table_brite %&gt;% group_by(KO, BacterialStrain) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;KO&#39;. You can override using the `.groups` argument.</code></pre>
+<pre class="r"><code>#head(complete_table_brite)
+
+table_brite &lt;- complete_table_brite_sum[,c(3:8)]
+
+#head(table_brite)
+
+rownames(table_brite) &lt;- table_brite$KO</code></pre>
+<pre><code>Warning: Unknown or uninitialised column: `KO`.</code></pre>
+<pre class="r"><code>cpm_table_brite_count &lt;- as.data.frame(cpm(table_brite, log = FALSE))
+#head(cpm_table_brite_count)
+
+cpm_table_brite_count$BacterialStrain &lt;- complete_table_brite_sum$BacterialStrain
+cpm_table_brite_count$KO &lt;- complete_table_brite_sum$KO
+
+#head(cpm_table_brite_count)
+colnames(cpm_table_brite_count) &lt;- c(
+  &quot;B1T24&quot;,
+  &quot;B2T24&quot;,
+  &quot;B3T24&quot;,
+  &quot;B1T48&quot;,
+  &quot;B2T48&quot;,
+  &quot;B3T48&quot;,
+  &quot;BacterialStrain&quot;,
+  &quot;KO&quot;)
+
+brite_gmm &lt;-
+  as.data.frame(cpm_table_brite_count[, c(&quot;KO&quot;,
+                                          &quot;BacterialStrain&quot;,
+                                          &quot;B1T24&quot;,
+                                          &quot;B2T24&quot;,
+                                          &quot;B3T24&quot;,
+                                          &quot;B1T48&quot;,
+                                          &quot;B2T48&quot;,
+                                          &quot;B3T48&quot;)])
+
+#head(brite_gmm)
+colnames(brite_gmm) &lt;-
+  c(&quot;KO&quot;,
+    &quot;species&quot;,
+    &quot;B1T24&quot;,
+    &quot;B2T24&quot;,
+    &quot;B3T24&quot;,
+    &quot;B1T48&quot;,
+    &quot;B2T48&quot;,
+    &quot;B3T48&quot;)
+
+head(brite_gmm)</code></pre>
+<pre><code>      KO                      species      B1T24      B2T24      B3T24
+1 K00003        Agathobacter_rectalis 148.292379 134.891967 127.812570
+2 K00003   Anaerobutyricum_soehngenii  22.430780  32.620933   3.264689
+3 K00003            Coprococcus_catus  27.415398  25.567759   9.304363
+4 K00003          Eubacterium_siraeum 265.430897 247.742764  58.111462
+5 K00003 Faecalibacterium_prausnitzii  45.796176  41.216990  82.270160
+6 K00003    Lachnospiraceae_bacterium   8.411543   3.967411  28.892497
+       B1T48      B2T48     B3T48
+1  55.866943 128.260599 127.33222
+2   8.793871  20.734546  37.48565
+3  10.690588   6.972679  49.98087
+4  78.455120  81.103269  70.65748
+5 138.287926 160.922096 101.74677
+6  33.623623  47.340822  41.50197</code></pre>
+<pre class="r"><code>brite_gmm &lt;-separate(brite_gmm, species, c(&quot;Bacteria&quot;, &quot;Locus&quot;), 
+                     extra = &quot;merge&quot;, fill = &quot;right&quot;)
+
+#head(brite_gmm)
+brite_gmm &lt;-separate(brite_gmm, Locus, c(&quot;Species&quot;, &quot;Locus&quot;), 
+                     extra = &quot;merge&quot;, fill = &quot;right&quot;)
+
+brite_gmm &lt;- brite_gmm %&gt;% unite(Species, Bacteria,Species) 
+
+brite_gmm &lt;- brite_gmm[,-3]
+head(brite_gmm)</code></pre>
+<pre><code>      KO                      Species      B1T24      B2T24      B3T24
+1 K00003        Agathobacter_rectalis 148.292379 134.891967 127.812570
+2 K00003   Anaerobutyricum_soehngenii  22.430780  32.620933   3.264689
+3 K00003            Coprococcus_catus  27.415398  25.567759   9.304363
+4 K00003          Eubacterium_siraeum 265.430897 247.742764  58.111462
+5 K00003 Faecalibacterium_prausnitzii  45.796176  41.216990  82.270160
+6 K00003    Lachnospiraceae_bacterium   8.411543   3.967411  28.892497
+       B1T48      B2T48     B3T48
+1  55.866943 128.260599 127.33222
+2   8.793871  20.734546  37.48565
+3  10.690588   6.972679  49.98087
+4  78.455120  81.103269  70.65748
+5 138.287926 160.922096 101.74677
+6  33.623623  47.340822  41.50197</code></pre>
+<pre class="r"><code>write.table(brite_gmm, file=&#39;data_raw/05_gmm/brite_gmm_server_filtered.tsv&#39;, 
+            quote=FALSE, 
+            sep=&#39;\t&#39;, col.names = NA)</code></pre>
+<p>Upload this file to <code>micro3</code> server.</p>
+<div id="server-gmm-calculations" class="section level2">
+<h2>Server GMM calculations</h2>
+<pre class="r"><code>############
+#dat &lt;- read.table(&quot;03_gmm_anlaysis/data/brite_gmm_server.tsv&quot;, header=T, sep=&quot;\t&quot;)
+dat &lt;- read.table(&quot;data_raw/05_gmm/brite_gmm_server_filtered.tsv&quot;, header=T, sep=&quot;\t&quot;)
+#meta &lt;- read.table(&quot;gmm/metadata.tsv&quot;, header=T, sep=&quot;\t&quot;)
+
+db &lt;- loadDB(&quot;GMMs.v1.07&quot;)
+dat.sub &lt;- dat[,-1]
+dat.sub &lt;- dat.sub[,c(&quot;Species&quot;,&quot;KO&quot;,&quot;B1T24&quot;, &quot;B2T24&quot;,&quot;B3T24&quot;, &quot;B1T48&quot;, &quot;B2T48&quot;,&quot;B3T48&quot;)]
+
+mods &lt;- rpm(dat.sub, minimum.coverage=0.5, annotation = 2, module.db = db)
+saveRDS(mods, &quot;data_raw/05_gmm/mods_gmm_aa.rds&quot;)
+###########</code></pre>
+</div>
+<div id="read-gmms" class="section level2">
+<h2>Read GMMs</h2>
+<pre class="r"><code># the GMM cal was done on server due to issues with java windows pc. the mods_gmm_aa.rds file was copied to gmm 
+# read file from server
+#mods &lt;- readRDS(&quot;03_gmm_anlaysis/data/mods_gmm.rds&quot;)
+mods &lt;- readRDS(&quot;data_raw/05_gmm/mods_gmm_aa.rds&quot;)
+
+modsDF &lt;- cbind(mods@annotation, slot(mods, &quot;abundance&quot;))
+write.table(modsDF, file=&#39;data/05_gmm/tables/modsDF_gmm_linux.tsv&#39;, 
+            quote=FALSE, sep=&#39;\t&#39;, col.names = NA)
+
+#head(modsDF)</code></pre>
+</div>
+<div id="links-species-functions" class="section level2">
+<h2>Links Species-Functions</h2>
+<pre class="r"><code>#colnames(modsDF)
+modsDF2 &lt;- modsDF
+modsDF2 &lt;- unite(modsDF, TAXMOD, &quot;Taxon&quot;,&quot;Module&quot;)
+#head(modsDF2)
+rownames(modsDF2) &lt;- modsDF2$TAXMOD
+modsDF2 &lt;- modsDF2[,-1]
+
+#colnames(modsDF2)
+#DT::datatable(modsDF2)</code></pre>
+<p>Check fold change</p>
+<pre class="r"><code>source(&quot;code/check_wilcox.r&quot;)
+
+pval &lt;- check_wilcoxon(modsDF2, c(&quot;48h&quot;,&quot;48h&quot;,&quot;24h&quot;,&quot;48h&quot;, &quot;24h&quot;,&quot;24h&quot;))
+
+#head(pval)
+summary(pval$p.value)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2203  0.2203  0.3568  0.5133  0.8381  1.0000 </code></pre>
+<pre class="r"><code>pval$Taxon &lt;- modsDF$Taxon
+pval$Module &lt;- modsDF$Module
+pval &lt;- pval[,c(&quot;Module&quot;, &quot;Taxon&quot;, &quot;fold.change.log10&quot;, &quot;p.value&quot;)]
+mat &lt;- pval
+#DT::datatable(mat)
+colnames(mat) &lt;- c(&quot;from&quot;, &quot;to&quot;, &quot;Difference&quot;, &quot;P-value&quot;)</code></pre>
+<pre class="r"><code># Read names of modules
+curatedGMM_names &lt;- read.table(&quot;data_raw/05_gmm/ModulesCustom/CuratedGMM_names.txt&quot;, header=F, sep=&quot;\t&quot;)
+#head(curatedGMM_names)
+
+fil_list &lt;- pval$Module
+curatedGMM_names_filt &lt;- filter(curatedGMM_names, curatedGMM_names$V1 %in% fil_list)
+
+#dim(curatedGMM_names_filt)
+#curatedGMM_names_filt$V1
+colnames(curatedGMM_names_filt) &lt;- c(&quot;Module&quot;, &quot;Names&quot;, &quot;Category&quot;)
+#unique(mat$from)
+#dim(pval)
+mat_df &lt;- merge(pval, curatedGMM_names_filt, by.x=&quot;Module&quot;)
+#dim(mat_df)
+#head(mat_df)
+
+mat_df &lt;- mat_df[,c(&quot;Taxon&quot;, &quot;Names&quot;, &quot;fold.change.log10&quot;, &quot;p.value&quot;, &quot;Module&quot;, &quot;Category&quot;)]
+#mat_df &lt;- mat_df[,c(&quot;Taxon&quot;, &quot;Module&quot;, &quot;fold.change.log10&quot;, &quot;p.value&quot;, &quot;Names&quot;)]
+colnames(mat_df) &lt;- c(&quot;from&quot;, &quot;to&quot;, &quot;Difference&quot;, &quot;P-value&quot;, &quot;ModuleName&quot;, &quot;Category&quot;)
+
+#mat &lt;- subset(mat_df, abs(Difference) &gt; 0.5)</code></pre>
+<p>Specify colors</p>
+<pre class="r"><code>#head(mat_df)
+
+# Change name 
+mat_df$from &lt;- gsub(&quot;Lachnospiraceae_bacterium&quot;, &quot;Flavonifractor_plautii&quot;,mat_df$from)
+
+head(mat_df)</code></pre>
+<pre><code>                       from                       to  Difference   P-value
+1 Bacteroides_xylanisolvens arabinoxylan degradation -0.02637824 0.8381044
+2       Eubacterium_siraeum arabinoxylan degradation -0.15206490 0.8381044
+3     Agathobacter_rectalis arabinoxylan degradation  0.09333723 0.8381044
+4 Subdoligranulum_variabile arabinoxylan degradation  0.14423437 0.8381044
+5    Roseburia_intestinalis arabinoxylan degradation -0.11149263 0.6159204
+6        Bacteroides_ovatus arabinoxylan degradation  0.38590780 0.2202847
+  ModuleName Category
+1     MF0001    Other
+2     MF0001    Other
+3     MF0001    Other
+4     MF0001    Other
+5     MF0001    Other
+6     MF0001    Other</code></pre>
+<pre class="r"><code>mat_df$from &lt;- gsub(&quot;_&quot;,&quot; &quot;,mat_df$from)
+# set colors  
+strain.colors &lt;- c(&#39;Bacteroides ovatus&#39; = &quot;#1F78B4&quot;, 
+                   &#39;Bacteroides xylanisolvens&#39; = &quot;#B2DF8A&quot;, 
+                   &#39;Anaerobutyricum soehngenii&#39; = &quot;#FDBF6F&quot;, 
+                   &#39;Agathobacter rectalis&#39; = &quot;#33A02C&quot;, 
+                   &#39;Eubacterium siraeum&#39; =&quot;#FB9A99&quot;, 
+                   &#39;Faecalibacterium prausnitzii&#39; = &quot;#A6CEE3&quot;, 
+                   &#39;Flavonifractor plautii&#39; = &quot;#E31A1C&quot;, 
+                   &#39;Roseburia intestinalis&#39; = &quot;#CAB2D6&quot;, 
+                   &#39;Subdoligranulum variabile&#39; = &quot;#FF7F00&quot;, 
+                   &#39;Coprococcus catus&#39; = &quot;#6A3D9A&quot;)</code></pre>
+</div>
+<div id="plot-chords" class="section level2">
+<h2>Plot Chords</h2>
+<pre class="r"><code># Split the data to positive and negative change. Anything below 0 (negative values is higher in 24h while positive are higher in 48h samples)
+mat.pos &lt;- subset(mat_df, Difference &gt; 0)
+mat.neg &lt;- subset(mat_df, Difference &lt; 0)
+
+mat.pos_other &lt;- subset(mat.pos, Category== &quot;Other&quot;)
+mat.neg_other &lt;- subset(mat.neg, Category== &quot;Other&quot;)
+#subset(mat_df, Category== &quot;Other&quot; &amp; abs(Difference) &gt;= 0.2) %&gt;% 
+#  ggplot(aes(Difference, to)) +
+#  geom_col() + facet_grid(~ from, scales = &quot;free_y&quot;)
+
+mat.pos_other &lt;- mat.pos_other %&gt;% select(-&quot;P-value&quot;)
+
+circos.par(start.degree = 180, gap.degree =3)
+chordDiagram(mat.pos_other, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.8, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-11-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>############################ SAVE PLOT ####################################################
+pdf(&quot;data/05_gmm/figs/GMM_positive_chord_other.pdf&quot;, height = 6, width = 10)
+#par(mar=c(4.5, 0.5, 0.5, 0.5))
+circos.par(start.degree = 180, gap.degree =3)
+chordDiagram(mat.pos_other, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>circos.clear()
+
+#########################################################################################
+
+#########################################################################################
+circos.par(start.degree = 180, gap.degree =3)
+chordDiagram(mat.neg_other, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-11-2.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>############################ SAVE PLOT ####################################################
+pdf(&quot;data/05_gmm/figs/GMM_negative_chord_other.pdf&quot;, height = 6, width = 10)
+#par(mar=c(4.5, 0.5, 0.5, 0.5))
+circos.par(start.degree = 180, gap.degree =3)
+chordDiagram(mat.neg_other, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>circos.clear()</code></pre>
+<pre class="r"><code>mat.pos_aa &lt;- subset(mat.pos, Category != &quot;Other&quot;)
+mat.neg_aa &lt;- subset(mat.neg, Category != &quot;Other&quot;)
+
+mat.pos_aa &lt;- mat.pos_aa %&gt;% select(-&quot;P-value&quot;)
+mat.neg_aa &lt;- mat.neg_aa %&gt;% select(-&quot;P-value&quot;)
+
+circos.par(start.degree = 180, gap.degree =2)
+chordDiagram(mat.pos_aa, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.3, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-12-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>############################ SAVE PLOT ####################################################
+
+pdf(&quot;data/05_gmm/figs/GMM_positive_chord_AA.pdf&quot;, height = 6, width = 10)
+#par(mar=c(4.5, 0.5, 0.5, 0.5))
+circos.par(start.degree = 180, gap.degree =2)
+chordDiagram(mat.pos_aa, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.3, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>circos.clear()
+
+###############################################################################################
+
+###############################################################################################
+circos.par(start.degree = 180, gap.degree =2)
+chordDiagram(mat.neg_aa, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.3, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-12-2.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>############################ SAVE PLOT ####################################################
+
+pdf(&quot;data/05_gmm/figs/GMM_negative_chord_AA.pdf&quot;, height = 6, width = 10)
+#par(mar=c(4.5, 0.5, 0.5, 0.5))
+circos.par(start.degree = 180, gap.degree =3)
+chordDiagram(mat.neg_aa, annotationTrack = &quot;grid&quot;, big.gap = 10,
+             transparency = 0.1, grid.col = strain.colors,
+             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
+for(si in get.all.sector.index()) {
+  xlim = get.cell.meta.data(&quot;xlim&quot;, sector.index = si, track.index = 1)
+  ylim = get.cell.meta.data(&quot;ylim&quot;, sector.index = si, track.index = 1)
+  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
+              facing = &quot;bending.inside&quot;, niceFacing = TRUE, col = &quot;white&quot;)
+}
+circos.track(track.index = 1, panel.fun = function(x, y) {
+  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
+              facing = &quot;clockwise&quot;, niceFacing = TRUE, adj = c(0, 0.5))
+}, bg.border = NA)
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>circos.clear()</code></pre>
+</div>
+</div>
+<div id="species-function-contributions" class="section level1">
+<h1>Species Function Contributions</h1>
+<pre class="r"><code>#modsDF
+curatedGMM_names &lt;- read.table(&quot;data_raw/05_gmm/ModulesCustom/CuratedGMM_names.txt&quot;, header=F, sep=&quot;\t&quot;)
+head(curatedGMM_names)</code></pre>
+<pre><code>      V1                            V2    V3
+1 MF0001      arabinoxylan degradation Other
+2 MF0002 fructan degradation (Curated) Other
+3 MF0003          pectin degradation I Other
+4 MF0004         pectin degradation II Other
+5 MF0005            starch degradation Other
+6 MF0006           lactose degradation Other</code></pre>
+<pre class="r"><code>fil_list &lt;- modsDF$Module
+curatedGMM_names_filt &lt;- filter(curatedGMM_names, curatedGMM_names$V1 %in% fil_list)
+
+dim(curatedGMM_names_filt)</code></pre>
+<pre><code>[1] 97  3</code></pre>
+<pre class="r"><code>#curatedGMM_names_filt$V1
+colnames(curatedGMM_names_filt) &lt;- c(&quot;Module&quot;, &quot;Names&quot;)
+#unique(mat$from)
+#dim(pval)
+module_df &lt;- merge(modsDF, curatedGMM_names_filt, by.x=&quot;Module&quot;)
+#dim(module_df)
+#head(module_df)
+
+#count.module &lt;- module_df %&gt;% group_by(Names, Taxon) %&gt;% 
+#  summarise(mean(B1T24), mean(B2T24), mean(B3T24),mean(B1T48), mean(B2T48), mean(B3T48))
+
+module_df_lng &lt;- melt(module_df)</code></pre>
+<pre><code>Using Module, Taxon, Names, NA as id variables</code></pre>
+<pre class="r"><code>head(module_df_lng)</code></pre>
+<pre><code>  Module                     Taxon                    Names    NA variable
+1 MF0001 Bacteroides_xylanisolvens arabinoxylan degradation Other    B1T48
+2 MF0001       Eubacterium_siraeum arabinoxylan degradation Other    B1T48
+3 MF0001     Agathobacter_rectalis arabinoxylan degradation Other    B1T48
+4 MF0001 Subdoligranulum_variabile arabinoxylan degradation Other    B1T48
+5 MF0001    Roseburia_intestinalis arabinoxylan degradation Other    B1T48
+6 MF0001        Bacteroides_ovatus arabinoxylan degradation Other    B1T48
+      value
+1  67.24725
+2 658.16087
+3  79.83455
+4  57.93609
+5 117.76890
+6 124.32119</code></pre>
+<pre class="r"><code>count.module &lt;- dcast(module_df_lng, Taxon + Names + Module ~ variable, value.var=&quot;value&quot;)
+
+#head(count.module)
+
+colnames(count.module) &lt;- c(&quot;Taxon&quot;, &quot;Module&quot;, &quot;ModuleID&quot;, &quot;B1T24&quot;, &quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)</code></pre>
+<div id="all-modules-heatmap" class="section level2">
+<h2>All modules heatmap</h2>
+<pre class="r"><code>count.module.df1 &lt;- reshape2::melt(count.module)</code></pre>
+<pre><code>Using Taxon, Module, ModuleID as id variables</code></pre>
+<pre class="r"><code>#write.csv(count.module, &quot;03_gmm_anlaysis/tables/count_module.csv&quot;)
+
+#head(count.module.df1)
+count.module.df1 &lt;- count.module.df1 %&gt;% tidyr::separate(variable, c(&quot;Rep&quot;, &quot;TimePoint&quot;), &quot;T&quot;)
+#head(count.module.df1)
+#hist(count.module.df1$value)
+
+count.module.df1$Taxon &lt;- gsub(&quot;Lachnospiraceae_bacterium&quot;, &quot;Flavonifractor_plautii&quot;, count.module.df1$Taxon)
+
+
+#tax.labs &lt;- c(&quot;AREC&quot;,&quot;ASOE&quot;,&quot;BOVA&quot;, &quot;BXYL&quot;,&quot;CCAT&quot;,&quot;ESIR&quot;,
+#               &quot;FRAU&quot;, &quot;LACH&quot;,&quot;RINT&quot;, &quot;SVAR&quot;)
+unique(count.module.df1$Taxon)</code></pre>
+<pre><code> [1] &quot;Agathobacter_rectalis&quot;        &quot;Anaerobutyricum_soehngenii&quot;  
+ [3] &quot;Bacteroides_ovatus&quot;           &quot;Bacteroides_xylanisolvens&quot;   
+ [5] &quot;Coprococcus_catus&quot;            &quot;Eubacterium_siraeum&quot;         
+ [7] &quot;Faecalibacterium_prausnitzii&quot; &quot;Flavonifractor_plautii&quot;      
+ [9] &quot;Roseburia_intestinalis&quot;       &quot;Subdoligranulum_variabile&quot;   </code></pre>
+<pre class="r"><code>count.module.df2 &lt;-count.module.df1
+#levels(count.module.df2$Taxon) &lt;- c(&quot;AREC&quot;,&quot;ASOE&quot;,&quot;BOVA&quot;, &quot;BXYL&quot;,&quot;CCAT&quot;,&quot;ESIR&quot;,
+#               &quot;FRAU&quot;, &quot;FPLA&quot;,&quot;RINT&quot;, &quot;SVAR&quot;)
+mod.heat &lt;- ggplot(count.module.df2, aes(TimePoint, Module)) +
+  geom_tile(aes(fill = log(value)), color = &quot;white&quot;, size = 0.9) + 
+  theme_classic2(base_size = 12) + rotate_x_text() + 
+  scale_fill_gradientn(&quot;Median abundance (log10)&quot;,
+                       colors = brewer.pal(9, &#39;BuPu&#39;),
+                       na.value = &#39;#f0f0f0&#39;) + facet_grid( ~ Taxon) + ylab(&quot;Metabolic Module&quot;) + xlab(&quot;Time (hr)&quot;)
+
+# + scale_fill_gradient(high = brewer.pal(10, &#39;Spectral&#39;)[4], low=&#39;white&#39;, na.value = &#39;white&#39;)
+mod.heat</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-14-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/module_abund_heatmap.pdf&quot;, height = 12, width = 12)</code></pre>
+<pre class="r"><code>strain.colors &lt;- c(`Bacteroides ovatus` = &quot;#1F78B4&quot;, 
+                   `Bacteroides xylanisolvens` = &quot;#B2DF8A&quot;, 
+                   `Anaerobutyricum soehngenii` = &quot;#FDBF6F&quot;, 
+                   `Agathobacter rectalis`= &quot;#33A02C&quot;, 
+                   `Eubacterium siraeum` =&quot;#FB9A99&quot;, 
+                   `Faecalibacterium prausnitzii` = &quot;#A6CEE3&quot;, 
+                   `Flavonifractor plautii` = &quot;#E31A1C&quot;, 
+                   `Roseburia intestinalis` = &quot;#CAB2D6&quot;, 
+                   `Subdoligranulum variabile` = &quot;#FF7F00&quot;, 
+                   `Coprococcus catus` = &quot;#6A3D9A&quot;)
+count.module.df2$Taxon &lt;- gsub(&quot;_&quot;, &quot; &quot;,count.module.df2$Taxon)</code></pre>
+<pre class="r"><code>#str.short.colors &lt;- c(BOVA = &quot;#1F78B4&quot;,BXYL = &quot;#B2DF8A&quot;,ASOE = &quot;#FDBF6F&quot;,   AREC= &quot;#33A02C&quot;, ESIR =&quot;#FB9A99&quot;,  FRAU = &quot;#A6CEE3&quot;,  FPLA = &quot;#E31A1C&quot;,  RINT= &quot;#CAB2D6&quot;,  SVAR = &quot;#FF7F00&quot;,  CCAT = &quot;#6A3D9A&quot;)
+
+custom_theme &lt;- theme_bw() +
+  theme(panel.grid.major = element_line(colour = &quot;#d3d3d3&quot;),
+        panel.grid.minor = element_blank(),
+        #panel.border = element_blank(), panel.background = element_blank(),
+        #plot.title = element_text(size = 14, family = &quot;Tahoma&quot;, face = &quot;bold&quot;),
+        #text=element_text(family=&quot;Tahoma&quot;),
+        axis.title = element_text(face=&quot;bold&quot;),
+        axis.text.x=element_text(colour=&quot;black&quot;, size = 11),
+        axis.text.y=element_text(colour=&quot;black&quot;, size = 9),
+        axis.line = element_line(size=0.5, colour = &quot;black&quot;),
+        strip.background = element_rect(color=&quot;black&quot;, fill=&quot;white&quot; #, size=1.5, linetype=&quot;solid&quot;
+        )
+  )</code></pre>
+</div>
+<div id="degradation" class="section level2">
+<h2>Degradation</h2>
+<pre class="r"><code>#count.module.df2
+
+module.fiber &lt;- subset(count.module.df2, Module == &quot;pectin degradation I&quot; | Module == &quot;pectin degradation II&quot;| Module == &quot;fructan degradation (Curated)&quot;| Module == &quot;arabinoxylan degradation&quot; | Module ==&quot;starch degradation&quot; | Module == &quot;cellobiose degradation I (curated)&quot;)
+module.fiber[module.fiber ==0]&lt;- NA
+
+module.fiber.plot &lt;- ggboxplot(module.fiber, &quot;TimePoint&quot;,&quot;value&quot;, 
+                               facet.by = &quot;Module&quot;, 
+                               fill = &quot;Taxon&quot;,
+                               color = NULL,
+                               palette = strain.colors, width = 0.5,
+                               add= &quot;dotplot&quot;,
+                               xlab = &quot;Time (hr)&quot;,
+                               ylab = &quot;Median module abundance&quot;,
+                               scales = &quot;free&quot;) + custom_theme +  theme(legend.text = element_text(face = &quot;italic&quot;)) #+ theme_classic2(base_size = 12)
+
+# + scale_fill_gradient(high = brewer.pal(10, &#39;Spectral&#39;)[4], low=&#39;white&#39;, na.value = &#39;white&#39;)
+module.fiber.plot </code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-17-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/module_fiber_plot.pdf&quot;, height = 6, width = 12)</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div id="scfa-production" class="section level2">
+<h2>SCFA production</h2>
+<pre class="r"><code>#count.module.df2
+module.vfa &lt;- subset(count.module.df2, Module == &quot;propionate production IV (1,2-PD)&quot; | Module == &quot;propionate production I&quot;| Module == &quot;propionate production II&quot;| Module == &quot;propionate production III&quot; | Module ==&quot;acetyl-CoA to acetate&quot;| Module==&quot;lactate production&quot;| Module == &quot;lactate consumption II&quot; | Module==&quot;acetyl-CoA to crotonyl-CoA&quot; | Module == &quot;lactate consumption III (lctABCDEF, Curated)&quot; | Module == &quot;pyruvate:formate lyase&quot;)
+module.vfa[module.vfa ==0]&lt;- NA
+
+module.vfa.plot &lt;- ggboxplot(module.vfa, &quot;TimePoint&quot;,&quot;value&quot;, 
+                             facet.by = &quot;Module&quot;, 
+                             fill = &quot;Taxon&quot;, width = 0.5,
+                             palette = strain.colors,
+                             add= &quot;dotplot&quot;,
+                             xlab = &quot;Time (hr)&quot;,
+                             ylab = &quot;Median module abundance&quot;,
+                             scales = &quot;free&quot;) + custom_theme +  theme(legend.text = element_text(face = &quot;italic&quot;)) #+ theme_minimal(base_size = 12)
+
+
+module.vfa.plot </code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_bindot).</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-18-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/module_vfa_plot.pdf&quot;, height = 6, width = 12)</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_bindot).</code></pre>
+<pre class="r"><code>#ggarrange(module.fiber.plot, module.vfa.plot, 
+#          ncol = 1, 
+#          nrow=2, 
+#          common.legend = F,
+#          labels = c(&quot;a&quot;, &quot;b&quot;), legend = &quot;right&quot;)
+#ggsave(&quot;03_gmm_anlaysis/figs/module_fibre_vfa_plot.pdf&quot;, height = 10, width = 12)
+#ggsave(&quot;03_gmm_anlaysis/figs/module.fibre.vfa.plot.tiff&quot;, height = 10, width = 12)</code></pre>
+<pre class="r"><code>module.fiber.plot + module.vfa.plot + plot_layout(ncol = 1, heights = c(1, 2.5))</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_bindot).</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-19-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/module.fibre.vfa.plot2.pdf&quot;, height = 10, width = 12)</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_bindot).</code></pre>
+</div>
+<div id="mono-sugars" class="section level2">
+<h2>Mono sugars</h2>
+<pre class="r"><code>#count.module.df2
+
+list.carbs &lt;- c(&quot;xylose degradation&quot;, &quot;galacturonate degradation I&quot;, &quot;galacturonate degradation II&quot;, &quot;lactose and galactose degradation&quot;, &quot;maltose degradation&quot;, &quot;arabinose degradation&quot;,   &quot;fructose degradation&quot;, &quot;galactose degradation&quot;, &quot;mannose degradation&quot;, &quot;rhamnose degradation&quot;)
+
+module.carbs &lt;- subset(count.module.df2, Module %in% list.carbs)
+module.carbs[module.carbs ==0]&lt;- NA
+module.carbs.plot &lt;- ggboxplot(module.carbs, &quot;TimePoint&quot;,&quot;value&quot;, 
+                               facet.by = &quot;Module&quot;, 
+                               fill = &quot;Taxon&quot;,
+                               palette = strain.colors, width = 0.5,
+                               add= &quot;dotplot&quot;,
+                               xlab = &quot;Time (hr)&quot;,
+                               ylab = &quot;Median module abundance&quot;,
+                               scales = &quot;free&quot;)+ custom_theme +  theme(legend.text = element_text(face = &quot;italic&quot;))
+
+# + scale_fill_gradient(high = brewer.pal(10, &#39;Spectral&#39;)[4], low=&#39;white&#39;, na.value = &#39;white&#39;)
+#module.carbs.plot
+module.carbs.plot</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-20-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/module_monosac_plot.pdf&quot;, height = 6, width = 10,
+       useDingbats = FALSE)</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div id="amino-acid-degradation" class="section level2">
+<h2>Amino acid degradation</h2>
+<pre class="r"><code>aa_list &lt;- c(&quot;alanine degradation I&quot;,
+             &quot;alanine degradation II&quot;,
+             &quot;arginine degradation I&quot;,
+             &quot;arginine degradation IV&quot;,
+             &quot;arginine degradation V&quot;,
+             &quot;aspartate degradation I&quot;,
+             &quot;aspartate degradation II&quot;,
+             &quot;cysteine degradation I&quot;,
+             &quot;cysteine degradation II&quot;,
+             &quot;glutamate degradation II&quot;,
+             &quot;glutamine degradation I&quot;,
+             &quot;glutamine degradation II&quot;,
+             &quot;glycine degradation&quot;,
+             &quot;histidine degradation&quot;,
+             &quot;isoleucine degradation&quot;,
+             &quot;leucine degradation&quot;,
+             &quot;lysine degradation I&quot;,
+             &quot;methionine degradation I&quot;,
+             &quot;serine degradation&quot;,
+             &quot;threonine degradation I&quot;,
+             &quot;threonine degradation II&quot;,
+             &quot;tryptophan degradation&quot;,
+             &quot;tyrosine degradation I&quot;)
+
+module.aa &lt;- subset(count.module.df2, Module %in% aa_list)
+module.aa[module.aa ==0]&lt;- NA
+module.aa.plot &lt;- ggboxplot(module.aa, &quot;TimePoint&quot;,&quot;value&quot;, 
+                            facet.by = &quot;Module&quot;, 
+                            fill = &quot;Taxon&quot;,
+                            palette = strain.colors, width = 0.5,
+                            add= &quot;dotplot&quot;,
+                            xlab = &quot;Time (hr)&quot;,
+                            ylab = &quot;Median module abundance&quot;,
+                            scales = &quot;free&quot;)+ custom_theme +  theme(legend.text = element_text(face = &quot;italic&quot;)) 
+
+# + scale_fill_gradient(high = brewer.pal(10, &#39;Spectral&#39;)[4], low=&#39;white&#39;, na.value = &#39;white&#39;)
+module.aa.plot</code></pre>
+<pre><code>Warning: Removed 5 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 5 rows containing non-finite values (stat_bindot).</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-21-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/moduleaminoacids_plot.pdf&quot;, 
+       height = 15, width = 20,
+       useDingbats = FALSE)</code></pre>
+<pre><code>Warning: Removed 5 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 5 rows containing non-finite values (stat_bindot).</code></pre>
+<pre class="r"><code>module.aa$taxa_ab &lt;- toupper(abbreviate(module.aa$Taxon,method = &quot;both.sides&quot;, minlength = 3))
+module.aa.plot &lt;- ggplot(module.aa, aes(TimePoint, Module)) +  
+  geom_tile(aes(fill = log2(value)), color=&quot;white&quot;, size = 2) + 
+  theme_classic2(base_size = 10) + rotate_x_text() + 
+  scale_fill_gradientn(&quot;Median counts (log2)&quot;,
+                       colors = brewer.pal(9, &#39;Greys&#39;), 
+                       na.value = &#39;#f0f0f0&#39;) + 
+  facet_grid(~ taxa_ab, scales = &quot;free&quot;) + 
+  ylab(&quot;Metabolic Module&quot;) + 
+  xlab(&quot;Time (hr)&quot;) + 
+  theme(axis.text.x=element_text(size=10)) 
+
+ggsave(&quot;data/05_gmm/figs/moduleaminoacids_heatmap_plot.pdf&quot;, height = 6, width = 8)
+ggsave(&quot;data/05_gmm/figs/moduleaminoacids_heatmap_plot.png&quot;, height = 6, width = 8)</code></pre>
+</div>
+<div id="amino-acids-biosynthesis" class="section level2">
+<h2>Amino acids biosynthesis</h2>
+<pre class="r"><code>count.module.aab &lt;- filter(count.module.df2, grepl(&quot;biosynthesis&quot;,Module))
+head(count.module.aab)</code></pre>
+<pre><code>                  Taxon
+1 Agathobacter rectalis
+2 Agathobacter rectalis
+3 Agathobacter rectalis
+4 Agathobacter rectalis
+5 Agathobacter rectalis
+6 Agathobacter rectalis
+                                                            Module ModuleID Rep
+1 arginine biosynthesis, glutamate =&gt; acetylcitrulline =&gt; arginine  MF00845  B1
+2                     arginine biosynthesis, ornithine =&gt; arginine  MF00844  B1
+3                    cysteine biosynthesis, methionine =&gt; cysteine  MF00609  B1
+4                        cysteine biosynthesis, serine =&gt; cysteine  MF00021  B1
+5                                         glutamate biosynthesis I   MGB006  B1
+6                                        glutamate biosynthesis II   MGB007  B1
+  TimePoint     value
+1        24  64.57460
+2        24  47.24550
+3        24  32.07176
+4        24  78.02405
+5        24  70.69582
+6        24 162.25553</code></pre>
+<pre class="r"><code>count.module.aab[count.module.aab ==0]&lt;- NA
+
+module.aab.plot &lt;- ggboxplot(count.module.aab, &quot;TimePoint&quot;,&quot;value&quot;, 
+                             facet.by = &quot;Module&quot;, 
+                             fill = &quot;Taxon&quot;,
+                             palette = strain.colors, width = 0.5,
+                             add= &quot;dotplot&quot;,
+                             xlab = &quot;Time (hr)&quot;,
+                             ylab = &quot;Median module abundance&quot;,
+                             scales = &quot;free&quot;)+ custom_theme + theme(legend.text = element_text(face = &quot;italic&quot;))
+
+module.aab.plot</code></pre>
+<pre><code>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 2 rows containing non-finite values (stat_bindot).</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-23-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/moduleaminoacids_biosynth_plot.pdf&quot;, 
+       height = 15, width = 20,
+       useDingbats = FALSE)</code></pre>
+<pre><code>Warning: Removed 2 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 2 rows containing non-finite values (stat_bindot).</code></pre>
+<pre class="r"><code>count.module.aab$taxa_ab &lt;- toupper(abbreviate(count.module.aab$Taxon,method = &quot;both.sides&quot;, minlength = 3))
+
+module.aab.plot &lt;- ggplot(count.module.aab, aes(TimePoint, Module)) +  
+  geom_tile(aes(fill = log2(value)), color=&quot;white&quot;, size = 2) + 
+  theme_classic2(base_size = 10) + rotate_x_text() + 
+  scale_fill_gradientn(&quot;Median counts (log2)&quot;,colors = brewer.pal(9, &#39;Greys&#39;), na.value = &#39;#f0f0f0&#39;) + 
+  facet_grid(~ taxa_ab, scales = &quot;free&quot;) + 
+  ylab(&quot;Metabolic Module&quot;) + 
+  xlab(&quot;Time (hr)&quot;) + 
+  theme(axis.text.x=element_text(size=12))
+
+ggsave(&quot;data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.pdf&quot;, height = 6, width = 10)
+ggsave(&quot;data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.png&quot;, height = 6, width = 10)</code></pre>
+<div id="lysine-biosynthesis-and-degradation" class="section level3">
+<h3>Lysine biosynthesis and degradation</h3>
+<pre class="r"><code>## Amino acids biosynthesis  
+
+count.module.lys &lt;- filter(count.module.df2, grepl(&quot;Lysine&quot;, ignore.case = TRUE,Module) )
+head(count.module.lys)</code></pre>
+<pre><code>                       Taxon
+1      Agathobacter rectalis
+2      Agathobacter rectalis
+3      Agathobacter rectalis
+4 Anaerobutyricum soehngenii
+5 Anaerobutyricum soehngenii
+6 Anaerobutyricum soehngenii
+                                                                  Module
+1 lysine biosynthesis, DAP aminotransferase pathway, aspartate =&gt; lysine
+2    lysine biosynthesis, DAP dehydrogenase pathway, aspartate =&gt; lysine
+3         lysine biosynthesis, succinyl-DAP pathway, aspartate =&gt; lysine
+4 lysine biosynthesis, DAP aminotransferase pathway, aspartate =&gt; lysine
+5    lysine biosynthesis, DAP dehydrogenase pathway, aspartate =&gt; lysine
+6         lysine biosynthesis, succinyl-DAP pathway, aspartate =&gt; lysine
+  ModuleID Rep TimePoint     value
+1  MF00527  B1        24 56.211801
+2  MF00526  B1        24 71.385538
+3  MF00016  B1        24 61.039808
+4  MF00527  B1        24  8.449013
+5  MF00526  B1        24  4.138292
+6  MF00016  B1        24  7.414440</code></pre>
+<pre class="r"><code>unique(count.module.lys$Module)</code></pre>
+<pre><code>[1] &quot;lysine biosynthesis, DAP aminotransferase pathway, aspartate =&gt; lysine&quot;
+[2] &quot;lysine biosynthesis, DAP dehydrogenase pathway, aspartate =&gt; lysine&quot;   
+[3] &quot;lysine biosynthesis, succinyl-DAP pathway, aspartate =&gt; lysine&quot;        
+[4] &quot;lysine degradation I&quot;                                                  </code></pre>
+<pre class="r"><code>count.module.lys[count.module.lys ==0]&lt;- NA
+
+count.module.lys.plot &lt;- ggboxplot(count.module.lys, &quot;TimePoint&quot;,&quot;value&quot;, 
+                                   facet.by = &quot;Module&quot;, 
+                                   fill = &quot;Taxon&quot;,
+                                   palette = strain.colors, width = 0.5,
+                                   add= &quot;dotplot&quot;,
+                                   xlab = &quot;Time (hr)&quot;,
+                                   ylab = &quot;Median module abundance&quot;,
+                                   scales = &quot;free&quot;)+ custom_theme + theme(legend.text = element_text(face = &quot;italic&quot;))
+count.module.lys.plot</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-25-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/05_gmm/figs/module_lysine_plot.pdf&quot;, height = 5, width = 12)</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+</div>
+<div id="arabinoxylan" class="section level2">
+<h2>Arabinoxylan</h2>
+<p>Below are the KOs that are considered for each of the complex substrate degradation.</p>
+<p><strong>MF0001 arabinoxylan degradation</strong><br />
+K01209 K15921 K01181 K01198 K15531 K18205</p>
+<p><strong>MF0002 fructan degradation (curated, FOS)</strong><br />
+K01193 K03332<br />
+K00847<br />
+K10117<br />
+K10118,K10119,K10112</p>
+<p><strong>MF0003 pectin degradation I</strong><br />
+K01051 K01184,K01213 K18650</p>
+<p><strong>MF0004 pectin degradation II</strong><br />
+K01051<br />
+K18650<br />
+K01728 K19551 K01731<br />
+K01730<br />
+K01815<br />
+K00874<br />
+K01625 K17463</p>
+<p><strong>MF0005 starch degradation</strong><br />
+K01176 K07405 K05343<br />
+K01200 K01208<br />
+K00688 K16153 K00705 K01187 K15922 K01178 K01182</p>
+<pre class="r"><code>MF0001 &lt;- c(&quot;K01209&quot;,   &quot;K15921&quot;,   &quot;K01181&quot;,   &quot;K01198&quot;,   &quot;K15531&quot;,   &quot;K18205&quot;, 
+            &quot;K01193&quot;,   &quot;K03332&quot;, &quot;K00847&quot;, &quot;K10117&quot;, &quot;K10118&quot;,&quot;K10119&quot;,&quot;K10112&quot;, 
+            &quot;K01051&quot;, &quot;K01184&quot;, &quot;K01213&quot;, &quot;K18650&quot;, 
+            &quot;K01051&quot;, &quot;K18650&quot;, &quot;K01728&quot;,   &quot;K19551&quot;,   &quot;K01731&quot;,&quot;K01730&quot;, &quot;K01815&quot;, &quot;K00874&quot;, &quot;K01625&quot;,    &quot;K17463&quot;, 
+            &quot;K01176&quot;, &quot;K07405&quot;, &quot;K05343&quot;, &quot;K01200&quot;, &quot;K01208&quot;, &quot;K00688&quot;, &quot;K16153&quot;,   &quot;K00705&quot;,   &quot;K01187&quot;,   &quot;K15922&quot;,   &quot;K01178&quot;,   &quot;K01182&quot;)
+
+#brite_names &lt;- subset(complete_table_brite, KO %in% MF0001)
+KO_gene &lt;- select(complete_table_brite, GeneName, KO)
+KO_gene &lt;- distinct(KO_gene, KO, GeneName)
+head(KO_gene)</code></pre>
+<pre><code>                                              GeneName     KO
+1           hom; homoserine dehydrogenase [EC:1.1.1.3] K00003
+2            gldA; glycerol dehydrogenase [EC:1.1.1.6] K00005
+3   SORD, gutB; L-iditol 2-dehydrogenase [EC:1.1.1.14] K00008
+4  UGDH, ugd; UDPglucose 6-dehydrogenase [EC:1.1.1.22] K00012
+5         hisD; histidinol dehydrogenase [EC:1.1.1.23] K00013
+6          aroE; shikimate dehydrogenase [EC:1.1.1.25] K00014</code></pre>
+<pre class="r"><code>cpm_table_brite_count_name &lt;- cpm_table_brite_count
+cpm_table_brite_count_name &lt;- merge(cpm_table_brite_count,KO_gene, by=&quot;KO&quot;)
+
+brite_names &lt;- subset(cpm_table_brite_count_name, KO %in% MF0001)
+
+#brite_names
+colnames(brite_names)</code></pre>
+<pre><code>[1] &quot;KO&quot;              &quot;B1T24&quot;           &quot;B2T24&quot;           &quot;B3T24&quot;          
+[5] &quot;B1T48&quot;           &quot;B2T48&quot;           &quot;B3T48&quot;           &quot;BacterialStrain&quot;
+[9] &quot;GeneName&quot;       </code></pre>
+<pre class="r"><code>head(brite_gmm)</code></pre>
+<pre><code>      KO                      Species      B1T24      B2T24      B3T24
+1 K00003        Agathobacter_rectalis 148.292379 134.891967 127.812570
+2 K00003   Anaerobutyricum_soehngenii  22.430780  32.620933   3.264689
+3 K00003            Coprococcus_catus  27.415398  25.567759   9.304363
+4 K00003          Eubacterium_siraeum 265.430897 247.742764  58.111462
+5 K00003 Faecalibacterium_prausnitzii  45.796176  41.216990  82.270160
+6 K00003    Lachnospiraceae_bacterium   8.411543   3.967411  28.892497
+       B1T48      B2T48     B3T48
+1  55.866943 128.260599 127.33222
+2   8.793871  20.734546  37.48565
+3  10.690588   6.972679  49.98087
+4  78.455120  81.103269  70.65748
+5 138.287926 160.922096 101.74677
+6  33.623623  47.340822  41.50197</code></pre>
+<pre class="r"><code>brite_names &lt;- brite_names[,c(&quot;KO&quot;,&quot;GeneName&quot;)]
+
+head(brite_names)</code></pre>
+<pre><code>        KO                                        GeneName
+763 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+764 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+765 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+766 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+767 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+768 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]</code></pre>
+<pre class="r"><code>brite_names &lt;- brite_names %&gt;% distinct(KO, .keep_all = T)
+
+arabinoxylan &lt;- subset(brite_gmm, KO %in% MF0001)
+
+deg &lt;- merge(brite_names, arabinoxylan, by = &quot;KO&quot;)
+deg$Module &lt;- deg$KO
+
+Arabinoxylandegradation= c(&quot;K01209&quot;,    &quot;K15921&quot;,   &quot;K01181&quot;,   &quot;K01198&quot;,   &quot;K15531&quot;,   &quot;K18205&quot;)
+fructandegradation = c(&quot;K01193&quot;,    &quot;K03332&quot;, &quot;K00847&quot;, &quot;K10117&quot;, &quot;K10118&quot;,&quot;K10119&quot;,&quot;K10112&quot;)
+pectindegradationI = c(&quot;K01051&quot;, &quot;K01184&quot;, &quot;K01213&quot;, &quot;K18650&quot; )
+pectindegradationII = c(&quot;K01051&quot;, &quot;K18650&quot;, &quot;K01728&quot;,   &quot;K19551&quot;,   &quot;K01731&quot;,&quot;K01730&quot;, &quot;K01815&quot;, &quot;K00874&quot;, &quot;K01625&quot;,    &quot;K17463&quot;)
+starchdegradation= c(&quot;K01176&quot;, &quot;K07405&quot;,    &quot;K05343&quot;, &quot;K01200&quot;, &quot;K01208&quot;, &quot;K00688&quot;, &quot;K16153&quot;,   &quot;K00705&quot;,   &quot;K01187&quot;,   &quot;K15922&quot;,   &quot;K01178&quot;,   &quot;K01182&quot;)
+
+
+deg &lt;- deg %&gt;%
+  mutate(Module = case_when(KO %in% Arabinoxylandegradation ~ &#39;Arabinoxylan_degradation&#39;,
+                            KO %in% fructandegradation ~ &#39;fructan_degradation&#39;,
+                            KO %in% pectindegradationI ~ &#39;pectindegradationI&#39;,
+                            KO %in% pectindegradationII~ &#39;pectindegradationII&#39;,
+                            KO %in% starchdegradation ~ &#39;starch_degradation&#39; ))
+
+#DT::datatable(deg)
+deg &lt;- reshape2::melt(deg)</code></pre>
+<pre><code>Using KO, GeneName, Species, Module as id variables</code></pre>
+<pre class="r"><code>deg &lt;- deg %&gt;% tidyr::separate(variable, c(&quot;Rep&quot;, &quot;TimePoint&quot;), &quot;T&quot;)
+head(deg)</code></pre>
+<pre><code>      KO                                        GeneName
+1 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+2 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+3 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+4 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+5 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+6 K00688  PYG, glgP; glycogen phosphorylase [EC:2.4.1.1]
+                     Species             Module Rep TimePoint      value
+1      Agathobacter_rectalis starch_degradation  B1        24  668.25032
+2 Anaerobutyricum_soehngenii starch_degradation  B1        24   75.39234
+3         Bacteroides_ovatus starch_degradation  B1        24  110.59621
+4  Bacteroides_xylanisolvens starch_degradation  B1        24   60.43849
+5          Coprococcus_catus starch_degradation  B1        24   37.07309
+6        Eubacterium_siraeum starch_degradation  B1        24 3231.90155</code></pre>
+<pre class="r"><code>deg &lt;- deg %&gt;% mutate(value = replace_na(value, 0))
+deg[deg ==0]&lt;- NA 
+
+write.csv(deg, &quot;data/05_gmm/tables/GMM_Deg.csv&quot;)</code></pre>
+<pre class="r"><code>#head(deg)
+
+deg$Species &lt;- gsub(&quot;Lachnospiraceae_bacterium&quot;, &quot;Flavonifractor_plautii&quot;, deg$Species)
+
+deg2 &lt;- deg
+
+deg2$Species&lt;- gsub(&quot;_&quot;, &quot; &quot;, deg2$Species)
+
+unique(deg2$TimePoint)</code></pre>
+<pre><code>[1] &quot;24&quot; &quot;48&quot;</code></pre>
+<pre class="r"><code># create graphing function
+module.graph &lt;- function(df, na.rm = TRUE, ...){
+  
+  # create list of counties in data to loop over 
+  mod_list &lt;- unique(df$Module)
+  
+  for (i in seq_along(mod_list)) { 
+    
+    # create plot for each county in df 
+    plot &lt;- 
+      ggboxplot(subset(df, df$Module==mod_list[i]), &quot;TimePoint&quot;,&quot;value&quot;, 
+                facet.by = &quot;GeneName&quot;, 
+                fill = &quot;Species&quot;,
+                palette = strain.colors, width = 0.5,
+                add= &quot;dotplot&quot;,
+                xlab = &quot;Time (hr)&quot;,
+                ylab = &quot;Median module abundance&quot;,
+                scales = &quot;free&quot;)+ custom_theme + theme(legend.text = element_text(face = &quot;italic&quot;), panel.grid = element_blank(),
+                                                       panel.spacing = unit(0.3, &quot;line&quot;),strip.background = element_blank(),
+                                                       strip.text = element_text(size = 6)) 
+    
+    
+    # save plots as .png
+    # ggsave(plot, file=paste(results, 
+    #                        &#39;projection_graphs/county_graphs/&#39;,
+    #                        county_list[i], &quot;.png&quot;, sep=&#39;&#39;), scale=2)
+    
+    # save plots as .pdf
+    ggsave(
+      plot,
+      file = paste(&#39;data/05_gmm/figs/&#39;,
+                   mod_list[i], &quot;.pdf&quot;, sep = &#39;&#39;),
+      height = 6,
+      width = 12,
+      useDingbats = FALSE
+    )
+    
+    # print plots to screen
+    print(plot)
+  }
+  
+}
+
+#pdf(&quot;03_gmm_anlaysis/figs/module_kos_carbs_plot.pdf&quot;, height = 6, width = 12)
+module.graph(deg2)</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-27-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_bindot).</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-27-2.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_bindot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-27-3.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-27-4.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/gmm_species_function.Rmd/unnamed-chunk-27-5.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()
+
+
+mod_list &lt;- unique(deg2$Module)
+de3 &lt;- subset(deg2, Module==&quot;pectin degradationI&quot; &amp;&amp; Module==&quot;pectin degradationII&quot;)
+pect1 &lt;- 
+  ggboxplot(subset(deg2, Module==&quot;pectindegradationI&quot; | Module==&quot;pectindegradationII&quot;), &quot;TimePoint&quot;,&quot;value&quot;, 
+            facet.by = &quot;GeneName&quot;, 
+            fill = &quot;Species&quot;,
+            palette = strain.colors, width = 0.5,
+            add= &quot;dotplot&quot;,
+            xlab = &quot;Time (hr)&quot;,
+            ylab = &quot;Median module abundance&quot;,
+            scales = &quot;free&quot;)+ 
+  custom_theme + 
+  theme(legend.text = element_text(face = &quot;italic&quot;), 
+        panel.grid = element_blank(),
+        panel.spacing = unit(0.3, &quot;line&quot;),
+        strip.background = element_blank(),
+        strip.text = element_text(size = 6)) 
+
+ggsave(&quot;data/05_gmm/figs/pectindegradationI_n_II.pdf&quot;,
+       height = 4,
+       width = 8,
+       useDingbats = FALSE
+)</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 1 rows containing non-finite values (stat_bindot).</code></pre>
+<div id="lysine-degration-kos" class="section level4">
+<h4>Lysine degration KOs</h4>
+<pre class="r"><code>lysine_KO &lt;- c(&quot;K01843&quot;,&quot;K01844&quot;,&quot;K18011&quot;,&quot;K18012&quot;,&quot;K18013&quot;, &quot;K18014&quot;)
+
+
+brite_names2 &lt;- subset(complete_table_brite, KO %in% lysine_KO)
+#brite_names
+colnames(brite_names2)</code></pre>
+<pre><code> [1] &quot;KO&quot;              &quot;LocusTag&quot;        &quot;B1T24&quot;           &quot;B2T24&quot;          
+ [5] &quot;B3T24&quot;           &quot;B1T48&quot;           &quot;B2T48&quot;           &quot;B3T48&quot;          
+ [9] &quot;Level_1&quot;         &quot;Level_2&quot;         &quot;Level_3&quot;         &quot;KOID&quot;           
+[13] &quot;GeneName&quot;        &quot;BacterialStrain&quot;</code></pre>
+<pre class="r"><code>head(brite_gmm)</code></pre>
+<pre><code>      KO                      Species      B1T24      B2T24      B3T24
+1 K00003        Agathobacter_rectalis 148.292379 134.891967 127.812570
+2 K00003   Anaerobutyricum_soehngenii  22.430780  32.620933   3.264689
+3 K00003            Coprococcus_catus  27.415398  25.567759   9.304363
+4 K00003          Eubacterium_siraeum 265.430897 247.742764  58.111462
+5 K00003 Faecalibacterium_prausnitzii  45.796176  41.216990  82.270160
+6 K00003    Lachnospiraceae_bacterium   8.411543   3.967411  28.892497
+       B1T48      B2T48     B3T48
+1  55.866943 128.260599 127.33222
+2   8.793871  20.734546  37.48565
+3  10.690588   6.972679  49.98087
+4  78.455120  81.103269  70.65748
+5 138.287926 160.922096 101.74677
+6  33.623623  47.340822  41.50197</code></pre>
+<pre class="r"><code>brite_names2 &lt;- brite_names2[,c(&quot;KO&quot;,&quot;GeneName&quot;)]
+
+head(brite_names2)</code></pre>
+<pre><code>          KO                                                         GeneName
+3682  K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+3683  K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+3684  K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+3685  K01844     kamD; beta-lysine 5,6-aminomutase alpha subunit [EC:5.4.3.3]
+13641 K18011      kamE; beta-lysine 5,6-aminomutase beta subunit [EC:5.4.3.3]
+13642 K18012  kdd; L-erythro-3,5-diaminohexanoate dehydrogenase [EC:1.4.1.11]</code></pre>
+<pre class="r"><code>brite_names2 &lt;- brite_names2 %&gt;% distinct(KO, .keep_all = T)
+
+lysineD &lt;- subset(brite_gmm, KO %in% lysine_KO)
+
+Lysdeg &lt;- merge(brite_names2, lysineD, by = &quot;KO&quot;)
+Lysdeg$Module &lt;- Lysdeg$KO
+
+#DT::datatable(deg)
+Lysdeg &lt;- reshape2::melt(Lysdeg)</code></pre>
+<pre><code>Using KO, GeneName, Species, Module as id variables</code></pre>
+<pre class="r"><code>Lysdeg &lt;- Lysdeg %&gt;% tidyr::separate(variable, c(&quot;Rep&quot;, &quot;TimePoint&quot;), &quot;T&quot;)
+head(Lysdeg)</code></pre>
+<pre><code>      KO                                                         GeneName
+1 K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+2 K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+3 K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+4 K01844     kamD; beta-lysine 5,6-aminomutase alpha subunit [EC:5.4.3.3]
+5 K18011      kamE; beta-lysine 5,6-aminomutase beta subunit [EC:5.4.3.3]
+6 K18012  kdd; L-erythro-3,5-diaminohexanoate dehydrogenase [EC:1.4.1.11]
+                    Species Module Rep TimePoint      value
+1        Bacteroides_ovatus K01843  B1        24   41.43464
+2 Bacteroides_xylanisolvens K01843  B1        24   42.99233
+3 Lachnospiraceae_bacterium K01843  B1        24  686.63110
+4 Lachnospiraceae_bacterium K01844  B1        24  620.89645
+5 Lachnospiraceae_bacterium K18011  B1        24  400.63865
+6 Lachnospiraceae_bacterium K18012  B1        24 1029.01203</code></pre>
+<pre class="r"><code>Lysdeg &lt;- Lysdeg %&gt;% mutate(value = replace_na(value, 0))
+Lysdeg[Lysdeg ==0]&lt;- NA 
+
+
+head(Lysdeg)</code></pre>
+<pre><code>      KO                                                         GeneName
+1 K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+2 K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+3 K01843                        kamA; lysine 2,3-aminomutase [EC:5.4.3.2]
+4 K01844     kamD; beta-lysine 5,6-aminomutase alpha subunit [EC:5.4.3.3]
+5 K18011      kamE; beta-lysine 5,6-aminomutase beta subunit [EC:5.4.3.3]
+6 K18012  kdd; L-erythro-3,5-diaminohexanoate dehydrogenase [EC:1.4.1.11]
+                    Species Module Rep TimePoint      value
+1        Bacteroides_ovatus K01843  B1        24   41.43464
+2 Bacteroides_xylanisolvens K01843  B1        24   42.99233
+3 Lachnospiraceae_bacterium K01843  B1        24  686.63110
+4 Lachnospiraceae_bacterium K01844  B1        24  620.89645
+5 Lachnospiraceae_bacterium K18011  B1        24  400.63865
+6 Lachnospiraceae_bacterium K18012  B1        24 1029.01203</code></pre>
+<pre class="r"><code>#Lysdeg$Species &lt;- Lysdeg$BacterialStrain
+Lysdeg$Species &lt;- gsub(&quot;Lachnospiraceae_bacterium&quot;, &quot;Flavonifractor_plautii&quot;,Lysdeg$Species)
+
+Lysdeg$Species &lt;- gsub(&quot;_&quot;,&quot; &quot;,Lysdeg$Species)
+
+lysplot &lt;- 
+  ggboxplot(Lysdeg, &quot;TimePoint&quot;,&quot;value&quot;, 
+            facet.by = &quot;GeneName&quot;, 
+            fill = &quot;Species&quot;,
+            palette = strain.colors, width = 0.5,
+            add= &quot;dotplot&quot;,
+            xlab = &quot;Time (hr)&quot;,
+            ylab = &quot;Median module abundance&quot;,
+            scales = &quot;free&quot;)+ custom_theme + 
+  theme(legend.text = element_text(face = &quot;italic&quot;), panel.grid = element_blank(),
+        panel.spacing = unit(0.3, &quot;line&quot;),strip.background = element_blank(),
+        strip.text = element_text(size = 8)) 
+
+ggsave(&quot;data/05_gmm/figs/lysine_deg_KO.pdf&quot;,
+       height = 7,
+       width = 14,
+       useDingbats = FALSE)</code></pre>
+<pre><code>Warning: Removed 3 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<pre><code>Warning: Removed 3 rows containing non-finite values (stat_bindot).</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.0 (2021-05-18)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] patchwork_1.1.1    reshape2_1.4.4     edgeR_3.34.0       limma_3.48.0      
+ [5] RColorBrewer_1.1-2 ggpubr_0.4.0       circlize_0.4.13    data.table_1.14.0 
+ [9] forcats_0.5.1      stringr_1.4.0      dplyr_1.0.6        purrr_0.3.4       
+[13] readr_1.4.0        tidyr_1.1.3        tibble_3.1.2       ggplot2_3.3.3     
+[17] tidyverse_1.3.1    workflowr_1.6.2   
+
+loaded via a namespace (and not attached):
+ [1] fs_1.5.0            lubridate_1.7.10    httr_1.4.2         
+ [4] rprojroot_2.0.2     tools_4.1.0         backports_1.2.1    
+ [7] bslib_0.2.5.1       utf8_1.2.1          R6_2.5.0           
+[10] DBI_1.1.1           colorspace_2.0-1    withr_2.4.2        
+[13] tidyselect_1.1.1    curl_4.3.1          compiler_4.1.0     
+[16] git2r_0.28.0        cli_2.5.0           rvest_1.0.0        
+[19] xml2_1.3.2          labeling_0.4.2      sass_0.4.0         
+[22] scales_1.1.1        digest_0.6.27       foreign_0.8-81     
+[25] rmarkdown_2.8       rio_0.5.26          pkgconfig_2.0.3    
+[28] htmltools_0.5.1.1   highr_0.9           dbplyr_2.1.1       
+[31] rlang_0.4.11        GlobalOptions_0.1.2 readxl_1.3.1       
+[34] rstudioapi_0.13     farver_2.1.0        shape_1.4.6        
+[37] jquerylib_0.1.4     generics_0.1.0      jsonlite_1.7.2     
+[40] zip_2.2.0           car_3.0-10          magrittr_2.0.1     
+[43] Rcpp_1.0.7          munsell_0.5.0       fansi_0.5.0        
+[46] abind_1.4-5         lifecycle_1.0.0     stringi_1.6.2      
+[49] yaml_2.2.1          carData_3.0-4       plyr_1.8.6         
+[52] grid_4.1.0          promises_1.2.0.1    crayon_1.4.1       
+[55] lattice_0.20-44     haven_2.4.1         hms_1.1.0          
+[58] locfit_1.5-9.4      knitr_1.33          ps_1.6.0           
+[61] pillar_1.6.1        ggsignif_0.6.2      reprex_2.0.0       
+[64] glue_1.4.2          evaluate_0.14       modelr_0.1.8       
+[67] vctrs_0.3.8         httpuv_1.6.1        cellranger_1.1.0   
+[70] gtable_0.3.0        assertthat_0.2.1    xfun_0.23          
+[73] openxlsx_4.2.3      broom_0.7.6         rstatix_0.7.0      
+[76] later_1.2.0         ellipsis_0.3.2     </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,509 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "Reverse ecology based microbial interactions using metatranscriptome"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+Following the approach using [RevEcoR](https://cran.r-project.org/web/packages/RevEcoR/vignettes/RevEcoR.html). The reverse ecology framework is used for reconstruction of metabolic networks and idenditifying the set of compounds which is used for predicting interactions between the species as described by [Borenstein E, Kupiec M, Feldman M W, et al. Large-scale reconstruction and phylogenetic analysis of metabolic environments. Proceedings of the National Academy of Sciences, 2008, 105(38): 14482-14487.](https://www.pnas.org/content/105/38/14482.long)   
+
+Note: Requires Internet connection.  
+
+## Set up 
+
+```{r}
+
+suppressPackageStartupMessages({
+  library(RevEcoR)
+  library(tidyverse)
+  library(reshape2)
+  library(qgraph)
+  library(ggplot2)
+  #library(patchwork)
+  library(ggpubr)
+  library(RColorBrewer)
+  #library(tidyverse)
+})
+```
+
+Read the table with all KOs and species locus tags `complete_table_brite_filter.rds` located in the folder `data/04_metatrans/rds`
+
+```{r}
+
+complete_table.brite_filter <- readRDS("data/04_metatrans/rds/complete_table_brite_filter.rds")
+
+#DT::datatable(complete_table.brite_filter)
+
+complete_table.brite_filter.uniq <- complete_table.brite_filter %>% distinct(LocusTag, .keep_all = TRUE)
+head(complete_table.brite_filter.uniq)
+
+dim(complete_table.brite_filter.uniq)
+colnames(complete_table.brite_filter.uniq)
+
+complete_table.brite_filter <- complete_table.brite_filter.uniq
+```
+
+```{r}
+#############################################################################################
+arec <- subset(complete_table.brite_filter, BacterialStrain == "Agathobacter_rectalis")
+# write.csv(arec, "arec_complete_table.csv")
+#arec <- arec[,-9]
+arec <- arec %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+head(arec)
+#head(df.gene_table.x)
+
+colnames(arec) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+
+#############################################################################################
+asoe <- subset(complete_table.brite_filter, BacterialStrain == "Anaerobutyricum_soehngenii")
+#asoe <- asoe[,-9]
+asoe <- asoe %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(asoe) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+head(asoe)
+#############################################################################################
+
+bova <- subset(complete_table.brite_filter, BacterialStrain == "Bacteroides_ovatus")
+#bova <- bova[,-9]
+bova <- bova %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(bova) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+
+#############################################################################################
+
+
+bxyl <- subset(complete_table.brite_filter, BacterialStrain == "Bacteroides_xylanisolvens")
+#bxyl <- bxyl[,-9]
+bxyl <- bxyl %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(bxyl) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+#############################################################################################
+
+ccat <- subset(complete_table.brite_filter, BacterialStrain == "Coprococcus_catus")
+#ccat <- ccat[,-9]
+ccat <- ccat %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(ccat) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+
+#############################################################################################
+
+esir <- subset(complete_table.brite_filter, BacterialStrain == "Eubacterium_siraeum")
+#esir <- esir[,-9]
+esir <- esir %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(esir) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+#############################################################################################
+fpra <- subset(complete_table.brite_filter, BacterialStrain == "Faecalibacterium_prausnitzii")
+#fpra <- fpra[,-9]
+fpra <- fpra %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(fpra) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+#############################################################################################
+
+lach <- subset(complete_table.brite_filter, BacterialStrain == "Lachnospiraceae_bacterium")
+#lach <- lach[,-9]
+lach <- lach %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(lach) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+#############################################################################################
+
+
+rint <- subset(complete_table.brite_filter, BacterialStrain == "Roseburia_intestinalis")
+#rint <- rint[,-9]
+rint <- rint %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(rint) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+
+#############################################################################################
+svar <- subset(complete_table.brite_filter, BacterialStrain == "Subdoligranulum_variabile")
+#svar <- svar[,-9]
+svar <- svar %>% group_by(KOID, GeneName) %>% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#head(df.gene_table.x)
+colnames(svar) <- c("KO ID","Definition","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+head(svar)
+
+```
+
+```{r}
+head(bova)
+bova.s <- as.data.frame(bova)
+rownames(bova.s) <- bova.s$`KO ID`
+
+#bxyl
+bxyl.s <- as.data.frame(bxyl)
+rownames(bxyl.s) <- bxyl.s$`KO ID`
+
+arec.s <- as.data.frame(arec)
+rownames(arec.s) <- arec.s$`KO ID`
+
+asoe.s <- as.data.frame(asoe)
+rownames(asoe.s) <- asoe.s$`KO ID`
+
+ccat.s <- as.data.frame(ccat)
+rownames(ccat.s) <- ccat.s$`KO ID`
+
+esir.s <- as.data.frame(esir)
+rownames(esir.s) <- esir.s$`KO ID`
+
+fpra.s <- as.data.frame(fpra)
+rownames(fpra.s) <- fpra.s$`KO ID`
+
+lach.s <- as.data.frame(lach)
+rownames(lach.s) <- lach.s$`KO ID`
+
+
+rint.s <- as.data.frame(rint)
+rownames(rint.s) <- rint.s$`KO ID`
+
+svar.s <- as.data.frame(svar)
+rownames(svar.s) <- svar.s$`KO ID`
+
+```
+
+
+## Reconstruct metabolic network for each bacterial strain using transcript data  
+
+When running the codes for first time change the `eval=FALSE` to `TRUE` 
+```{r eval=T}
+Bacteroides_ovatu_3_8_47FAA.net <- reconstructGsMN(bova.s, RefData = RefDbcache) 
+
+
+Bacteroides_sp_2_1_22.net <- reconstructGsMN(bxyl.s, RefData = RefDbcache) 
+
+#Bacteroides_sp_3_1_23.net <- reconstructGsMN(Bacteroides_sp_3_1_23, RefData = RefDbcache)
+
+
+Coprococcus_catus.net <- reconstructGsMN(ccat.s, RefData = RefDbcache)
+
+
+Eubacterium_hallii_L2_7.net <- reconstructGsMN(asoe.s, RefData = RefDbcache)
+
+
+Eubacterium_rectale_DSM_17629.net <- reconstructGsMN(arec.s, RefData = RefDbcache)
+
+
+Faecalibacterium_prausnitzii_A2_165.net  <- reconstructGsMN(fpra.s, 
+                                                            RefData = RefDbcache)
+
+
+Lachnospiraceae_bacterium_7_1_58FAA.net <- reconstructGsMN(lach.s,
+                                                           RefData = RefDbcache) 
+
+Roseburia_intestinalis_L1_82.net <- reconstructGsMN(rint.s, 
+                                                    RefData = RefDbcache)
+
+#Ruminococcus_bromii_l2.net <- reconstructGsMN(Ruminococcus_bromii_l2, 
+#                                    RefData = RefDbcache) 
+
+
+Subdoligranulum_variabile_DSM_15176.net <- reconstructGsMN(svar.s,
+                                                           RefData = RefDbcache) 
+
+Eubacterium_siraeum_DSM_15702.net <- reconstructGsMN(esir.s,
+                                                     RefData = RefDbcache)
+
+```
+
+
+# Calculate interaction indices   
+
+When running the codes for first time change the `eval=FALSE` to `TRUE` 
+```{r eval=T}
+
+cooperation.index<-calculateCooperationIndex(Bacteroides_ovatu_3_8_47FAA.net,
+                                             Bacteroides_sp_2_1_22.net,
+                                             Coprococcus_catus.net,
+                                             Eubacterium_hallii_L2_7.net,
+                                             Eubacterium_rectale_DSM_17629.net,
+                                             Faecalibacterium_prausnitzii_A2_165.net,
+                                             Lachnospiraceae_bacterium_7_1_58FAA.net,
+                                             Roseburia_intestinalis_L1_82.net,
+                                             Subdoligranulum_variabile_DSM_15176.net,
+                                             Eubacterium_siraeum_DSM_15702.net)
+
+saveRDS(cooperation.index, "data/04_metatrans/rds/RevEco_cooperation.index.rds")
+
+```
+
+Read in the stored cooperative indices  
+```{r}
+
+cooperation.index <- readRDS("data/04_metatrans/rds/RevEco_cooperation.index.rds")
+
+
+complementarity.index_2018 <- cooperation.index$complementarity.index
+
+competition.index_2018 <- cooperation.index$competition.index
+
+write.csv(complementarity.index_2018, "data/04_metatrans/tables/DbMM10_complementarity_index.csv") 
+
+write.csv(competition.index_2018, "data/04_metatrans/tables/DbMM10_competition_index.csv") 
+```
+
+
+add names to competition matrix  
+
+```{r}
+rownames(competition.index_2018) <- c("Bacteroides_ovatus",
+                                      "Bacteroides_xylanisolvens",
+                                      "Coprococcus_catus",
+                                      "Anaerobutyricum_soehngenii",
+                                      "Agathobacter_rectalis",
+                                      "Faecalibacterium_prausnitzii",
+                                      "Flavonifractor_plautii",
+                                      "Roseburia_intestinalis",
+                                      "Subdoligranulum_variabile",
+                                      "Eubacterium_siraeum")
+
+colnames(competition.index_2018) <- c("Bacteroides_ovatus",
+                                      "Bacteroides_xylanisolvens",
+                                      "Coprococcus_catus",
+                                      "Anaerobutyricum_soehngenii",
+                                      "Agathobacter_rectalis",
+                                      "Faecalibacterium_prausnitzii",
+                                      "Flavonifractor_plautii",
+                                      "Roseburia_intestinalis",
+                                      "Subdoligranulum_variabile",
+                                      "Eubacterium_siraeum")
+```
+
+add names to complementatrity matrix
+```{r}
+
+rownames(complementarity.index_2018) <- c("Bacteroides_ovatus",
+                                          "Bacteroides_xylanisolvens",
+                                          "Coprococcus_catus",
+                                          "Anaerobutyricum_soehngenii",
+                                          "Agathobacter_rectalis",
+                                          "Faecalibacterium_prausnitzii",
+                                          "Flavonifractor_plautii",
+                                          "Roseburia_intestinalis",
+                                          "Subdoligranulum_variabile",
+                                          "Eubacterium_siraeum")
+
+
+colnames(complementarity.index_2018) <- c("Bacteroides_ovatus",
+                                          "Bacteroides_xylanisolvens",
+                                          "Coprococcus_catus",
+                                          "Anaerobutyricum_soehngenii",
+                                          "Agathobacter_rectalis",
+                                          "Faecalibacterium_prausnitzii",
+                                          "Flavonifractor_plautii",
+                                          "Roseburia_intestinalis",
+                                          "Subdoligranulum_variabile",
+                                          "Eubacterium_siraeum")
+```
+
+```{r}
+# set colors  
+strain.colors <- c(Bacteroides_ovatus = "#1F78B4", 
+                   Bacteroides_xylanisolvens = "#B2DF8A", 
+                   Anaerobutyricum_soehngenii = "#FDBF6F", 
+                   Agathobacter_rectalis= "#33A02C", 
+                   Eubacterium_siraeum ="#FB9A99", 
+                   Faecalibacterium_prausnitzii = "#A6CEE3", 
+                   Flavonifractor_plautii = "#E31A1C", 
+                   Roseburia_intestinalis= "#CAB2D6", 
+                   Subdoligranulum_variabile = "#FF7F00", 
+                   Coprococcus_catus = "#6A3D9A")
+
+```
+
+# Plot interaction indices 
+
+## Competition  
+
+*Network*  
+
+```{r}
+
+
+rows_to_keep <- c("Bacteroides_ovatus",
+                  "Bacteroides_xylanisolvens",
+                  "Coprococcus_catus",
+                  "Anaerobutyricum_soehngenii",
+                  "Agathobacter_rectalis",
+                  "Faecalibacterium_prausnitzii",
+                  "Flavonifractor_plautii",
+                  "Roseburia_intestinalis",
+                  "Subdoligranulum_variabile",
+                  "Eubacterium_siraeum")
+
+competition.index_2018.a <- competition.index_2018[rows_to_keep, ]
+dim(competition.index_2018.a)
+competition.index_2018.a <- competition.index_2018.a[, rows_to_keep]
+
+# paper ready labels
+labels_to_keep <- c("Bacteroides_ovatus",
+                    "Bacteroides_xylanisolvens",
+                    "Coprococcus_catus",
+                    "Anaerobutyricum_soehngenii",
+                    "Agathobacter_rectalis",
+                    "Faecalibacterium_prausnitzii",
+                    "Flavonifractor_plautii",
+                    "Roseburia_intestinalis",
+                    "Subdoligranulum_variabile",
+                    "Eubacterium_siraeum")
+
+rownames(competition.index_2018.a) <- labels_to_keep
+colnames(competition.index_2018.a) <- labels_to_keep
+
+Labels = rownames(competition.index_2018.a)
+
+```
+
+
+*alternative plots*  
+
+```{r message=FALSE, warning=FALSE}
+qgraph(competition.index_2018.a, #theme= "TeamFortress",
+       edge.color = "#ec7014",
+       labels = Labels, 
+       label.cex =3.0,
+       layout = "circle",
+       label.scale = FALSE,
+       edge.labels = T,
+       minimum = 0.3,
+       title = "Competition (Gene Expression)",
+       filetype= 'pdf',
+       filename = "data/04_metatrans/figs/netowork_competition", 
+       height = 12, width = 28
+       )
+
+```
+
+
+```{r}
+mcompetition <- melt(as.matrix(competition.index_2018.a))
+
+#head(mcompetition)
+
+compet.plot <- ggbarplot(mcompetition, "Var1",  "value", fill = "Var1", 
+                         facet.by = "Var2", palette = strain.colors,
+                         ylab = "Compeition Index") + rremove("x.text")
+compet.plot
+ggsave("data/04_metatrans/figs/competition_barplot.pdf", height = 4, width = 10)
+
+mcompetition$value <- round(mcompetition$value, digits = 2)
+my_cols <- c("grey", "#abc9e9", "#f5bfd7","#caefd7")
+
+
+```
+
+
+## Complementarity    
+
+```{r}
+
+complementarity.index_2018.a <- complementarity.index_2018[rows_to_keep, ]
+dim(complementarity.index_2018.a)
+complementarity.index_2018.a <- complementarity.index_2018.a[, rows_to_keep]
+dim(complementarity.index_2018.a)
+
+rownames(complementarity.index_2018.a) <- labels_to_keep
+colnames(complementarity.index_2018.a) <- labels_to_keep
+
+Labels2 = rownames(complementarity.index_2018.a)
+
+mcompimentarity <- melt(as.matrix(complementarity.index_2018.a))
+
+
+mcompimentarity$value <- round(mcompimentarity$value, digits = 2)
+compliment.plot <- ggbarplot(mcompimentarity, "Var1",  "value", fill = "Var1", 
+                         facet.by = "Var2", palette = strain.colors,
+                         ylab = "Complimentarity Index") + rremove("x.text")
+compliment.plot
+```
+
+### Ballon plots  
+
+
+```{r}
+mcompetition$Var1 <- gsub("_", " ", mcompetition$Var1)
+mcompetition$Var2 <- gsub("_", " ", mcompetition$Var2)
+
+compet.plot <- ggballoonplot(mcompetition, x = "Var1", y = "Var2", fill = "value", 
+                         #facet.by = "Var2", 
+                         #palette = "Blues",
+                         ylab = "Compeition Index",
+                         show.label = TRUE,
+                         font.label = 8,
+                         size = 10) +
+  labs(subtitle = "Competition") +
+  gradient_fill(my_cols) 
+compet.plot
+
+```
+
+
+
+```{r}
+
+mcompimentarity$Var1 <- gsub("_", " ", mcompimentarity$Var1)
+mcompimentarity$Var2 <- gsub("_", " ", mcompimentarity$Var2)
+
+
+```
+
+Join both the plots for competition and complimentary
+
+Used in Manuscript   
+
+```{r}
+mcompetition$Index = "Competition"
+mcompimentarity$Index = "Complimentary"
+
+all_indx <- mcompimentarity %>%
+  bind_rows(mcompetition)
+
+
+ggballoonplot(all_indx, x = "Var1", y = "Var2", fill = "value", 
+              #facet.by = "Var2", 
+              #palette = "Blues",
+              ylab = "Compeition Index",
+              show.label = TRUE,
+              font.label = 6,
+              size = 6,
+              facet.by = "Index") +
+  gradient_fill(my_cols) +
+  theme(axis.text = element_text(face="italic", size = 8))
+
+ggsave("data/04_metatrans/figs/competition_complementarity.pdf", height =4, width = 8)
+
+```
+
+
+
+```{r eval=F}
+sessionInfo()
+```
+

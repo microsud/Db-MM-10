@@ -1,0 +1,244 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "Link locus tags to KEGG KO IDs for pathway and metabolic module analysis"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+
+For detailed metabolic pathway analysis, we focus on KEGG as a useful resource. We will link locus tags to KEGG KO IDs for pathway and metabolic module analysis.   
+
+This way we can, for each sample, reconstruct metabolic pathways that are active in the DbMM.  
+
+## Setup  
+```{r, message=FALSE, warning=FALSE}
+
+# import other necessary packages
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(tidyverse)
+  #library(EnhancedVolcano)
+  library(ggplot2)
+  library(data.table)
+})
+
+#library(optparse)
+```
+
+For this we need to first link the locus tags with respective KO ids that we identified by doing GhostKola for concatenated aminoacid seqences that was used as database for DIAMOND.  
+
+Link the locus tags to KEGG orthologs.  
+
+## Read KEEG BRITE classification  
+The KEGG htext was downloaded from KEGG website.  
+
+```{r}
+
+keg.brite <- fread("data_raw/04_metatrans/kegg_brite/KEGG_htext_classificationDb.txt", header = F, sep = "\t")
+
+#head(keg.brite)
+#DT::datatable(keg.brite.x)
+colnames(keg.brite) <- c("Level_1", "Level_2", "Level_3", "Level_4", "KO")
+
+```
+
+
+Edit to seprate last column.  
+
+```{r}
+
+keg.brite2 <- keg.brite %>% mutate(Level_4 = str_replace(Level_4, "\\s", "|")) %>%
+  separate(Level_4, into = c("KOID", "GeneName"), sep = "\\|")
+
+#head(keg.brite2)
+
+#write.csv(keg.brite2, "tables/01_kegg_brite_full_list.csv")
+  
+#DT::datatable(keg.brite2)
+```
+
+
+## GhostKola of Db-MM  
+Load the KO annotation for DB-MM locus tags obained form online GHOSTKola annotation. The concatenated amino acid fasta of all then strains was uploaded to GhostKola for annotation using default parameters. 
+
+```{r}
+
+ghostko <- fread("data_raw/04_metatrans/kegg_brite/GhostKola_DbMM_ko_list.txt", header = F, sep = "\t")
+#head(ghostko)
+colnames(ghostko) <- c("LocusTag", "KO")
+#head(ghostko)
+```
+
+
+Now read in this session, the `raw_counts_tables.rds` file created from `01_meta_counts.rmd` file.  
+
+```{r}
+
+# Read the raw counts table 
+
+complete_table <- readRDS("data/04_metatrans/rds/raw_counts_tables.rds")
+
+#head(complete_table)
+
+# filter to keep only those that are annotated in Db-MM
+
+ko_locus <- subset(ghostko, ghostko$LocusTag %in% rownames(complete_table))
+
+dim(ko_locus)
+dim(complete_table)
+
+complete_table.ko <- complete_table
+complete_table.ko$LocusTag <- rownames(complete_table)
+complete_table.ko <- merge(complete_table.ko, ko_locus, by = "LocusTag")
+#DT::datatable(complete_table.ko)
+
+#dim(complete_table.ko)
+saveRDS(complete_table.ko, "data/04_metatrans/rds/complete_table_with_ko.rds")
+write.table(complete_table.ko, "data/04_metatrans/tables/complete_table_with_ko.txt", sep="\t", col.names = F)
+
+```
+
+Now add BRITE classification.
+
+```{r}
+
+# keg.brite2
+keg.brite.sub <- subset(keg.brite2, KO %in% complete_table.ko$KO)
+
+#dim(keg.brite2)
+#dim(keg.brite.sub)
+#dim(ghostko)
+#dim(complete_table.ko)
+
+keg.brite.sub.na <- subset(keg.brite.sub, !(is.na(KO)))
+dim(keg.brite.sub.na)
+
+
+
+complete_table.brite <- merge(complete_table.ko, keg.brite.sub, by = "KO")
+
+# Store all intermediate files to check and explore manually interesting features 
+write.csv(keg.brite.sub.na, "data/04_metatrans/tables/kegg_brite_sub_without_NA.csv")
+dim(keg.brite.sub.na)
+dim(complete_table.brite)
+write.csv(complete_table.brite, "data/04_metatrans/tables/complete_table_ko_brite.csv")
+
+```
+
+
+
+## Prep file for input to gmm species-function anlaysis   
+
+We want to make use of the manually curated database of human gut metabolic modules by [Vieira-Silva et al. 2016](https://www.nature.com/articles/nmicrobiol201688).  
+
+We need to format the KO counts file.
+
+```{r}
+
+complete_table.brite$BacterialStrain <- complete_table.brite$LocusTag
+
+complete_table.brite <-separate(complete_table.brite, BacterialStrain, c("Bacteria", "Locus"), extra = "merge", fill = "right")
+complete_table.brite <-separate(complete_table.brite, Locus, c("Species", "Locus"), extra = "merge", fill = "right")
+complete_table.brite <- complete_table.brite %>% unite(BacterialStrain, Bacteria,Species,Species) 
+
+head(complete_table.brite)
+
+complete_table.brite <- complete_table.brite %>% distinct(LocusTag, .keep_all = TRUE)
+
+head(complete_table.brite)
+unique(complete_table.brite$BacterialStrain)
+class(complete_table.brite)
+
+# store this also for manual inspection
+write.csv(complete_table.brite, "data/04_metatrans/tables/complete_table_brite_species.csv")
+
+```
+
+
+### Save file
+
+```{r}
+
+complete_table.brite_filter <- complete_table.brite[, c(-15)]
+
+head(complete_table.brite_filter)
+saveRDS(complete_table.brite_filter, "data/04_metatrans/rds/complete_table_brite_filter.rds")
+
+
+```
+
+Next, we will prepare the files for KEGG mapping using `pathview R pkg`. This can take fold changes of KOs and mapping to KEGG maps.  
+This is at community level. Hence, we aggregate KO counts per sample.  
+## Aggregate by KEGG IDs  
+
+```{r}
+
+count.aggregate.kegg <- complete_table.brite %>% group_by(KO) %>% 
+  summarise(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
+
+#colSums(count.aggregate.kegg)
+
+head(count.aggregate.kegg)
+
+colnames(count.aggregate.kegg) <- c("KOID","B1T24","B2T24","B3T24","B1T48","B2T48","B3T48")
+# store this
+write.table(count.aggregate.kegg, "data/04_metatrans/tables/count_aggregate_kegg.txt", sep="\t", col.names = T, row.names = F)
+
+
+```
+
+
+## DESeq2 analysis of KOs  
+
+```{r}
+
+count.aggregate.kegg <- as.data.frame(count.aggregate.kegg)
+rownames(count.aggregate.kegg) <- count.aggregate.kegg$KOID
+count.aggregate.kegg <- count.aggregate.kegg[,-1]
+head(count.aggregate.kegg)
+#DT::datatable(count.aggregate.kegg)
+
+coldata.df <- data.frame(SampleID = c("B1T24","B2T24","B3T24","B1T48","B2T48","B3T48"),
+                            condition = c("24h","24h","24h", "48h","48h","48h"))
+coldata.df
+#write.table(coldata.df, "tables/coldata_df.txt", sep = "\t")
+dds <- DESeqDataSetFromMatrix(countData = count.aggregate.kegg,
+                              colData = coldata.df,
+                              design = ~ condition)
+dds
+
+```
+
+Filter our KOOs with low counts across samples.  
+```{r}
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep,]
+
+dds <- DESeq(dds,fitType= "local")
+
+res <- results(dds)
+ko_results <- data.frame(res)
+sorted_ko_results <- ko_results[order(-ko_results$baseMean),]
+colnames(sorted_ko_results)[1] <- "LocusTag"
+head(sorted_ko_results)
+saveRDS(sorted_ko_results, "data/04_metatrans/rds/sorted_ko_deseq2_results.rds")
+
+```
+
+The `sorted_ko_deseq2_results.rds` will be used for `kegg_pathway_analysis`.  
+
+```{r eval=FALSE}
+sessionInfo()
+
+```
+
+

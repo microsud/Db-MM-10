@@ -1,0 +1,220 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "DADA2 processing of Db-MM amplicon sequencing"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+
+Raw data are stored in `data_raw/03_amplicon` and outputs of this document are stored in `data/03_amplicon`  
+
+## load libraries  
+
+```{r, message=FALSE, warning=FALSE, eval=T}
+#library("devtools"); 
+#devtools::install_github("timelyportfolio/sankeytree")
+
+library(DT) 
+library(ggplot2); packageVersion("ggplot2")
+library(dada2); packageVersion("dada2")
+library(dplyr)
+library(microbiome)
+library(microbiomeutilities)
+library(patchwork)
+library(phangorn)
+library(ggtree)
+library(DECIPHER)
+#library(ggrepel)
+```
+
+
+Copied the chunk from DADA2 tutorial and modified to this specific analysis.  
+
+## File parsing
+
+The fastq files were demultiplex using NG_tax galaxy version and stored in `data/fastq` folder.  
+```{r eval=F}
+
+# File parsing
+pathF <- "data_raw/03_amplicon/fastq/fwd/" # CHANGE ME to the directory containing your demultiplexed forward-read fastqs
+pathR <- "data_raw/03_amplicon/fastq/rev/" # CHANGE ME ...
+filtpathF <- file.path(pathF, "filtered") # Filtered forward files go into the pathF/filtered/ subdirectory
+filtpathR <- file.path(pathR, "filtered") # ...
+
+fastqFs <- sort(list.files(pathF, pattern=".fastq"))
+fastqRs <- sort(list.files(pathR, pattern=".fastq"))
+
+fwd.qc.plot <- plotQualityProfile("data_raw/03_amplicon/fastq/fwd/B1T02_f.fastq", n = 5e+05, aggregate = F)
+rev.qc.plot <- plotQualityProfile("data_raw/03_amplicon/fastq/rev/B1T02_r.fastq", n = 5e+05, aggregate = F)
+
+#fwd.qc.plot <- plotQualityProfile("data_raw/03_amplicon/fastq/fwd/", n = 5e+05, aggregate = T)
+#rev.qc.plot <- plotQualityProfile("data_raw/03_amplicon/fastq/rev/", n = 5e+05, aggregate = T)
+fwd.qc.plot + rev.qc.plot
+```
+
+
+```{r eval=F}
+if(length(fastqFs) != length(fastqRs)) stop("Forward and reverse files do not match.")
+# Filtering: THESE PARAMETERS ARENT OPTIMAL FOR ALL DATASETS
+filtTrimOut <- filterAndTrim(fwd=file.path(pathF, fastqFs), filt=file.path(filtpathF, fastqFs),
+                             rev=file.path(pathR, fastqRs), filt.rev=file.path(filtpathR, fastqRs),
+                             truncLen=c(90,90), maxEE=2, truncQ=2, maxN=0, rm.phix=TRUE,
+                             compress=FALSE, verbose=TRUE, multithread=F)
+
+write.csv(filtTrimOut, "data/03_amplicon/tables/trim_out_dada2.txt")
+```
+
+
+```{r eval=F}
+# File parsing
+filtpathF <- "data_raw/03_amplicon/fastq/fwd/filtered" # CHANGE ME to the directory containing your filtered forward fastqs
+filtpathR <- "data_raw/03_amplicon/fastq/rev/filtered" # CHANGE ME ...
+filtFs <- list.files(filtpathF, pattern="fastq", full.names = TRUE)
+filtRs <- list.files(filtpathR, pattern="fastq", full.names = TRUE)
+
+
+sample.names <- sapply(strsplit(basename(filtFs), "_"), `[`, 1) # Assumes filename = samplename_XXX.fastq.gz
+sample.namesR <- sapply(strsplit(basename(filtRs), "_"), `[`, 1) # Assumes filename = samplename_XXX.fastq.gz
+
+if(!identical(sample.names, sample.namesR)) stop("Forward and reverse files do not match.")
+names(filtFs) <- sample.names
+names(filtRs) <- sample.names
+
+## Learn errors and make seq table  
+
+set.seed(19883)
+# Learn forward error rates
+# SOME ISSUE with MERGING so GOING FOR Forwards only Becuase of the reagion and chemmistry used for sequencing
+#errF <- learnErrors(filtFs, nbases=1e8, multithread=F, randomize=TRUE)
+# Learn reverse error rates
+#errR <- learnErrors(filtRs, nbases=1e8, multithread=F, randomize=TRUE)
+
+#err <- learnErrors(filtFs, nbases = 1e8, multithread=F, randomize=TRUE)
+# Infer sequence variants
+#dds <- vector("list", length(sample.names))
+#dds <- vector("list", length(sample.names))
+#names(dds) <- sample.names
+
+#for(sam in sample.names) {
+#  cat("Processing:", sam, "\n")
+#  derep <- derepFastq(filtFs[[sam]])
+#  dds[[sam]] <- dada(derep, err=err, multithread=TRUE)
+#}
+# Construct sequence table and write to disk
+
+#seqtab <- makeSequenceTable(seqtab)
+## Learn errors and make seq table  
+# Learn forward error rates
+errF <- learnErrors(filtFs, nbases=1e8, multithread=F)
+# Learn reverse error rates
+errR <- learnErrors(filtRs, nbases=1e8, multithread=F)
+# Sample inference and merger of paired-end reads
+mergers <- vector("list", length(sample.names))
+names(mergers) <- sample.names
+for(sam in sample.names) {
+  cat("Processing:", sam, "\n")
+  derepF <- derepFastq(filtFs[[sam]])
+  ddF <- dada(derepF, err=errF, multithread=TRUE)
+  derepR <- derepFastq(filtRs[[sam]])
+  ddR <- dada(derepR, err=errR, multithread=TRUE)
+  merger <- mergePairs(ddF, derepF, ddR, derepR, justConcatenate = TRUE)
+  mergers[[sam]] <- merger
+}
+rm(derepF); rm(derepR)
+
+# Construct sequence table and remove chimeras
+seqtab <- makeSequenceTable(mergers)
+#head(seqtab)
+
+saveRDS(seqtab, "data/03_amplicon/rds/seqtab.rds")
+
+```
+
+## Remove chimera and assign taxonomy  
+
+For taxonomy a custom file was created to included only 16S sequencing from species that are part of Db-MM.  
+
+```{r eval=F}
+set.seed(55536)
+seqtab2 <- removeBimeraDenovo(seqtab, method="consensus", multithread=TRUE)
+# Assign taxonomy
+dbmmdb <- "data_raw/03_amplicon/rrna_MMDb/dbmm_tax_db.fas"
+tax <- assignTaxonomy(seqtab2, dbmmdb, 
+                      minBoot=50, verbose = T,
+                     outputBootstraps = F)
+
+# Write to disk
+saveRDS(tax, "data/03_amplicon/rds/tax_final.rds") # CHANGE ME ...
+saveRDS(seqtab2, "data/03_amplicon/rds/seqtab2.rds") 
+```
+
+
+## Build tree  
+```{r eval=F}
+# maybe avoid this step
+library(DECIPHER)
+library(phangorn)
+unique(tax[,"Genus"])
+
+seqs <- getSequences(seqtab2)
+names(seqs) <- seqs # This propagates to the tip labels of the tree
+alignment <- AlignSeqs(DNAStringSet(seqs), anchor=NA)
+
+phang.align <- phyDat(as(alignment, "matrix"), type="DNA")
+dm <- dist.ml(phang.align)
+treeNJ <- NJ(dm) # Note, tip order != sequence order
+fit = pml(treeNJ, data=phang.align)
+
+## negative edges length changed to 0!
+
+fitGTR <- update(fit, k=4, inv=0.2)
+fitGTR <- optim.pml(fitGTR, model="GTR", optInv=TRUE, optGamma=TRUE,
+                      rearrangement = "stochastic", control = pml.control(trace = 0))
+detach("package:phangorn", unload=TRUE)
+
+saveRDS(fitGTR, "data/03_amplicon/rds/fitGTR_tree.rds") 
+
+```
+
+# Make phyloseq object 
+
+```{r eval=T}
+
+tax <- readRDS("data/03_amplicon/rds/tax_final.rds") 
+seqtab2 <-  readRDS("data/03_amplicon/rds/seqtab2.rds") 
+
+
+# read metadata table
+metatable <- read.csv("data_raw/03_amplicon/map_dbmm.csv", stringsAsFactors = F, row.names = 1)
+samdat <- sample_data(sample_data(metatable))
+rownames(samdat)
+rownames(seqtab2)
+# make phyloseq object
+pseq01 <- phyloseq(otu_table(t(seqtab2), taxa_are_rows=T), sample_data(samdat),
+               tax_table(tax))
+
+saveRDS(pseq01, "data/03_amplicon/rds/pseq01.rds") 
+
+```
+
+The phyloseq object pseq01 is the input for `qmp_analysis`.  
+
+```{r}
+table(tax_table(pseq01)[,"Genus"])
+```
+
+
+```{r}
+sessionInfo()
+```
+
+

@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sudarshan" />
+
+
+<title>Assembly diet based minimal microbiome (Db-MM10)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DbMM</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="01_Core_microbiota_metagenomic.html">Core Microbiota</a>
+</li>
+<li>
+  <a href="02_wetlab_anlaysis.html">Growth and Metabolites</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Assembly diet based minimal microbiome (Db-MM10)</h1>
+<h3 class="subtitle">Core microbiota anlaysis from metagenomic data</h3>
+<h4 class="author">Sudarshan</h4>
+<h4 class="date">Sun Apr 04 14:09:34 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-04-04
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>DbMM/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210404code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210404)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210404code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210404)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongNocommitsyet"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> No commits yet </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongNocommitsyet" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  DbMM.Rproj
+    Untracked:  Ocucpancy_relationship.csv
+    Untracked:  README.md
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  bin/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  data_raw/
+    Untracked:  output/
+    Untracked:  structure.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<p>In this document we investigate the human gut metagenomics data to identify core species.<br />
+Originally created on <code>29 July 2019</code></p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>We searched the <code>curatedMetagenomic</code> database for core microbiota</p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>Load libraries</p>
+<pre class="r"><code>#library(BiocInstaller)
+#biocLite(&quot;curatedMetagenomicData&quot;)
+library(RColorBrewer)
+library(curatedMetagenomicData)
+library(microbiome)
+library(microbiomeutilities)
+library(ggpubr)
+library(dplyr)
+library(glue)
+library(ggtext)
+library(patchwork)</code></pre>
+</div>
+<div id="download-public-metagenomic-data" class="section level2">
+<h2>Download public metagenomic data</h2>
+<p>Download the datasets for gut metagenomes from the <code>curatedMD</code> R package.</p>
+<pre class="r"><code>#eh = ExperimentHub()
+#myquery = query(eh, &quot;curatedMetagenomicData&quot;)
+# myquery
+# View(mcols(myquery))
+
+hmp.eset &lt;- HMP_2012.metaphlan_bugs_list.stool()
+#lecha.eset &lt;- LeChatelierE_2013.metaphlan_bugs_list.stool()
+loman.eset &lt;- LomanNJ_2013.metaphlan_bugs_list.stool()
+nielsenHB.eset &lt;- NielsenHB_2014.metaphlan_bugs_list.stool()
+obregon.eset &lt;- `Obregon-TitoAJ_2015.metaphlan_bugs_list.stool`()
+#qinN.eset &lt;- QinN_2014.metaphlan_bugs_list.stool()
+rampel.eset &lt;- RampelliS_2015.metaphlan_bugs_list.stool()
+zeller.eset &lt;- ZellerG_2014.metaphlan_bugs_list.stool()
+qinj.eset &lt;- QinJ_2012.metaphlan_bugs_list.stool()
+hann.eset &lt;- HanniganGD_2017.metaphlan_bugs_list.stool()
+beng.eset &lt;- `Bengtsson-PalmeJ_2015.metaphlan_bugs_list.stool`()
+louis.eset &lt;- LouisS_2016.metaphlan_bugs_list.stool()
+schir.eset &lt;- SchirmerM_2016.metaphlan_bugs_list.stool()</code></pre>
+</div>
+<div id="convert-to-phyloseq-object" class="section level2">
+<h2>Convert to phyloseq object</h2>
+<pre class="r"><code>hmp.pseq1 = ExpressionSet2phyloseq( hmp.eset, relab=FALSE)
+#lecha.pseq1 = ExpressionSet2phyloseq( lecha.eset, relab=FALSE)
+loman.pseq1 = ExpressionSet2phyloseq( loman.eset, relab=FALSE)
+neil.pseq1 = ExpressionSet2phyloseq( nielsenHB.eset, relab=FALSE)
+obregon.pseq1 = ExpressionSet2phyloseq( obregon.eset, relab=FALSE)
+#qinN.pseq1 = ExpressionSet2phyloseq( qinN.eset, relab=FALSE)
+rampel.pseq1 = ExpressionSet2phyloseq( rampel.eset, relab=FALSE)
+zeller.pseq1 = ExpressionSet2phyloseq( zeller.eset, relab=FALSE)
+qinj.pseq1 = ExpressionSet2phyloseq( qinj.eset, relab=FALSE)
+hann.est.pseq1 = ExpressionSet2phyloseq(hann.eset, relab=FALSE)
+beng.eset.pseq1 = ExpressionSet2phyloseq(beng.eset, relab=FALSE)
+louis.eset.pseq1 = ExpressionSet2phyloseq(louis.eset, relab=FALSE)
+schir.eset.pseq1 = ExpressionSet2phyloseq(schir.eset, relab=FALSE)
+
+
+table(meta(schir.eset.pseq1)$country)
+table(meta(hann.est.pseq1)$disease)</code></pre>
+</div>
+<div id="select-non-diseased-samples" class="section level2">
+<h2>Select non-diseased samples</h2>
+<pre class="r"><code>unique(meta(neil.pseq1)$disease)
+
+
+neil.pseq1 &lt;- subset_samples(neil.pseq1, disease == &quot;healthy&quot;)
+
+unique(meta(obregon.pseq1)$disease)
+obregon.pseq1 &lt;- subset_samples(obregon.pseq1, disease == &quot;healthy&quot;)
+
+#unique(meta(qinN.pseq1)$disease)
+#qinN.pseq1 &lt;- subset_samples(qinN.pseq1, disease == &quot;n&quot;)
+
+unique(meta(rampel.pseq1)$study_condition)
+rampel.pseq1 &lt;- subset_samples(rampel.pseq1, study_condition == &quot;control&quot;)
+
+hann.pseq1 &lt;- subset_samples(hann.est.pseq1, disease == &quot;healthy&quot;)
+
+unique(meta(zeller.pseq1)$disease)
+zeller.pseq1 &lt;- subset_samples(zeller.pseq1, disease == &quot;healthy&quot;)
+
+
+unique(meta(qinj.pseq1)$disease)
+qinj.pseq1 &lt;- subset_samples(qinj.pseq1, is.na(disease))</code></pre>
+<pre class="r"><code>hmp.pseq1 &lt;- prune_taxa(taxa_sums(hmp.pseq1) &gt; 0, hmp.pseq1)
+#lecha.pseq1 &lt;- prune_taxa(taxa_sums(lecha.pseq1) &gt; 0, lecha.pseq1)
+neil.pseq1 &lt;- prune_taxa(taxa_sums(neil.pseq1) &gt; 0, neil.pseq1)
+obregon.pseq1 &lt;- prune_taxa(taxa_sums(obregon.pseq1) &gt; 0, obregon.pseq1)
+#qinN.pseq1 &lt;- prune_taxa(taxa_sums(qinN.pseq1) &gt; 0, qinN.pseq1)
+rampel.pseq1 &lt;- prune_taxa(taxa_sums(rampel.pseq1) &gt; 0, rampel.pseq1)
+zeller.pseq1 &lt;- prune_taxa(taxa_sums(zeller.pseq1) &gt; 0, zeller.pseq1)
+qinj.pseq1 &lt;- prune_taxa(taxa_sums(qinj.pseq1) &gt; 0, qinj.pseq1)
+hannpseq1 = prune_taxa(taxa_sums(hann.pseq1) &gt; 0, hann.pseq1)
+beng.pseq1 = prune_taxa(taxa_sums(beng.eset.pseq1) &gt; 0, beng.eset.pseq1)
+louis.pseq1 = prune_taxa(taxa_sums(louis.eset.pseq1) &gt; 0, louis.eset.pseq1)
+schir.pseq1 = prune_taxa(taxa_sums(schir.eset.pseq1) &gt; 0, schir.eset.pseq1)</code></pre>
+</div>
+<div id="merge-all-data" class="section level2">
+<h2>Merge all data</h2>
+<pre class="r"><code>ps0a &lt;- merge_phyloseq(hmp.pseq1,neil.pseq1,obregon.pseq1, 
+                       rampel.pseq1,zeller.pseq1,qinj.pseq1,
+                       hannpseq1,beng.pseq1,louis.pseq1,schir.pseq1)
+
+table(meta(ps0a)$country)
+table(meta(ps0a)$disease)
+
+saveRDS(ps0a, &quot;data/01_exploratory/rds/ps1_raw_metagenome.rds&quot;)</code></pre>
+</div>
+<div id="clean-and-filter" class="section level2">
+<h2>Clean and filter</h2>
+<pre class="r"><code>ps0a &lt;- readRDS(&quot;data/01_exploratory/rds/ps1_raw_metagenome.rds&quot;)
+
+ps0b &lt;- subset_samples(ps0a, country != &quot;CHN&quot;) %&gt;% subset_samples(country != &quot;PER&quot;) %&gt;% subset_samples(country != &quot;TZA&quot;)
+
+ps0c &lt;- subset_taxa(ps0b, Kingdom == &quot;Bacteria&quot;)
+
+any(taxa_sums(ps0c) &lt; 1)
+
+ps0d &lt;- prune_taxa(taxa_sums(ps0c) &gt; 1, ps0c)
+
+any(taxa_sums(ps0d) &lt; 1)
+
+ps0e &lt;- subset_taxa(ps0d, !is.na(Species))
+
+ps1a &lt;- tax_glom(ps0e, &quot;Species&quot;) # time consuming step
+
+saveRDS(ps1a, &quot;data/01_exploratory/rds/ps1a_taxglom_species.rds&quot;)</code></pre>
+<p>The above chunks are not run in this workflowr project because the snapshot data for <code>curatedMD</code> on which the study was based is from 2018.</p>
+<pre class="r"><code>ps1a &lt;- readRDS(&quot;data/01_exploratory/rds/ps1a_taxglom_species.rds&quot;)
+any(taxa_sums(ps1a) == 1)</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<pre class="r"><code>table(meta(ps1a)$country,meta(ps1a)$country)</code></pre>
+<pre><code>     
+      CAN DEU DNK ESP FRA ITA NLD SWE USA
+  CAN   3   0   0   0   0   0   0   0   0
+  DEU   0  97   0   0   0   0   0   0   0
+  DNK   0   0 177   0   0   0   0   0   0
+  ESP   0   0   0  71   0   0   0   0   0
+  FRA   0   0   0   0  61   0   0   0   0
+  ITA   0   0   0   0   0  11   0   0   0
+  NLD   0   0   0   0   0   0 471   0   0
+  SWE   0   0   0   0   0   0   0  70   0
+  USA   0   0   0   0   0   0   0   0 194</code></pre>
+<pre class="r"><code>table(meta(ps1a)$disease)</code></pre>
+<pre><code>
+healthy 
+   1144 </code></pre>
+<p>Convert to relative proportions</p>
+<pre class="r"><code>ps1a.west &lt;- microbiome::transform(ps1a, &quot;compositional&quot;)
+
+#head(otu_table(ps1a.west))
+
+min(taxa_sums(ps1a.west))</code></pre>
+<pre><code>[1] 1.125364e-06</code></pre>
+<pre class="r"><code># final study detail
+ps1a.west</code></pre>
+<pre><code>phyloseq-class experiment-level object
+otu_table()   OTU Table:         [ 622 taxa and 1155 samples ]
+sample_data() Sample Data:       [ 1155 samples by 37 sample variables ]
+tax_table()   Taxonomy Table:    [ 622 taxa by 8 taxonomic ranks ]</code></pre>
+<pre class="r"><code>#head(meta(ps1a.west))
+table(meta(ps1a.west)$disease)</code></pre>
+<pre><code>
+healthy 
+   1144 </code></pre>
+<pre class="r"><code>table(meta(ps1a.west)$country)</code></pre>
+<pre><code>
+CAN DEU DNK ESP FRA ITA NLD SWE USA 
+  3  97 177  71  61  11 471  70 194 </code></pre>
+<pre class="r"><code>ps1a.west &lt;- subset_samples(ps1a.west, disease == &quot;healthy&quot;)
+nsamples(ps1a.west)</code></pre>
+<pre><code>[1] 1144</code></pre>
+<p>CAN DEU DNK ESP FRA ITA NLD SWE USA 3 97 177 71 61 11 471 70 194</p>
+<p>healthy 1144</p>
+</div>
+<div id="core-anlaysis" class="section level2">
+<h2>Core anlaysis</h2>
+<pre class="r"><code>prevalences &lt;- seq(.05, 1, .05)
+#detections &lt;- 10^seq(log10(1e-5), log10(.2), length = 10)
+
+detections &lt;- c(0.00001, 0.0001,0.001, 0.01)
+ps1a.core &lt;- plot_core(ps1a.west, plot.type = &quot;heatmap&quot;, 
+                       prevalences = prevalences,
+                       detections = detections,
+                       colours = rev(brewer.pal(9, &quot;RdBu&quot;)),
+                       min.prevalence = .60, 
+                       horizontal = F)</code></pre>
+<pre><code>[1] &quot;0.001%&quot; &quot;0.01%&quot;  &quot;0.1%&quot;   &quot;1%&quot;    </code></pre>
+<pre class="r"><code>ps1a.core</code></pre>
+<p><img src="figure/01_Core_microbiota_metagenomic.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Let’s clean this figure.</p>
+<p>Extract the plot data</p>
+<pre class="r"><code>ps.df &lt;- ps1a.core$data
+
+#unique(newdata$Taxa)
+
+head(ps.df)</code></pre>
+<pre><code>                       Taxa DetectionThreshold Prevalence
+1 s__Parabacteroides_merdae              1e-05  0.7194056
+2     s__Bacteroides_ovatus              1e-05  0.9090909
+3     s__Bacteroides_caccae              1e-05  0.7342657
+4       s__Alistipes_shahii              1e-05  0.8260490
+5   s__Alistipes_putredinis              1e-05  0.8365385
+6   s__Alistipes_finegoldii              1e-05  0.7762238</code></pre>
+<pre class="r"><code>#ps.df$Prevalence
+newdata &lt;- ps.df[order(ps.df$Prevalence),] 
+
+newdata$Taxa &lt;- gsub(&quot;s__&quot;, &quot;&quot;, newdata$Taxa)
+head(newdata)</code></pre>
+<pre><code>                                   Taxa DetectionThreshold   Prevalence
+190          Anaerotruncus_unclassified               0.01 0.0000000000
+219               Bilophila_wadsworthia               0.01 0.0000000000
+193 Lachnospiraceae_bacterium_7_1_58FAA               0.01 0.0008741259
+187            Veillonella_unclassified               0.01 0.0026223776
+196              Alistipes_senegalensis               0.01 0.0034965035
+198              Bilophila_unclassified               0.01 0.0043706294</code></pre>
+<pre class="r"><code># mark Db-MM candidates 
+mmsp &lt;- c(&quot;Coprococcus_catus&quot;,&quot;Lachnospiraceae_bacterium_7_1_58FAA&quot;,&quot;Eubacterium_hallii&quot;,&quot;Bacteroides_xylanisolvens&quot;, &quot;Roseburia_intestinalis&quot;,&quot;Eubacterium_siraeum&quot;,&quot;Bacteroides_ovatus&quot;,&quot;Subdoligranulum_unclassified&quot;, &quot;Faecalibacterium_prausnitzii&quot;,&quot;Eubacterium_rectale&quot;)
+
+
+newdata &lt;- newdata %&gt;% mutate(
+  color = ifelse(Taxa %in% mmsp, &quot;#D55E00&quot;, &quot;#797979&quot;),
+  name = glue(&quot;&lt;i style=&#39;color:{color}&#39;&gt;{Taxa}&lt;/i&gt;&quot;)
+  #name = fct_reorder(name, value)
+)
+
+p &lt;- ggplot(newdata, aes(x=DetectionThreshold, reorder(name, Prevalence), fill=Prevalence))
+p &lt;- p + geom_tile(order =TRUE) + theme(axis.text.y = element_text(face=&quot;italic&quot;))</code></pre>
+<pre><code>Warning: Ignoring unknown parameters: order</code></pre>
+<pre class="r"><code>p &lt;- p + xlab(&quot;Detection Threshold (Relative Abundance)&quot;) + ylab(&quot;Metagenomic species&quot;)
+p.core &lt;- p + theme_bw(base_size = 8) + #scale_x_log10() +  
+  scale_fill_gradientn(colours = rev(brewer.pal(5, &quot;RdBu&quot;))) +
+#  theme_bw(base_size=10) + 
+  theme(axis.text.y = element_markdown(size = 6),
+        axis.text.x = element_text(size=8, angle = 90))  + 
+  ggtitle(paste0(&quot;Metagenomics Core Microbiota&quot;)) 
+print(p.core)</code></pre>
+<p><img src="figure/01_Core_microbiota_metagenomic.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Save data</p>
+<pre class="r"><code>sink(file=&quot;data/01_exploratory/tables/01_core_species.txt&quot;)
+unique(p.core$data$Taxa)</code></pre>
+<pre><code> [1] &quot;Anaerotruncus_unclassified&quot;          &quot;Bilophila_wadsworthia&quot;              
+ [3] &quot;Lachnospiraceae_bacterium_7_1_58FAA&quot; &quot;Veillonella_unclassified&quot;           
+ [5] &quot;Alistipes_senegalensis&quot;              &quot;Bilophila_unclassified&quot;             
+ [7] &quot;Adlercreutzia_equolifaciens&quot;         &quot;Clostridium_bartlettii&quot;             
+ [9] &quot;Streptococcus_parasanguinis&quot;         &quot;Anaerostipes_hadrus&quot;                
+[11] &quot;Lachnospiraceae_bacterium_5_1_63FAA&quot; &quot;Clostridium_leptum&quot;                 
+[13] &quot;Coprococcus_catus&quot;                   &quot;Eubacterium_ramulus&quot;                
+[15] &quot;Lachnospiraceae_bacterium_3_1_46FAA&quot; &quot;Oscillibacter_unclassified&quot;         
+[17] &quot;Bacteroides_xylanisolvens&quot;           &quot;Escherichia_coli&quot;                   
+[19] &quot;Streptococcus_salivarius&quot;            &quot;Alistipes_finegoldii&quot;               
+[21] &quot;Eubacterium_ventriosum&quot;              &quot;Roseburia_hominis&quot;                  
+[23] &quot;Bacteroidales_bacterium_ph8&quot;         &quot;Bacteroides_thetaiotaomicron&quot;       
+[25] &quot;Parabacteroides_distasonis&quot;          &quot;Alistipes_onderdonkii&quot;              
+[27] &quot;Eubacterium_siraeum&quot;                 &quot;Odoribacter_splanchnicus&quot;           
+[29] &quot;Dorea_formicigenerans&quot;               &quot;Alistipes_shahii&quot;                   
+[31] &quot;Roseburia_inulinivorans&quot;             &quot;Roseburia_intestinalis&quot;             
+[33] &quot;Akkermansia_muciniphila&quot;             &quot;Eubacterium_eligens&quot;                
+[35] &quot;Bacteroides_dorei&quot;                   &quot;Bacteroides_ovatus&quot;                 
+[37] &quot;Bacteroides_caccae&quot;                  &quot;Ruminococcus_obeum&quot;                 
+[39] &quot;Barnesiella_intestinihominis&quot;        &quot;Coprococcus_comes&quot;                  
+[41] &quot;Parabacteroides_merdae&quot;              &quot;Collinsella_aerofaciens&quot;            
+[43] &quot;Dorea_longicatena&quot;                   &quot;Eubacterium_hallii&quot;                 
+[45] &quot;Bifidobacterium_longum&quot;              &quot;Bifidobacterium_adolescentis&quot;       
+[47] &quot;Ruminococcus_sp_5_1_39BFAA&quot;          &quot;Bacteroides_vulgatus&quot;               
+[49] &quot;Ruminococcus_bromii&quot;                 &quot;Ruminococcus_torques&quot;               
+[51] &quot;Bacteroides_uniformis&quot;               &quot;Alistipes_putredinis&quot;               
+[53] &quot;Subdoligranulum_unclassified&quot;        &quot;Eubacterium_rectale&quot;                
+[55] &quot;Faecalibacterium_prausnitzii&quot;       </code></pre>
+<pre class="r"><code>sink()
+
+
+ggsave(&quot;data/01_exploratory/figs/01_core_microbiota_species.tiff&quot;, height = 6, width = 6)
+ggsave(&quot;data/01_exploratory/figs/01_core_microbiota_species.pdf&quot;, height = 6, width = 6)
+
+write.csv(newdata, &quot;data/01_exploratory/tables/01_Species_level_Core_micoribotaWest.csv&quot;)</code></pre>
+</div>
+<div id="realtive-abundance-occupancy" class="section level2">
+<h2>Realtive abundance-occupancy</h2>
+<pre class="r"><code>otu.abun = apply(otu_table(ps1a.west),1,mean)
+
+# Calculate the frequency of each OTU across all samples
+# 
+otu.freq = rowSums(otu_table(ps1a.west) != 0)/nsamples(ps1a.west)
+
+# Reassign names of phyla so we only color by the top 5 phyla and mark all others as &quot;other&quot;
+unique(tax_table(ps1a.west)[,2])</code></pre>
+<pre><code>Taxonomy Table:     [18 taxa by 1 taxonomic ranks]:
+                                                   Phylum                       
+s__Parabacteroides_merdae                          &quot;Bacteroidetes&quot;              
+s__Burkholderiales_bacterium_1_1_47                &quot;Proteobacteria&quot;             
+s__Faecalibacterium_prausnitzii                    &quot;Firmicutes&quot;                 
+s__Akkermansia_muciniphila                         &quot;Verrucomicrobia&quot;            
+s__Slackia_piriformis                              &quot;Actinobacteria&quot;             
+s__Fusobacterium_periodonticum                     &quot;Fusobacteria&quot;               
+s__candidate_division_TM7_single_cell_isolate_TM7c &quot;Candidatus_Saccharibacteria&quot;
+s__Mycoplasma_hominis                              &quot;Tenericutes&quot;                
+s__Deinococcus_unclassified                        &quot;Deinococcus_Thermus&quot;        
+s__Synergistes_sp_3_1_syn1                         &quot;Synergistetes&quot;              
+s__Brachyspira_unclassified                        &quot;Spirochaetes&quot;               
+s__Granulicella_unclassified                       &quot;Acidobacteria&quot;              
+s__Chlorobium_phaeobacteroides                     &quot;Chlorobi&quot;                   
+s__Chlamydophila_unclassified                      &quot;Chlamydiae&quot;                 
+s__Rhodopirellula_unclassified                     &quot;Planctomycetes&quot;             
+s__Thermodesulfobacterium_unclassified             &quot;Thermodesulfobacteria&quot;      
+s__Mucispirillum_schaedleri                        &quot;Deferribacteres&quot;            
+s__Microcoleus_unclassified                        &quot;Cyanobacteria&quot;              </code></pre>
+<pre class="r"><code>phy &lt;- tax_table(ps1a.west)[,2]
+phyla &lt;- phy[,&quot;Phylum&quot;]
+#phyla = as.vector(data.frame(tax_table(ps1a.west))$Phylum)
+
+levels(phyla) = c(levels(phyla),&quot;other&quot;)
+keephyla = c(&quot;Actinobacteria&quot;,&quot;Bacteroidetes&quot;,&quot;Firmicutes&quot;, &quot;Proteobacteria&quot;,&quot;Verrucomicrobia&quot;)
+phyla[!(phyla %in% keephyla)] = &quot;Other&quot;
+phyla = as.vector(phyla)
+phyla=as.factor(phyla)
+
+otuabun = data.frame(abundance= otu.abun,Frequency=otu.freq,phyla)
+
+# Use color brewer to pick a color scheme for the phyla
+brew = brewer.pal(7, &quot;Paired&quot;)
+
+# Create a scatterplot of OTUs showing their average relative abundance and frequency 
+# This plot shows how rare and abundant OTUs are distributed across the
+# your study.
+
+write.csv(otuabun, &quot;data/01_exploratory/tables/Ocucpancy_relationship.csv&quot;)</code></pre>
+<pre class="r"><code>p.occ &lt;- ggplot(otuabun, aes(x= 100*(abundance),
+                             y=Frequency,color=phyla)) + 
+  geom_point(aes(size = Frequency), 
+             shape = 21, 
+             stroke = 1, alpha = 0.6) +
+    xlab(&quot;Average relative abundance (%)&quot;) + 
+    ylab(&quot;OTU frequency in gut metagenomes&quot;) + 
+    scale_colour_brewer(&quot;Phylum&quot;,palette=&quot;Dark2&quot;) +
+    theme_bw(base_size = 8) + geom_vline(xintercept = 0, 
+                            linetype=&quot;dashed&quot;, color = &quot;grey&quot;)
+
+# now add species
+p.occ$data$species &lt;- rownames(p.occ$data)
+
+p.occ$data$species &lt;- gsub(&quot;s__&quot;, &quot;&quot;, p.occ$data$species)
+
+write.csv(otuabun, &quot;Ocucpancy_relationship.csv&quot;)
+
+mmsp &lt;- c(&quot;Coprococcus_catus&quot;,&quot;Lachnospiraceae_bacterium_7_1_58FAA&quot;,&quot;Eubacterium_hallii&quot;,&quot;Bacteroides_xylanisolvens&quot;, &quot;Roseburia_intestinalis&quot;,&quot;Eubacterium_siraeum&quot;,&quot;Bacteroides_ovatus&quot;,&quot;Subdoligranulum_unclassified&quot;, &quot;Faecalibacterium_prausnitzii&quot;,&quot;Eubacterium_rectale&quot;)</code></pre>
+<p>Add labels of candidate species</p>
+<pre class="r"><code>p.occ2 &lt;- p.occ + ggrepel::geom_text_repel(segment.color = &quot;grey50&quot;, 
+                                           aes(label = species, fontface=3, size=2), 
+                                           data = p.occ$data[p.occ$data$species %in% mmsp,], 
+                                           color = &quot;black&quot;, size = 3,
+                                           force             = 0.5,
+                                           nudge_y           = -0.5,
+                                           direction         = &quot;y&quot;,
+                                           hjust             = 0,
+                                           segment.linetype = 1,
+                                           segment.curvature = -1e-20,
+                                           arrow = arrow(length = unit(0.02, &quot;npc&quot;))) 
+                                           
+p.occ2 </code></pre>
+<p><img src="figure/01_Core_microbiota_metagenomic.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plot-for-manuscript" class="section level2">
+<h2>Plot for Manuscript</h2>
+<pre class="r"><code>p.core + p.occ2 + plot_annotation(tag_levels = &quot;a&quot;) + 
+  plot_layout(widths = c(0.5,1), guides = &quot;collect&quot;) </code></pre>
+<p><img src="figure/01_Core_microbiota_metagenomic.Rmd/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/01_exploratory/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf&quot;, height = 5, width = 10)
+ggsave(&quot;data/01_exploratory/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.tiff&quot;, height = 5, width = 10)
+ggsave(&quot;data/01_exploratory/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf&quot;, height = 5, width = 10)</code></pre>
+<p>Older messier</p>
+<pre class="r"><code>p.occ2 &lt;- p.occ + ggrepel::geom_text_repel(segment.color = &quot;grey50&quot;, aes(label = species, fontface=3), 
+                                           data = p.occ$data[p.occ$data$species %in% mmsp,], 
+                                           color = &quot;black&quot;, size = 4,
+                                           arrow = arrow(length = unit(0.02, &quot;npc&quot;)), 
+                                           box.padding = 1.5,
+                                           nudge_x = 0.05) 
+
+p.occ2
+
+ggsave(&quot;output/figs/01_RelAb_Occupancy_Abundance_relationship.tiff&quot;, height = 6, width = 10)
+ggsave(&quot;output/figs/01_RelAb_Occupancy_Abundance_relationship.pdf&quot;, height = 6, width = 10)
+
+
+ggarrange(p.core, p.occ2, labels = c(&quot;a&quot;, &quot;b&quot;), ncol = 2)
+
+ggsave(&quot;output/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf&quot;, height = 8, width = 18)
+ggsave(&quot;output/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.tiff&quot;, height = 8, width = 18)
+ggsave(&quot;output/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf&quot;, height = 8, width = 18)</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] parallel  stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] patchwork_1.0.1               ggtext_0.1.0                 
+ [3] glue_1.4.2                    ggpubr_0.4.0                 
+ [5] microbiomeutilities_1.00.14   microbiome_1.11.2            
+ [7] ggplot2_3.3.2                 phyloseq_1.33.0              
+ [9] curatedMetagenomicData_1.19.3 ExperimentHub_1.15.3         
+[11] dplyr_1.0.2                   Biobase_2.50.0               
+[13] AnnotationHub_2.21.5          BiocFileCache_1.13.1         
+[15] dbplyr_1.4.4                  BiocGenerics_0.36.0          
+[17] RColorBrewer_1.1-2            workflowr_1.6.2              
+
+loaded via a namespace (and not attached):
+  [1] Rtsne_0.15                    colorspace_1.4-1             
+  [3] ggsignif_0.6.0                ellipsis_0.3.1               
+  [5] rio_0.5.16                    rprojroot_1.3-2              
+  [7] markdown_1.1                  XVector_0.30.0               
+  [9] fs_1.5.0                      gridtext_0.1.1               
+ [11] rstudioapi_0.11               farver_2.0.3                 
+ [13] ggrepel_0.9.1                 bit64_4.0.5                  
+ [15] interactiveDisplayBase_1.27.5 AnnotationDbi_1.51.3         
+ [17] xml2_1.3.2                    codetools_0.2-16             
+ [19] splines_4.0.3                 knitr_1.30                   
+ [21] ade4_1.7-15                   jsonlite_1.7.1               
+ [23] broom_0.7.1                   cluster_2.1.0                
+ [25] pheatmap_1.0.12               shiny_1.5.0                  
+ [27] BiocManager_1.30.10           compiler_4.0.3               
+ [29] httr_1.4.2                    backports_1.2.0              
+ [31] assertthat_0.2.1              Matrix_1.2-18                
+ [33] fastmap_1.0.1                 later_1.1.0.1                
+ [35] htmltools_0.5.1.1             tools_4.0.3                  
+ [37] igraph_1.2.6                  gtable_0.3.0                 
+ [39] reshape2_1.4.4                rappdirs_0.3.1               
+ [41] Rcpp_1.0.5                    carData_3.0-4                
+ [43] cellranger_1.1.0              vctrs_0.3.4                  
+ [45] Biostrings_2.58.0             rhdf5filters_1.2.0           
+ [47] multtest_2.45.0               ape_5.4-1                    
+ [49] nlme_3.1-149                  iterators_1.0.13             
+ [51] gghalves_0.1.0                xfun_0.17                    
+ [53] stringr_1.4.0                 openxlsx_4.2.2               
+ [55] mime_0.9                      lifecycle_0.2.0              
+ [57] rstatix_0.6.0                 zlibbioc_1.36.0              
+ [59] MASS_7.3-53                   scales_1.1.1                 
+ [61] hms_0.5.3                     promises_1.1.1               
+ [63] biomformat_1.17.0             rhdf5_2.34.0                 
+ [65] yaml_2.2.1                    curl_4.3                     
+ [67] memoise_1.1.0                 stringi_1.5.3                
+ [69] RSQLite_2.2.1                 BiocVersion_3.12.0           
+ [71] S4Vectors_0.28.0              foreach_1.5.1                
+ [73] permute_0.9-5                 zip_2.1.1                    
+ [75] rlang_0.4.8                   pkgconfig_2.0.3              
+ [77] evaluate_0.14                 lattice_0.20-41              
+ [79] purrr_0.3.4                   Rhdf5lib_1.12.0              
+ [81] labeling_0.4.2                bit_4.0.4                    
+ [83] tidyselect_1.1.0              plyr_1.8.6                   
+ [85] magrittr_1.5                  R6_2.5.0                     
+ [87] IRanges_2.24.0                generics_0.1.0               
+ [89] DBI_1.1.0                     pillar_1.4.6                 
+ [91] haven_2.3.1                   foreign_0.8-80               
+ [93] withr_2.3.0                   mgcv_1.8-33                  
+ [95] abind_1.4-5                   survival_3.2-7               
+ [97] tibble_3.0.4                  crayon_1.3.4                 
+ [99] car_3.0-10                    rmarkdown_2.4                
+[101] grid_4.0.3                    readxl_1.3.1                 
+[103] data.table_1.13.0             blob_1.2.1                   
+[105] git2r_0.27.1                  vegan_2.5-6                  
+[107] forcats_0.5.0                 digest_0.6.27                
+[109] xtable_1.8-4                  tidyr_1.1.2                  
+[111] httpuv_1.5.4                  stats4_4.0.3                 
+[113] munsell_0.5.0                </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

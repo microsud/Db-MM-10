@@ -1,0 +1,254 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "Culture experimemnts and Metabolites anlaysis"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+This document consist of codes for analysis and visualization of lab data from growth assays, hplc measurement of individual and mixed cultures of Db-MM. 
+ 
+
+```{r, message=FALSE}
+
+library(tidyverse)
+library(ggplot2)
+library(ggpubr)
+library(microbiome)
+library(patchwork)
+
+```
+
+## Define a color for metabolites tested in the Db-MM  
+
+```{r}
+# for metabolites tested in the Db-MM  
+ColorsDT <- c(Acetate = "#CBD588", Propionate = "#5F7FC7", 
+              Butyrate = "orange", Isobutyrate= "#DA5724", 
+              Formate ="#508578", Lactate = "#CD9BCD", Glucose = "#AD6F3B", 
+              Fructose = "#673770",Xylose = "#D14285", Cellobiose= "black", 
+              Hydrogen_gas="#a8ddb5", Hydrogen = "#08306b")
+
+```
+
+
+```{r}
+
+# Define a color for each strain used in the Db-MM 
+strain.colors <- c(`Bacteroides ovatus` = "#1F78B4", 
+                   `Bacteroides xylanisolvens` = "#B2DF8A", 
+                   `Anaerobutyricum soehngenii` = "#FDBF6F", 
+                   `Agathobacter rectalis`= "#33A02C", 
+                   `Eubacterium siraeum` ="#FB9A99", 
+                   `Faecalibacterium prausnitzii` = "#A6CEE3", 
+                   `Lachnospiraceae bacterium 7_1_58FAA` = "#E31A1C", 
+                   `Flavonifractor plautii` = "#E31A1C",
+                   `Roseburia intestinalis` = "#CAB2D6", 
+                   `Subdoligranulum variabile` = "#FF7F00", 
+                   `Coprococcus catus` = "#6A3D9A")
+```
+
+
+## Mono Culture  
+
+```{r}
+
+hplc_data <- read.csv("data_raw/02_wetlab/mono_culture_hplc.csv", 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)
+
+
+hplc_data$BacterialStrain <- gsub("Lachnospiraceae bacterium 7_1_58FAA", "Flavonifractor plautii",
+                                  hplc_data$BacterialStrain)
+
+
+```
+
+```{r}
+head(hplc_data)
+all2 <- reshape2::melt(hplc_data)
+all2 <- subset(all2, variable != "Isobutyrate") # below detection limit
+```
+
+
+### Acetate concentrations  
+```{r}
+## Since acetate was added in the media and had high concentration, I will plot it separately 
+all2.acetate <- subset(all2, variable == "Acetate")
+
+all2.acetate$TimepointNum <- all2.acetate$Timepoint
+all2.acetate$TimepointNum <- as.numeric(gsub("T", "",all2.acetate$TimepointNum))
+
+p.ace <- ggline(all2.acetate, "TimepointNum", "value", color = "BacterialStrain", 
+                add = "mean_se",
+                ylab = "Acetate concentration (mM)",
+                xlab = "Time (hr)", 
+                legend = "right", size = 1,
+                ncol =5) + rotate_x_text() + scale_color_manual("", values= strain.colors) 
+
+p.ace <- p.ace + theme_bw(base_size = 12) + theme( 
+                                    strip.background = element_rect(fill="white")) 
+
+
+p.ace <- ggpar(p.ace, legend = "right", font.legend = c(10, "italic"))
+
+p.ace
+ggsave("data/02_wetlab/figs/01_mono_culture_HPLC_Acetate.pdf", height = 5, width = 10)
+
+
+```
+
+
+### Remaining metabolites  
+```{r}
+
+all2.noace <- subset(all2, variable !="Acetate")
+
+all2.noace$TimepointNum <- all2.noace$Timepoint
+all2.noace$TimepointNum <- as.numeric(gsub("T", "",all2.noace$TimepointNum))
+#head(hplc_metadata)
+
+p1 <- ggline(all2.noace, "TimepointNum", "value", color = "variable", 
+             add = "mean_se",
+             facet.by = "BacterialStrain",
+             ylab = "Concentration (mM)",
+             xlab = "Time (hr)", 
+             legend = "right", #scales ="free",
+             ncol = 5,
+             size = 1,
+             alpha=0.5) + rotate_x_text() + 
+  scale_color_manual("", values= ColorsDT)
+p1 <- p1 + 
+  theme_bw(base_size = 10) + 
+  theme(strip.background = element_rect(fill="white")) + 
+  theme(strip.text = element_text(face = "italic"))
+p1 <- p1  + geom_hline(aes(yintercept=4), linetype="dashed", alpha = 0.5) 
+p1 
+
+
+#dir.create("results")
+
+ggsave("data/02_wetlab/figs/01_mono_culture_HPLC_metabolites.pdf", height = 5, width = 14)
+#ggsave("output/figs/01_mono_culture_HPLC_metabolites.png", height = 5, width = 14)
+#ggsave("output/figs/01_mono_culture_HPLC_metabolites.tiff", height = 5, width = 14)
+
+```
+
+```{r}
+p1 / (p.ace + plot_spacer() +plot_spacer()) + plot_layout(heights = c(2,1)) + plot_annotation(tag_levels = "A") #+ plot_layout(guides = 'collect')
+ggsave("data/02_wetlab/figs/Edit_01_mono_cultue_HPLC_metabolites.pdf", height = 9, width = 16)
+
+```
+
+
+## Mixed culture  
+
+```{r}
+
+mixed_data <- read.csv("data_raw/02_wetlab/mixed_culture_scfa_gc.csv", 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)
+
+#mixed_data_sub <- mixed_data[, -c(2, 4, 5, 6 )]
+
+mixed_data_2 <- reshape2::melt(mixed_data)
+
+#mixed_data_2 <- subset(mixed_data_2, CarbonSource != "Cellobiose-Xylan-Starch-Inulin")
+
+mixed_data_2$TimepointNum <- mixed_data_2$Timepoint
+mixed_data_2$TimepointNum <- as.numeric(gsub("T", "",mixed_data_2$TimepointNum))
+
+p4 <- ggline(mixed_data_2, "TimepointNum", "value", color = "variable", 
+       add = "mean_se", 
+       ylab = "Concentration (mM)",
+       xlab = "Time (hr)", legend = "right",
+       size = 1.5) + rotate_x_text() + scale_color_manual("Legend", values= ColorsDT)
+p4 <- p4 + geom_vline(aes(xintercept=1.5), linetype="dashed", alpha = 0.5) + geom_vline(aes(xintercept=2.5), linetype="dashed", alpha = 0.7) 
+p4 <- p4 + theme_bw(base_size = 14) 
+p4
+
+ggsave("data/02_wetlab/figs/01_Figure_Mixed_HPLC.pdf", height = 3, width = 6)
+ggsave("data/02_wetlab/figs/01_Figure_Mixed_HPLC.png", height = 3, width = 6)
+ggsave("data/02_wetlab/figs/01_Figure_Mixed_HPLC.tiff", height = 3, width = 6)
+
+```
+
+
+Optical density and pH  
+```{r}
+
+od_metadata <- read.csv("data_raw/02_wetlab/mixed_culture_od_ph.csv", 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)
+
+```
+
+
+```{r}
+
+# convert to long format
+all.OD2 <- reshape2::melt(od_metadata)
+
+all.OD2 <- subset(all.OD2, variable !="Replicate")
+
+# create a line plot
+p.od <- ggline(all.OD2, "Timepoint", "value",
+       facet.by = "variable", 
+       add = "mean_se",
+       xlab = "Time (hr)",
+       size = 1, scales = "free", linetype = "dashed") + rotate_x_text() 
+
+p.od <- p.od + theme_bw(base_size = 14) + theme(strip.background = element_rect(fill="white")) 
+
+p.od  
+
+ggsave("data/02_wetlab/figs/01_mixed_culture_OD_PH_figure.pdf", height = 3, width = 6)
+ggsave("data/02_wetlab/figs/01_mixed_culture_OD_PH_figure.png", height = 3, width = 6)
+ggsave("data/02_wetlab/figs/01_mixed_culture_OD_PH_figure.tiff", height = 3, width = 6)
+```
+
+## pH changes in monocultures 
+```{r}
+# pH 
+
+
+ph_data <- read.csv("data_raw/02_wetlab/mono_culture_od_ph.csv", 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)
+
+all.ph2 <- reshape2::melt(ph_data)
+
+#scale_ph <- scale_y_continuous(breaks = c(2, 4, 6, 8, 9), labels = c("2", "4", "6", "8", "9"))
+
+#scale_ph <- scale_y_continuous(limits=c(5, 9))
+
+
+p.ph <- ggline(all.ph2, "Timepoint","value",  color = "BacterialStrain", 
+               facet.by = c("variable"),
+               add = "mean_se",
+               ylab = "Value",
+               xlab = "Time (hr)", legend = "right",
+               tickslab = T,
+               scales = "free") + rotate_x_text() + scale_color_manual("Bacterial strain", values= strain.colors) + theme_classic2(base_size = 14)
+
+p.ph 
+
+ggsave("data/02_wetlab/figs/01_mono_culture_OD_PH.pdf", height = 4, width = 10)
+
+ggsave("data/02_wetlab/figs/01_mono_culture_OD_PH.tiff", height = 4, width = 10)
+
+```
+
+
+```{r}
+sessionInfo()
+```
+

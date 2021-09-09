@@ -1,0 +1,209 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "Reconstruction of community-level pathways active in Db-MM community"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+Reconstruction of community-level pathways active in Db-MM community   
+
+One of the primary goals was to reconstruct major short chain fatty acids producing metabolic pathways and network.  
+Of specific interest were those pathways leading to butyrate and propionate. We use the fold-changes in KO IDs identified in `kegg_analysis_initiate.rmd` file for identifying changes in metabolism between 24h and 48h.    
+
+Note: Requires internet connection for fetching KEGG pathway maps.  
+
+## Setup  
+```{r, message=FALSE, warning=FALSE}
+
+# import other necessary packages
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(tidyverse)
+  #library(EnhancedVolcano)
+  library(ggplot2)
+  library(data.table)
+  library("pathview")
+  library(clusterProfiler)
+  library(gage)
+  library(enrichplot)
+  library(ggraph)
+  library(RColorBrewer)
+  library(viridis)
+})
+
+#library(optparse)
+```
+
+# KEGG pathway analysis  
+
+The input is from `01_kegg_analysis_initiate.rmd` file. The DESeq2 anlaysis was done at KO level to identify enrichment of KOs between 24h and 48h
+
+## Read file
+```{r}
+# read file
+sorted_ko_results <- readRDS("data/04_metatrans/rds/sorted_ko_deseq2_results.rds")
+
+DT::datatable(sorted_ko_results) # check content to be sure
+
+# get fold change
+foldchanges = sorted_ko_results$log2FoldChange
+# get KO ids
+names(foldchanges) = rownames(sorted_ko_results)
+#check
+#head(foldchanges)
+
+```
+
+
+## Pathway enrichment KEGG 
+
+```{r}
+# Select genes with >1.5 fold change  
+gene <- names(foldchanges)[abs(foldchanges) > 1.5]
+
+# Check for enriched KEGG pathways
+kk <- enrichKEGG(gene         = gene,
+                 organism     = 'ko',
+                 qvalueCutoff = 0.2,
+                 minGSSize = 5)
+
+dim(kk)
+
+```
+
+## Gene-Concept network analysis  
+
+```{r}
+set.seed(1930)
+#dir.create("pathway_tables")
+#dir.create("pathway_tables")
+#dir.create("pathway_figures")
+kk.df <- as.data.frame(kk)
+write.csv(kk.df, "data/04_metatrans/tables/kegg_enriched_pathways.csv")
+cplot.heat <- heatplot(kk, foldChange=foldchanges)
+cplot.dat <- cplot.heat$data
+## Read KEEG BRITE classification  
+#The KEGG htext was downloaded from KEGG website.  
+keg.brite <- fread("data_raw/04_metatrans/kegg_brite/KEGG_htext_classificationDb.txt", header = F, sep = "\t")
+
+#head(keg.brite)
+#DT::datatable(keg.brite.x)
+colnames(keg.brite) <- c("Level_1", "Level_2", "Level_3", "Level_4", "KO")
+keg.brite2 <- keg.brite %>% mutate(Level_4 = str_replace(Level_4, "\\s", "|")) %>%
+  separate(Level_4, into = c("KOID", "GeneName"), sep = "\\|")
+
+head(keg.brite2)
+kegg_id <- keg.brite2 %>% distinct(KO, GeneName)
+colnames(cplot.dat) <- c("category","KO", "foldChange")
+
+kegg_id <- subset(kegg_id, kegg_id$KO %in% cplot.dat$KO)
+cplot.dat2 <- merge(cplot.dat,kegg_id, by="KO")
+cplot.dat3 <- cplot.dat2 %>% group_by(category, KO, GeneName)
+cplot.dat4 <- cplot.dat2 %>% group_by(KO, GeneName)
+
+write.table(cplot.dat4, "data/04_metatrans/tables/enrich_map_ko_genename.txt", sep = "\t")
+
+```
+
+Checking overall gene interaction map 
+```{r}
+
+p.ht <- ggplot(cplot.dat3, 
+               aes(category, GeneName,fill = foldChange)) + 
+  geom_tile(size=0.5, na.rm = T) +
+  scale_fill_gradient(name = "Fold change",
+                      low = "#FFFFFF",
+                      high = "#012345") + theme_bw(base_size = 6) +  
+  theme(panel.background = element_blank(), # Move depth boxes to bottom of plot
+        panel.grid.major = element_blank(),
+        panel.grid.minor= element_blank(),
+        plot.title = element_text(hjust = 0.5), # Center-justify plot title
+        axis.text.x = element_text(angle = 90, hjust=1), # rotate
+        axis.title.y = element_blank(), # Remove y-axis title
+        strip.background = element_rect(fill = "#EEEEEE", color = "#FFFFFF")) 
+p.ht
+
+ggsave("data/04_metatrans/figs/kk_enrich_heatmap.pdf", height = 6, width = 7, useDingbats=FALSE)
+
+
+```
+
+
+```{r}
+cplot <- cnetplot(kk, 
+                  categorySize="Count", 
+                  showCategory = 24, 
+                  foldChange=gene, 
+                  vertex.label.font=6,
+                  circular = F, colorEdge = T) 
+cplot
+ggsave("data/04_metatrans/figs/kk_enrich_network.pdf", height = 10, width = 18, useDingbats=FALSE)
+ggsave("data/04_metatrans/figs/kk_enrich_network.png", height = 10, width = 18)
+#ggsave("02_pathway_anlaysis/figs/kk_enrich_network.tiff", height = 10, width = 18)
+
+```
+
+## KEGG pathview maps  
+  
+```{r}
+
+foldchanges.view = sorted_ko_results$log2FoldChange
+
+write.csv(as.data.frame(foldchanges.view), "data/04_metatrans/tables/KEGG_pathways_KO_foldchanges_view.csv")
+#dir.create("kegg_maps")
+foldchanges.view = sorted_ko_results$log2FoldChange
+names(foldchanges.view) = rownames(sorted_ko_results)
+head(foldchanges.view)
+
+```
+
+
+Plot fold-changes on maps  
+
+```{r}
+
+Glycolysis <- pathview(gene.data  = foldchanges.view,
+                     pathway.id = "00010",
+                     species    = "ko",
+                     limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
+                     out.suffix = "Glycolysis", 
+                     low = "#d73027", mid = "#fee090", high = "#4575b4")
+
+butanoate <- pathview(gene.data  = foldchanges.view,
+                     pathway.id = "00650",
+                     species    = "ko",
+                     limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
+                     out.suffix = "butanoate_metabolism", 
+                     low = "#d73027", mid = "#fee090", high = "#4575b4")
+
+propanoate <- pathview(gene.data  = foldchanges.view,
+                     pathway.id = "00640",
+                     species    = "ko",
+                     limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
+                     out.suffix = "propanoate_metabolism",
+                     low = "#d73027", mid = "#fee090", high = "#4575b4")
+# The plots are located in the same folder as this rmarkdown file.
+
+```
+
+![glycolysis](ko00010.Glycolysis.png)
+
+![Butanoate](ko00650.butanoate_metabolism.png)
+
+![Propanoate](ko00640.propanoate_metabolism.png)
+
+```{r eval=FALSE}
+sessionInfo()
+```
+
+
+

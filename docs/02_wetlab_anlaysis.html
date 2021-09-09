@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sudarshan A. Shetty" />
+
+
+<title>Assembly diet based minimal microbiome (Db-MM10)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DbMM</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="01_Core_microbiota_metagenomic.html">Core Microbiota</a>
+</li>
+<li>
+  <a href="02_wetlab_anlaysis.html">Growth and Metabolites</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Assembly diet based minimal microbiome (Db-MM10)</h1>
+<h3 class="subtitle">Culture experimemnts and Metabolites anlaysis</h3>
+<h4 class="author">Sudarshan A. Shetty</h4>
+<h4 class="date">Sun Apr 04 14:10:05 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-04-04
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>DbMM/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210404code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210404)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210404code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210404)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongNocommitsyet"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> No commits yet </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongNocommitsyet" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  DbMM.Rproj
+    Untracked:  Ocucpancy_relationship.csv
+    Untracked:  README.md
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  bin/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  data_raw/
+    Untracked:  output/
+    Untracked:  structure.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This document consist of codes for analysis and visualization of lab data from growth assays, hplc measurement of individual and mixed cultures of Db-MM.</p>
+<pre class="r"><code>library(tidyverse)
+library(ggplot2)
+library(ggpubr)
+library(microbiome)
+library(patchwork)</code></pre>
+<div id="define-a-color-for-metabolites-tested-in-the-db-mm" class="section level2">
+<h2>Define a color for metabolites tested in the Db-MM</h2>
+<pre class="r"><code># for metabolites tested in the Db-MM  
+ColorsDT &lt;- c(Acetate = &quot;#CBD588&quot;, Propionate = &quot;#5F7FC7&quot;, 
+              Butyrate = &quot;orange&quot;, Isobutyrate= &quot;#DA5724&quot;, 
+              Formate =&quot;#508578&quot;, Lactate = &quot;#CD9BCD&quot;, Glucose = &quot;#AD6F3B&quot;, 
+              Fructose = &quot;#673770&quot;,Xylose = &quot;#D14285&quot;, Cellobiose= &quot;black&quot;, 
+              Hydrogen_gas=&quot;#a8ddb5&quot;, Hydrogen = &quot;#08306b&quot;)</code></pre>
+<pre class="r"><code># Define a color for each strain used in the Db-MM 
+strain.colors &lt;- c(`Bacteroides ovatus` = &quot;#1F78B4&quot;, 
+                   `Bacteroides xylanisolvens` = &quot;#B2DF8A&quot;, 
+                   `Anaerobutyricum soehngenii` = &quot;#FDBF6F&quot;, 
+                   `Agathobacter rectalis`= &quot;#33A02C&quot;, 
+                   `Eubacterium siraeum` =&quot;#FB9A99&quot;, 
+                   `Faecalibacterium prausnitzii` = &quot;#A6CEE3&quot;, 
+                   `Lachnospiraceae bacterium 7_1_58FAA` = &quot;#E31A1C&quot;, 
+                   `Roseburia intestinalis` = &quot;#CAB2D6&quot;, 
+                   `Subdoligranulum variabile` = &quot;#FF7F00&quot;, 
+                   `Coprococcus catus` = &quot;#6A3D9A&quot;)</code></pre>
+</div>
+<div id="mono-culture" class="section level2">
+<h2>Mono Culture</h2>
+<pre class="r"><code>hplc_data &lt;- read.csv(&quot;data_raw/02_wetlab/mono_culture_hplc.csv&quot;, 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)</code></pre>
+<pre class="r"><code>head(hplc_data)</code></pre>
+<pre><code>          Acetate Butyrate  Formate Isobutyrate  Lactate Propionate Cellobiose
+AR1_T0   30.11726  0.00000 1.206121           0 1.455783   2.601330 3.20219308
+AR1_T24  23.77700 10.70711 3.853933           0 8.762623   2.614102 0.00000000
+AR1_T48  19.48016 16.71753 4.615672           0 9.403466   2.730518 0.02172084
+AR1_T72  16.04424 16.51905 4.130300           0 8.454673   2.295613 0.00000000
+AR1_T96  17.85162 16.86376 4.233168           0 8.834176   2.513840 0.00000000
+AR1_T168 19.02426 19.02116 4.725509           0 3.517638   2.730241 0.02519703
+         Fructose    Glucose    Xylose       BacterialStrain Replicate
+AR1_T0   0.000000 0.79201078 0.8575194 Agathobacter rectalis       AR1
+AR1_T24  0.000000 0.03352015 1.1633253 Agathobacter rectalis       AR1
+AR1_T48  1.533384 0.08279036 0.0000000 Agathobacter rectalis       AR1
+AR1_T72  1.415372 0.07678967 0.0000000 Agathobacter rectalis       AR1
+AR1_T96  1.509630 0.09062684 0.0000000 Agathobacter rectalis       AR1
+AR1_T168 1.584211 0.10178697 0.0000000 Agathobacter rectalis       AR1
+         Timepoint
+AR1_T0          T0
+AR1_T24        T24
+AR1_T48        T48
+AR1_T72        T72
+AR1_T96        T96
+AR1_T168      T168</code></pre>
+<pre class="r"><code>all2 &lt;- reshape2::melt(hplc_data)</code></pre>
+<pre><code>Using BacterialStrain, Replicate, Timepoint as id variables</code></pre>
+<pre class="r"><code>all2 &lt;- subset(all2, variable != &quot;Isobutyrate&quot;) # below detection limit</code></pre>
+<div id="acetate-concentrations" class="section level3">
+<h3>Acetate concentrations</h3>
+<pre class="r"><code>## Since acetate was added in the media and had high concentration, I will plot it seperately 
+all2.acetate &lt;- subset(all2, variable == &quot;Acetate&quot;)
+
+all2.acetate$TimepointNum &lt;- all2.acetate$Timepoint
+all2.acetate$TimepointNum &lt;- as.numeric(gsub(&quot;T&quot;, &quot;&quot;,all2.acetate$TimepointNum))
+
+p.ace &lt;- ggline(all2.acetate, &quot;TimepointNum&quot;, &quot;value&quot;, color = &quot;BacterialStrain&quot;, 
+                add = &quot;mean_se&quot;,
+                ylab = &quot;Acetate concentration (mM)&quot;,
+                xlab = &quot;Time (hr)&quot;, 
+                legend = &quot;right&quot;, size = 1,
+                ncol =5) + rotate_x_text() + scale_color_manual(&quot;Legend:&quot;, values= strain.colors) 
+
+p.ace &lt;- p.ace + theme_bw(base_size = 12) + theme( 
+                                    strip.background = element_rect(fill=&quot;white&quot;)) 
+
+
+p.ace &lt;- ggpar(p.ace, legend = &quot;right&quot;, font.legend = c(10, &quot;italic&quot;))
+
+p.ace</code></pre>
+<p><img src="figure/02_wetlab_anlaysis.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/02_wetlab/figs/01_mono_culture_HPLC_Acetate.pdf&quot;, height = 5, width = 10)</code></pre>
+</div>
+<div id="remaining-metabolites" class="section level3">
+<h3>Remaining metabolites</h3>
+<pre class="r"><code>all2.noace &lt;- subset(all2, variable !=&quot;Acetate&quot;)
+
+all2.noace$TimepointNum &lt;- all2.noace$Timepoint
+all2.noace$TimepointNum &lt;- as.numeric(gsub(&quot;T&quot;, &quot;&quot;,all2.noace$TimepointNum))
+#head(hplc_metadata)
+
+p1 &lt;- ggline(all2.noace, &quot;TimepointNum&quot;, &quot;value&quot;, color = &quot;variable&quot;, 
+       add = &quot;mean_se&quot;,
+       facet.by = &quot;BacterialStrain&quot;,
+       ylab = &quot;Concentration (mM)&quot;,
+       xlab = &quot;Time (hr)&quot;, 
+       legend = &quot;right&quot;, #scales =&quot;free&quot;,
+       ncol = 5,
+       size = 1) + rotate_x_text() + scale_color_manual(&quot;Legend:&quot;, values= ColorsDT)
+p1 &lt;- p1 + theme_bw(base_size = 12) + theme(strip.background = element_rect(fill=&quot;white&quot;)) + theme(strip.text = element_text(face = &quot;italic&quot;))
+p1 &lt;- p1  + geom_hline(aes(yintercept=4), linetype=&quot;dashed&quot;, alpha = 0.5) 
+p1 </code></pre>
+<p><img src="figure/02_wetlab_anlaysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dir.create(&quot;results&quot;)
+
+ggsave(&quot;data/02_wetlab/figs/01_mono_culture_HPLC_metabolites.pdf&quot;, height = 5, width = 14)
+#ggsave(&quot;output/figs/01_mono_culture_HPLC_metabolites.png&quot;, height = 5, width = 14)
+#ggsave(&quot;output/figs/01_mono_culture_HPLC_metabolites.tiff&quot;, height = 5, width = 14)</code></pre>
+<pre class="r"><code>p1 / (p.ace + plot_spacer() +plot_spacer()) + plot_layout(heights = c(2,1)) + plot_annotation(tag_levels = &quot;A&quot;) #+ plot_layout(guides = &#39;collect&#39;)</code></pre>
+<p><img src="figure/02_wetlab_anlaysis.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/02_wetlab/figs/Edit_01_mono_cultue_HPLC_metabolites.pdf&quot;, height = 9, width = 16)</code></pre>
+</div>
+</div>
+<div id="mixed-culture" class="section level2">
+<h2>Mixed culture</h2>
+<pre class="r"><code>mixed_data &lt;- read.csv(&quot;data_raw/02_wetlab/mixed_culture_scfa_gc.csv&quot;, 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)
+
+#mixed_data_sub &lt;- mixed_data[, -c(2, 4, 5, 6 )]
+
+mixed_data_2 &lt;- reshape2::melt(mixed_data)</code></pre>
+<pre><code>Using Rep, Timepoint as id variables</code></pre>
+<pre class="r"><code>#mixed_data_2 &lt;- subset(mixed_data_2, CarbonSource != &quot;Cellobiose-Xylan-Starch-Inulin&quot;)
+
+mixed_data_2$TimepointNum &lt;- mixed_data_2$Timepoint
+mixed_data_2$TimepointNum &lt;- as.numeric(gsub(&quot;T&quot;, &quot;&quot;,mixed_data_2$TimepointNum))
+
+p4 &lt;- ggline(mixed_data_2, &quot;TimepointNum&quot;, &quot;value&quot;, color = &quot;variable&quot;, 
+       add = &quot;mean_se&quot;, 
+       ylab = &quot;Concentration (mM)&quot;,
+       xlab = &quot;Time (hr)&quot;, legend = &quot;right&quot;,
+       size = 1.5) + rotate_x_text() + scale_color_manual(&quot;Legend&quot;, values= ColorsDT)
+p4 &lt;- p4 + geom_vline(aes(xintercept=1.5), linetype=&quot;dashed&quot;, alpha = 0.5) + geom_vline(aes(xintercept=2.5), linetype=&quot;dashed&quot;, alpha = 0.7) 
+p4 &lt;- p4 + theme_bw(base_size = 14) 
+p4</code></pre>
+<p><img src="figure/02_wetlab_anlaysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/02_wetlab/figs/01_Figure_Mixed_HPLC.pdf&quot;, height = 3, width = 6)
+ggsave(&quot;data/02_wetlab/figs/01_Figure_Mixed_HPLC.png&quot;, height = 3, width = 6)
+ggsave(&quot;data/02_wetlab/figs/01_Figure_Mixed_HPLC.tiff&quot;, height = 3, width = 6)</code></pre>
+<p>Optical density and pH</p>
+<pre class="r"><code>od_metadata &lt;- read.csv(&quot;data_raw/02_wetlab/mixed_culture_od_ph.csv&quot;, 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)</code></pre>
+<pre class="r"><code># convert to long format
+all.OD2 &lt;- reshape2::melt(od_metadata)</code></pre>
+<pre><code>Using Timepoint, CarbonSource as id variables</code></pre>
+<pre class="r"><code>all.OD2 &lt;- subset(all.OD2, variable !=&quot;Replicate&quot;)
+
+# create a line plot
+p.od &lt;- ggline(all.OD2, &quot;Timepoint&quot;, &quot;value&quot;,
+       facet.by = &quot;variable&quot;, 
+       add = &quot;mean_se&quot;,
+       xlab = &quot;Time (hours)&quot;,
+       size = 1, scales = &quot;free&quot;, linetype = &quot;dashed&quot;) + rotate_x_text() 
+
+p.od &lt;- p.od + theme_bw(base_size = 14) + theme(strip.background = element_rect(fill=&quot;white&quot;)) 
+
+p.od  </code></pre>
+<p><img src="figure/02_wetlab_anlaysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/02_wetlab/figs/01_mixed_culture_OD_PH_figure.pdf&quot;, height = 3, width = 6)
+ggsave(&quot;data/02_wetlab/figs/01_mixed_culture_OD_PH_figure.png&quot;, height = 3, width = 6)
+ggsave(&quot;data/02_wetlab/figs/01_mixed_culture_OD_PH_figure.tiff&quot;, height = 3, width = 6)</code></pre>
+</div>
+<div id="ph-changes-in-monocultures" class="section level2">
+<h2>pH changes in monocultures</h2>
+<pre class="r"><code># pH 
+
+
+ph_data &lt;- read.csv(&quot;data_raw/02_wetlab/mono_culture_od_ph.csv&quot;, 
+                      row.names = 1, header = T, 
+                      stringsAsFactors = F)
+
+all.ph2 &lt;- reshape2::melt(ph_data)</code></pre>
+<pre><code>Using Replicate, Timepoint, BacterialStrain as id variables</code></pre>
+<pre class="r"><code>#scale_ph &lt;- scale_y_continuous(breaks = c(2, 4, 6, 8, 9), labels = c(&quot;2&quot;, &quot;4&quot;, &quot;6&quot;, &quot;8&quot;, &quot;9&quot;))
+
+#scale_ph &lt;- scale_y_continuous(limits=c(5, 9))
+
+
+p.ph &lt;- ggline(all.ph2, &quot;Timepoint&quot;,&quot;value&quot;,  color = &quot;BacterialStrain&quot;, 
+               facet.by = c(&quot;variable&quot;),
+               add = &quot;mean_se&quot;,
+               ylab = &quot;Value&quot;,
+               xlab = &quot;Time (hours)&quot;, legend = &quot;right&quot;,
+               tickslab = T,
+               scales = &quot;free&quot;) + rotate_x_text() + scale_color_manual(&quot;Bacterial strain&quot;, values= strain.colors) + theme_classic2(base_size = 14)
+
+p.ph </code></pre>
+<p><img src="figure/02_wetlab_anlaysis.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/02_wetlab/figs/01_mono_culture_OD_PH.pdf&quot;, height = 4, width = 10)
+
+ggsave(&quot;data/02_wetlab/figs/01_mono_culture_OD_PH.tiff&quot;, height = 4, width = 10)</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] patchwork_1.0.1   microbiome_1.11.2 phyloseq_1.33.0   ggpubr_0.4.0     
+ [5] forcats_0.5.0     stringr_1.4.0     dplyr_1.0.2       purrr_0.3.4      
+ [9] readr_1.4.0       tidyr_1.1.2       tibble_3.0.4      ggplot2_3.3.2    
+[13] tidyverse_1.3.0   workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+  [1] Rtsne_0.15          colorspace_1.4-1    ggsignif_0.6.0     
+  [4] ellipsis_0.3.1      rio_0.5.16          rprojroot_1.3-2    
+  [7] XVector_0.30.0      fs_1.5.0            rstudioapi_0.11    
+ [10] farver_2.0.3        fansi_0.4.1         lubridate_1.7.9    
+ [13] xml2_1.3.2          codetools_0.2-16    splines_4.0.3      
+ [16] knitr_1.30          ade4_1.7-15         jsonlite_1.7.1     
+ [19] broom_0.7.1         cluster_2.1.0       dbplyr_1.4.4       
+ [22] compiler_4.0.3      httr_1.4.2          backports_1.2.0    
+ [25] assertthat_0.2.1    Matrix_1.2-18       cli_2.1.0          
+ [28] later_1.1.0.1       htmltools_0.5.1.1   tools_4.0.3        
+ [31] igraph_1.2.6        gtable_0.3.0        glue_1.4.2         
+ [34] reshape2_1.4.4      Rcpp_1.0.5          carData_3.0-4      
+ [37] Biobase_2.50.0      cellranger_1.1.0    vctrs_0.3.4        
+ [40] Biostrings_2.58.0   rhdf5filters_1.2.0  multtest_2.45.0    
+ [43] ape_5.4-1           nlme_3.1-149        iterators_1.0.13   
+ [46] xfun_0.17           ps_1.4.0            openxlsx_4.2.2     
+ [49] rvest_0.3.6         lifecycle_0.2.0     rstatix_0.6.0      
+ [52] zlibbioc_1.36.0     MASS_7.3-53         scales_1.1.1       
+ [55] hms_0.5.3           promises_1.1.1      parallel_4.0.3     
+ [58] biomformat_1.17.0   rhdf5_2.34.0        yaml_2.2.1         
+ [61] curl_4.3            stringi_1.5.3       S4Vectors_0.28.0   
+ [64] foreach_1.5.1       permute_0.9-5       BiocGenerics_0.36.0
+ [67] zip_2.1.1           rlang_0.4.8         pkgconfig_2.0.3    
+ [70] evaluate_0.14       lattice_0.20-41     Rhdf5lib_1.12.0    
+ [73] labeling_0.4.2      tidyselect_1.1.0    plyr_1.8.6         
+ [76] magrittr_1.5        R6_2.5.0            IRanges_2.24.0     
+ [79] generics_0.1.0      DBI_1.1.0           pillar_1.4.6       
+ [82] haven_2.3.1         foreign_0.8-80      withr_2.3.0        
+ [85] mgcv_1.8-33         survival_3.2-7      abind_1.4-5        
+ [88] modelr_0.1.8        crayon_1.3.4        car_3.0-10         
+ [91] rmarkdown_2.4       grid_4.0.3          readxl_1.3.1       
+ [94] data.table_1.13.0   blob_1.2.1          git2r_0.27.1       
+ [97] vegan_2.5-6         reprex_0.3.0        digest_0.6.27      
+[100] httpuv_1.5.4        stats4_4.0.3        munsell_0.5.0      </code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] patchwork_1.0.1   microbiome_1.11.2 phyloseq_1.33.0   ggpubr_0.4.0     
+ [5] forcats_0.5.0     stringr_1.4.0     dplyr_1.0.2       purrr_0.3.4      
+ [9] readr_1.4.0       tidyr_1.1.2       tibble_3.0.4      ggplot2_3.3.2    
+[13] tidyverse_1.3.0   workflowr_1.6.2  
+
+loaded via a namespace (and not attached):
+  [1] Rtsne_0.15          colorspace_1.4-1    ggsignif_0.6.0     
+  [4] ellipsis_0.3.1      rio_0.5.16          rprojroot_1.3-2    
+  [7] XVector_0.30.0      fs_1.5.0            rstudioapi_0.11    
+ [10] farver_2.0.3        fansi_0.4.1         lubridate_1.7.9    
+ [13] xml2_1.3.2          codetools_0.2-16    splines_4.0.3      
+ [16] knitr_1.30          ade4_1.7-15         jsonlite_1.7.1     
+ [19] broom_0.7.1         cluster_2.1.0       dbplyr_1.4.4       
+ [22] compiler_4.0.3      httr_1.4.2          backports_1.2.0    
+ [25] assertthat_0.2.1    Matrix_1.2-18       cli_2.1.0          
+ [28] later_1.1.0.1       htmltools_0.5.1.1   tools_4.0.3        
+ [31] igraph_1.2.6        gtable_0.3.0        glue_1.4.2         
+ [34] reshape2_1.4.4      Rcpp_1.0.5          carData_3.0-4      
+ [37] Biobase_2.50.0      cellranger_1.1.0    vctrs_0.3.4        
+ [40] Biostrings_2.58.0   rhdf5filters_1.2.0  multtest_2.45.0    
+ [43] ape_5.4-1           nlme_3.1-149        iterators_1.0.13   
+ [46] xfun_0.17           ps_1.4.0            openxlsx_4.2.2     
+ [49] rvest_0.3.6         lifecycle_0.2.0     rstatix_0.6.0      
+ [52] zlibbioc_1.36.0     MASS_7.3-53         scales_1.1.1       
+ [55] hms_0.5.3           promises_1.1.1      parallel_4.0.3     
+ [58] biomformat_1.17.0   rhdf5_2.34.0        yaml_2.2.1         
+ [61] curl_4.3            stringi_1.5.3       S4Vectors_0.28.0   
+ [64] foreach_1.5.1       permute_0.9-5       BiocGenerics_0.36.0
+ [67] zip_2.1.1           rlang_0.4.8         pkgconfig_2.0.3    
+ [70] evaluate_0.14       lattice_0.20-41     Rhdf5lib_1.12.0    
+ [73] labeling_0.4.2      tidyselect_1.1.0    plyr_1.8.6         
+ [76] magrittr_1.5        R6_2.5.0            IRanges_2.24.0     
+ [79] generics_0.1.0      DBI_1.1.0           pillar_1.4.6       
+ [82] haven_2.3.1         foreign_0.8-80      withr_2.3.0        
+ [85] mgcv_1.8-33         survival_3.2-7      abind_1.4-5        
+ [88] modelr_0.1.8        crayon_1.3.4        car_3.0-10         
+ [91] rmarkdown_2.4       grid_4.0.3          readxl_1.3.1       
+ [94] data.table_1.13.0   blob_1.2.1          git2r_0.27.1       
+ [97] vegan_2.5-6         reprex_0.3.0        digest_0.6.27      
+[100] httpuv_1.5.4        stats4_4.0.3        munsell_0.5.0      </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sudarshan A. Shetty" />
+
+
+<title>Assembly diet based minimal microbiome (Db-MM10)</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.16/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DbMM</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li>
+  <a href="core_microbiota_metagenomic.html">Core Microbiota</a>
+</li>
+<li>
+  <a href="wetlab_anlaysis.html">Growth and Metabolites</a>
+</li>
+<li>
+  <a href="dada2_processing.html">DADA2 processing</a>
+</li>
+<li>
+  <a href="qmp_analysis.html">Microbiota profile</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Assembly diet based minimal microbiome (Db-MM10)</h1>
+<h3 class="subtitle">QMP anlaysis of Db-MM (post dada2)</h3>
+<h4 class="author">Sudarshan A. Shetty</h4>
+<h4 class="date">Sun Apr 04 21:50:01 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-04-04
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>DbMM/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210404code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210404)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210404code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210404)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongNocommitsyet"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> No commits yet </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongNocommitsyet" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  DbMM.Rproj
+    Untracked:  Ocucpancy_relationship.csv
+    Untracked:  README.md
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  bin/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  data_raw/
+    Untracked:  output/
+    Untracked:  structure.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The 16S rRNA gene profiles are converted to <code>absolute counts</code> using total qPCR and copy number information of each bacterial strain from thier genome.</p>
+<div id="load-libraries" class="section level2">
+<h2>load libraries</h2>
+<pre class="r"><code>#library(&quot;devtools&quot;); 
+#devtools::install_github(&quot;timelyportfolio/sankeytree&quot;)
+
+library(DT) 
+library(ggplot2)
+library(dplyr)
+library(microbiome)
+library(microbiomeutilities)
+library(ggrepel)
+library(ggpubr)
+library(RColorBrewer)
+library(scales)</code></pre>
+<p>Read in the phyloseq object created in DADA2 analysis and stored in <code>output/rds/pseq01.rds</code>.</p>
+<pre class="r"><code>ps &lt;- readRDS(&quot;data/03_amplicon/rds/pseq01.rds&quot;)
+#ps &lt;- pseq01
+#summarize_phyloseq(ps)
+
+# remove the mock community samples
+fil.ps &lt;- subset_samples(ps, CarbonSource != &quot;Mck&quot;)
+fil.ps &lt;- prune_taxa(taxa_sums(fil.ps) &gt; 0, fil.ps)
+
+ps &lt;- fil.ps
+
+print(ps)</code></pre>
+<pre><code>phyloseq-class experiment-level object
+otu_table()   OTU Table:         [ 232 taxa and 22 samples ]
+sample_data() Sample Data:       [ 22 samples by 23 sample variables ]
+tax_table()   Taxonomy Table:    [ 232 taxa by 6 taxonomic ranks ]</code></pre>
+<pre class="r"><code>table(meta(fil.ps)$Timepoint)</code></pre>
+<pre><code>
+ T0 T24 T48 T72 T96   X 
+  4   4   4   4   4   2 </code></pre>
+<pre class="r"><code>write_phyloseq(ps, &quot;OTU&quot;, &quot;data/03_amplicon/tables/&quot; )</code></pre>
+<pre><code>Warning: &#39;write_phyloseq&#39; is deprecated.
+Use &#39;&#39; instead.
+See help(&quot;Deprecated&quot;) and help(&quot;The microbiome::write_phyloseq will be 
+    deprecated in a future release.-deprecated&quot;).</code></pre>
+<pre><code>Writing OTU in the file data/03_amplicon/tables//otu_table.csv</code></pre>
+<pre><code>[1] &quot;data/03_amplicon/tables/&quot;</code></pre>
+<pre class="r"><code>#abundances(ps)</code></pre>
+<p>There are 41 ASVs in 22 samples. T0=4, T24=4, T48=4, T72=4, T96=4, X=2</p>
+<p>X is the innoculum serves as a technical a control for which DNA was extracted and PCR sequenced. This will give an idea of sequencing run replicability.</p>
+</div>
+</div>
+<div id="check-for-genus" class="section level1">
+<h1>check for genus</h1>
+<pre class="r"><code>table(tax_table(ps)[, &quot;Genus&quot;], exclude = NA)</code></pre>
+<pre><code>
+              Agathobacter_rectalis          Anaerobutyricum_soehngenii 
+                                 19                                  16 
+                 Bacteroides_ovatus           Bacteroides_xylanisolvens 
+                                 17                                  22 
+                  Coprococcus_catus                 Eubacterium_siraeum 
+                                 12                                  37 
+       Faecalibacterium_prausnitzii Lachnospiraceae_bacterium 7_1_58FAA 
+                                 44                                  31 
+             Roseburia_intestinalis           Subdoligranulum_variabile 
+                                 14                                   4 </code></pre>
+<pre class="r"><code>#tax_table(ps)</code></pre>
+<pre class="r"><code>#Aggregate to speceis level
+# Format the taxonomic table to make it compatiable with aggregate_taxa function of microbiome R package.
+#head(abundances(ps))
+taxic &lt;- as.data.frame(ps@tax_table) 
+taxic$OTU &lt;- rownames(taxic)  # Add the OTU ids from OTU table into the taxa table at the end.
+
+colnames(taxic) &lt;- c(&quot;Phylum&quot;,
+                     &quot;Class&quot;, 
+                     &quot;Order&quot;, 
+                     &quot;Family&quot;,
+                     &quot;Genus&quot;, 
+                     &quot;Species&quot;,
+                     &quot;OTU&quot;)
+colnames(taxic)</code></pre>
+<pre><code>[1] &quot;Phylum&quot;  &quot;Class&quot;   &quot;Order&quot;   &quot;Family&quot;  &quot;Genus&quot;   &quot;Species&quot; &quot;OTU&quot;    </code></pre>
+<pre class="r"><code>taxmat &lt;- as.matrix(taxic)  # convert it into a matrix.
+new.tax &lt;- tax_table(taxmat)  # convert into phyloseq compatible file.
+tax_table(ps) &lt;- new.tax  # incroporate into phyloseq Object
+
+
+ps1.a &lt;- ps
+ps1.a@phy_tree &lt;- NULL
+ps1 &lt;- tax_glom(ps1.a, 
+                      &quot;Species&quot;)
+
+head(tax_table(ps1)[1:5])</code></pre>
+<pre><code>Taxonomy Table:     [5 taxa by 7 taxonomic ranks]:
+                                                                                                                                                                                               Phylum         
+GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA &quot;Firmicutes&quot;   
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA &quot;Firmicutes&quot;   
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC &quot;Firmicutes&quot;   
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA &quot;Bacteroidetes&quot;
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA &quot;Bacteroidetes&quot;
+                                                                                                                                                                                               Class        
+GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA &quot;Clostridia&quot; 
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA &quot;Clostridia&quot; 
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC &quot;Clostridia&quot; 
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA &quot;Bacteroidia&quot;
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA &quot;Bacteroidia&quot;
+                                                                                                                                                                                               Order          
+GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA &quot;Clostridiales&quot;
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA &quot;Clostridiales&quot;
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC &quot;Clostridiales&quot;
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA &quot;Bacteroidales&quot;
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA &quot;Bacteroidales&quot;
+                                                                                                                                                                                               Family           
+GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA &quot;Eubacteriaceae&quot; 
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA &quot;Ruminococcaceae&quot;
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC &quot;Eubacteriaceae&quot; 
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA &quot;Bacteroidaceae&quot; 
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA &quot;Bacteroidaceae&quot; 
+                                                                                                                                                                                               Genus             
+GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA &quot;Agathobacter&quot;    
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA &quot;Faecalibacterium&quot;
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC &quot;Eubacterium&quot;     
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA &quot;Bacteroides&quot;     
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA &quot;Bacteroides&quot;     
+                                                                                                                                                                                               Species                       
+GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA &quot;Agathobacter_rectalis&quot;       
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA &quot;Faecalibacterium_prausnitzii&quot;
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC &quot;Eubacterium_siraeum&quot;         
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA &quot;Bacteroides_xylanisolvens&quot;   
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA &quot;Bacteroides_ovatus&quot;          
+                                                                                                                                                                                               OTU
+GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA NA 
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA NA 
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC NA 
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA NA 
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA NA </code></pre>
+<pre class="r"><code>write_phyloseq(ps1, 
+               &quot;OTU&quot;, 
+               &quot;data/03_amplicon/tables/&quot;)</code></pre>
+<pre><code>Warning: &#39;write_phyloseq&#39; is deprecated.
+Use &#39;&#39; instead.
+See help(&quot;Deprecated&quot;) and help(&quot;The microbiome::write_phyloseq will be 
+    deprecated in a future release.-deprecated&quot;).</code></pre>
+<pre><code>Writing OTU in the file data/03_amplicon/tables//otu_table.csv</code></pre>
+<pre><code>[1] &quot;data/03_amplicon/tables/&quot;</code></pre>
+<pre class="r"><code>table(tax_table(ps1)[, &quot;Species&quot;], 
+      exclude = NULL)</code></pre>
+<pre><code>
+              Agathobacter_rectalis          Anaerobutyricum_soehngenii 
+                                  1                                   1 
+                 Bacteroides_ovatus           Bacteroides_xylanisolvens 
+                                  1                                   1 
+                  Coprococcus_catus                 Eubacterium_siraeum 
+                                  1                                   1 
+       Faecalibacterium_prausnitzii Lachnospiraceae_bacterium 7_1_58FAA 
+                                  1                                   1 
+             Roseburia_intestinalis           Subdoligranulum_variabile 
+                                  1                                   1 </code></pre>
+<pre class="r"><code>taxa_sums(ps1)</code></pre>
+<pre><code>GTCACTCCTGCTCCGAAGAGAAGGTACGGTTAAGTACCGGTCAGAAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAGAAGCAATGCTTCCCAACACCTAGTATTCATCGTTTACGGCGTGGACTACCA 
+                                                                                                                                                                                        345625 
+GTCTCTGCGTCCCGAAGGAAAATACTGTTTCCAGCATCGTCGCAGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCGTCGAATTAAACNNNNNNNNNNCCCAGGTGGATTACTTATTGTGTTAACTGCGGCACTGAAGGGGTCAATCCTCCAACACCTAGTAATCATCGTTTACGGTGTGGACTACCA 
+                                                                                                                                                                                        197139 
+TGGTAGTCCACACCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNGTTTAATTCGACGCAACGCGAAGAACCTTACCAAGTCTTGACATCCTGCGACGATGCTGGAAACAGTATTTTCCTTCGGGACGCAGAGAC 
+                                                                                                                                                                                        187603 
+TCACATTTGCCTTGCGGCTAACCTGTTTCCAGATTATTCAAATGCAATTTAAGCCCGGGTAAGGTTCCTCGCGTATCATCGAATTAAACCNNNNNNNNNNCTCCCCAGGTGGAATACTTAATGCTTTCGCTTGGCCGCTTACTGTATATCGCAAACAGCGAGTATTCATCGTTTACTGTGTGGACTACCA 
+                                                                                                                                                                                         49261 
+TGGTAGTCCACACAGTAAACGATGAATACTCGCTGTTTGCGATATACAGTAAGCGGCCAAGCGAAAGCATTAAGTATTCCACCTGGGGAGNNNNNNNNNNGGTTTAATTCGATGATACGCGAGGAACCTTACCCGGGCTTAAATTGCATTTGAATAATCTGGAAACAGGTTAGCCGCAAGGCAAATGTGA 
+                                                                                                                                                                                         50490 
+GTCACCGATGCTCCGAAGAGAAAACACATTACATGTTCTGTCATCGGGATGTCAAGACTTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTATTGCGTTTGCTGCGGCACCGAAGAGCAATGCTCCCCGACACCTAGTATTCATCGTTTACGGCGTGGACTACCA 
+                                                                                                                                                                                         50643 
+TGGTAGTCCACGCCGTAAACGATGGATACTAGGTGTGGGGGGTCTGACCCCCTCCGTGCCGCAGTTAACACAATAAGTATCCCACCTGGGNNNNNNNNNNATTCGAAGCAACGCGAAGAACCTTACCAGGGCTTGACATCCCACTAACGAAGCAGAGATGCATTAGGTGCCCTTCGGGGAAAGTGGAGAC 
+                                                                                                                                                                                         20532 
+TGGTAGTCCATGCCGTAAACGATGATTACTAGGTGTTGGAGGATTGACCCCTTCAGTGCCGCAGTTAACACAATAAGTAATCCACCTGGGNNNNNNNNNNTTTAATTCGAAGCAACGCGAAGAACCTTACCAGGTCTTGACATCCGATGCATAGTGCAGAGATGCATGAAGTCCTTCGGGACATCGAGAC 
+                                                                                                                                                                                         12064 
+GTCTCTTCTGTCCCGAAGGAAGACTCCCATTACGGAGTGGTCAGAAGGATGTCAAGACCTGGTAAGGTTCTTCGCGTTGCTTCGAATTAANNNNNNNNNNCCCAGGTGGAATACTTACTGCGTTTGCGACGGCACCGAAGCCTATACGGCCCCGACACCTAGTATTCATCGTTTACGGCGTGGACTACCA 
+                                                                                                                                                                                         22362 
+TGGTAGTCCACGCCGTAAACGATGAATACTAGGTGTCGGGGCTCATAAGAGCTTCGGTGCCGCAGCAAACGCAATAAGTATTCCACCTGGNNNNNNNNNNTTAATTCGAAGCAACGCGAAGAACCTTACCAGGCCTTGACATCCCGGTGACCGACCCGTAATGGGGTCTTCTCTACGGAGCACTGGAGAC 
+                                                                                                                                                                                          3896 </code></pre>
+<pre class="r"><code>#abundances(ps1)
+taxa_names(ps1) &lt;- tax_table(ps1)[,&quot;Species&quot;]</code></pre>
+<p>Check for sequecing depth</p>
+<pre class="r"><code>SeqDepth = colSums(otu_table(ps1))
+sample_data(ps1)$SeqDepth = SeqDepth
+sample_data(ps1)$SampleID = rownames(sample_data(ps1))
+ggbarplot(meta(ps1), 
+          &quot;SampleID&quot;, 
+          &quot;SeqDepth&quot;, 
+          fill = &quot;Rep&quot;) + rotate_x_text() + coord_flip()</code></pre>
+<p><img src="figure/qmp_analysis.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/03_amplicon/figs/02_raw_Seq_depth.pdf&quot;, 
+       height = 6, 
+       width = 8)</code></pre>
+<div id="copy-number-correction" class="section level2">
+<h2>Copy number correction</h2>
+<p>The copy numbers were obtained from IMG M/ER and Genome sequences.</p>
+<pre class="r"><code>copy_num &lt;- read.csv(&quot;data_raw/03_amplicon/rrna_MMDb/dbmm_copynumbers.csv&quot;, 
+                     header = T, 
+                     row.names = 1, 
+                     stringsAsFactors = F)
+
+DT::datatable(copy_num)</code></pre>
+<div id="htmlwidget-c2a931752ae4f30d7598" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c2a931752ae4f30d7598">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["Bacteroides","Bacteroides","Agathobacter","Anaerobutyricum","Eubacterium","Faecalibacterium","Lachnospiraceae bacterium 7_1_58FAA ","Roseburia","Subdoligranulum","Coprococcus"],["ovatus","xylanisolvens","rectalis ","soehngenii ","siraeum","prausnitzii","Lachnospiraceae bacterium 7_1_58FAA ","intestinalis","variabile","catus"],[null,"Bacteroides sp. 2_1_22","Agathobacter rectalis (DSM 17629) ","Eubacterium hallii (DSM 1736)","Eubacterium siraeum (DSM 15702)","Faecalibacterium prausnitzii (A2-165)","Lachnospiraceae bacterium 7_1_58FAA ","Roseburia intestinalis (DSM 14610)","Subdoligranulum variabile (DSM 15176)","Coprococcus catus (ATCC27761)"],["Bacteroides_ovatus","Bacteroides_xylanisolvens","Agathobacter_rectalis","Anaerobutyricum_soehngenii","Eubacterium_siraeum","Faecalibacterium_prausnitzii","Lachnospiraceae_bacterium 7_1_58FAA","Roseburia_intestinalis","Subdoligranulum_variabile","Coprococcus_catus"],[2,1,5,8,1,2,1,3,4,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Genus<\/th>\n      <th>Species<\/th>\n      <th>Strain<\/th>\n      <th>Genus_species<\/th>\n      <th>copy_number<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":5},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>The copy numbers for individial strains was estimated using barrnap.</p>
+<pre class="r"><code># Exrtact strain counts from phyloseq object
+counts &lt;- as.data.frame(abundances(ps1))
+copy_num_file &lt;- copy_num
+column_with_ids = &quot;Genus_species&quot;
+# @parm counts otu tbale with rows are taxa
+# @parm copy_num_file file with information on copynumbers
+# @parm column_with_ids is the coulm in copy number file that contain names matching the rownames in OTU table
+intersect(rownames(counts), copy_num_file[,column_with_ids])</code></pre>
+<pre><code> [1] &quot;Agathobacter_rectalis&quot;               &quot;Faecalibacterium_prausnitzii&quot;       
+ [3] &quot;Eubacterium_siraeum&quot;                 &quot;Bacteroides_xylanisolvens&quot;          
+ [5] &quot;Bacteroides_ovatus&quot;                  &quot;Roseburia_intestinalis&quot;             
+ [7] &quot;Lachnospiraceae_bacterium 7_1_58FAA&quot; &quot;Subdoligranulum_variabile&quot;          
+ [9] &quot;Anaerobutyricum_soehngenii&quot;          &quot;Coprococcus_catus&quot;                  </code></pre>
+<pre class="r"><code>taxa_names &lt;- rownames(counts)
+  
+copy_num_file &lt;- copy_num_file[ order(match(copy_num_file$Genus_species, rownames(counts))), ]
+  
+# The copy_number file needs to have a column matching the rownames of the otu_table.
+if (rownames(counts) != copy_num_file[, column_with_ids]) {
+print(
+&quot;The copy_number file needs to have a column with matching values to the rownames of the otu_table.&quot;
+)
+}</code></pre>
+<pre><code>Warning in if (rownames(counts) != copy_num_file[, column_with_ids]) {: the
+condition has length &gt; 1 and only the first element will be used</code></pre>
+<pre class="r"><code>rownames(copy_num_file) &lt;- copy_num_file[, column_with_ids]
+
+copy_num_file &lt;- copy_num_file[taxa_names, ]
+
+corrected_tab &lt;- ceiling((counts) / copy_num_file[, &quot;copy_number&quot;])
+
+# check
+head(corrected_tab)</code></pre>
+<pre><code>                             B1T0 B1T24 B1T48 B1T72 B1T96 B2T0 B2T24 B2T48
+Agathobacter_rectalis         904  1982  2875  1920  2320  607   339  1452
+Faecalibacterium_prausnitzii 3479  5859  6535  4399  4220 2582  1183  3759
+Eubacterium_siraeum          6661 11841 13847  8790  8463 4948  2238  7580
+Bacteroides_xylanisolvens    1125  2482  5046  2367  1682  605   559  1858
+Bacteroides_ovatus            599  1238  2475  1169   820  325   267   934
+Roseburia_intestinalis        573  3872   616   127    77  388   569   168
+                             B2T72 B2T96 B3T0 B3T24 B3T48 B3T72 B3T96 B4T0
+Agathobacter_rectalis         2498  2033  599  5418  2650  1345 10838 1253
+Faecalibacterium_prausnitzii  4930  4156 2923  5688  2959  1401  8450 4092
+Eubacterium_siraeum          10657  7439 5706 10962  5108  2489 12889 7594
+Bacteroides_xylanisolvens     2056  2672  750  4836  3401  1249  7297 1536
+Bacteroides_ovatus            1122  1292  326  2391  1730   663  3830  797
+Roseburia_intestinalis          97    71  469   619    53    24    90 1947
+                             B4T24 B4T48 B4T72 B4T96 Mix1T0 Mix2T0
+Agathobacter_rectalis        10386  4340  1181  8122   3764   2309
+Faecalibacterium_prausnitzii  1922  1831  1331  7552  12366   6958
+Eubacterium_siraeum           3047  3172  2540 13416  23561  14655
+Bacteroides_xylanisolvens     2395  1766   362  1882   2190   1145
+Bacteroides_ovatus            1343   993   220  1014   1077    626
+Roseburia_intestinalis        2316    32     7    42   2794   1940</code></pre>
+<pre class="r"><code># check
+head(otu_table(ps1))</code></pre>
+<pre><code>OTU Table:          [6 taxa and 22 samples]
+                     taxa are rows
+                             B1T0 B1T24 B1T48 B1T72 B1T96 B2T0 B2T24 B2T48
+Agathobacter_rectalis        4518  9908 14371  9596 11597 3035  1692  7257
+Faecalibacterium_prausnitzii 6958 11718 13070  8797  8440 5163  2366  7517
+Eubacterium_siraeum          6661 11841 13847  8790  8463 4948  2238  7580
+Bacteroides_xylanisolvens    1125  2482  5046  2367  1682  605   559  1858
+Bacteroides_ovatus           1197  2476  4949  2338  1640  650   534  1867
+Roseburia_intestinalis       1718 11614  1848   379   229 1163  1706   502
+                             B2T72 B2T96 B3T0 B3T24 B3T48 B3T72 B3T96 B4T0
+Agathobacter_rectalis        12487 10164 2993 27088 13246  6721 54189 6265
+Faecalibacterium_prausnitzii  9860  8311 5846 11375  5918  2801 16900 8183
+Eubacterium_siraeum          10657  7439 5706 10962  5108  2489 12889 7594
+Bacteroides_xylanisolvens     2056  2672  750  4836  3401  1249  7297 1536
+Bacteroides_ovatus            2244  2584  651  4781  3459  1325  7659 1593
+Roseburia_intestinalis         289   211 1405  1857   159    70   270 5840
+                             B4T24 B4T48 B4T72 B4T96 Mix1T0 Mix2T0
+Agathobacter_rectalis        51928 21699  5905 40606  18818  11542
+Faecalibacterium_prausnitzii  3843  3662  2661 15104  24731  13915
+Eubacterium_siraeum           3047  3172  2540 13416  23561  14655
+Bacteroides_xylanisolvens     2395  1766   362  1882   2190   1145
+Bacteroides_ovatus            2686  1985   440  2027   2154   1251
+Roseburia_intestinalis        6946    94    19   124   8382   5818</code></pre>
+<pre class="r"><code># add copy number corrected
+otu_table(ps1) &lt;- otu_table(as.matrix(corrected_tab), taxa_are_rows = T)
+
+saveRDS(ps1, &quot;data/03_amplicon/rds/02_CP_corrected_ps1.rds&quot;) 
+
+write_phyloseq(ps1, &quot;OTU&quot;, path = &quot;data/03_amplicon/tables/&quot;)</code></pre>
+<pre><code>Warning: &#39;write_phyloseq&#39; is deprecated.
+Use &#39;&#39; instead.
+See help(&quot;Deprecated&quot;) and help(&quot;The microbiome::write_phyloseq will be 
+    deprecated in a future release.-deprecated&quot;).</code></pre>
+<pre><code>Writing OTU in the file data/03_amplicon/tables//otu_table.csv</code></pre>
+<pre><code>[1] &quot;data/03_amplicon/tables/&quot;</code></pre>
+<pre class="r"><code>#ps1&lt;- subset_samples(ps1, CarbonSource!=&quot;Mck&quot;)
+#abundances(ps1.mock)</code></pre>
+<p>Now read the copy number correct phyloseq object.</p>
+<pre class="r"><code>ps1 &lt;- readRDS(&quot;data/03_amplicon/rds/02_CP_corrected_ps1.rds&quot;)
+#sample_data(ps1)
+df.met &lt;- meta(ps1)
+#otu_table(ps1)</code></pre>
+<p>We did qPCR for total 16S rRNA copies in each of the samples. This will be used to correct of sequecing depth and obtain quantitative microbiota profiles.</p>
+<pre class="r"><code># read in the function Doris Vandeputte obtained from github
+source(&quot;code/qmp_edit.r&quot;)
+
+# read the qPCR counts table
+counts_tables &lt;- read.csv(&quot;data_raw/03_amplicon/copies_rrna_counts_qpcr.csv&quot;, 
+                          row.names = 1)
+
+otu_qmp &lt;- t(abundances(ps1)) # extract abundance table form copy number corrected pseq object
+
+# Now rarefy to even sampling depth
+otu_w_qmp &lt;- rarefy_even_sampling_depth(otu_qmp, 
+                                      counts_tables)
+
+#write.csv(t(ps1.qmp), &quot;post_dada2/qmp_dbmm.csv&quot;)
+all(row.names(otu_w_qmp) == row.names(counts_tables))</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<pre class="r"><code>ps1.qmp &lt;- ps1
+
+otu_qmp_A &lt;- otu_table(t(otu_w_qmp), taxa_are_rows = T)
+otu_table(ps1.qmp) &lt;- otu_qmp_A
+saveRDS(ps1.qmp, &quot;data/03_amplicon/rds/02_ps1.qmp.rds&quot;)</code></pre>
+</div>
+<div id="edit-names" class="section level2">
+<h2>Edit names</h2>
+<pre class="r"><code>ps1.qmp &lt;- readRDS(&quot;data/03_amplicon/rds/02_ps1.qmp.rds&quot;)
+ps1.qmp</code></pre>
+<pre><code>phyloseq-class experiment-level object
+otu_table()   OTU Table:         [ 10 taxa and 22 samples ]
+sample_data() Sample Data:       [ 22 samples by 25 sample variables ]
+tax_table()   Taxonomy Table:    [ 10 taxa by 7 taxonomic ranks ]</code></pre>
+<pre class="r"><code>med &lt;- meta(ps1.qmp)
+unique(med$SampleID)</code></pre>
+<pre><code> [1] &quot;B1T0&quot;   &quot;B1T24&quot;  &quot;B1T48&quot;  &quot;B1T72&quot;  &quot;B1T96&quot;  &quot;B2T0&quot;   &quot;B2T24&quot;  &quot;B2T48&quot; 
+ [9] &quot;B2T72&quot;  &quot;B2T96&quot;  &quot;B3T0&quot;   &quot;B3T24&quot;  &quot;B3T48&quot;  &quot;B3T72&quot;  &quot;B3T96&quot;  &quot;B4T0&quot;  
+[17] &quot;B4T24&quot;  &quot;B4T48&quot;  &quot;B4T72&quot;  &quot;B4T96&quot;  &quot;Mix1T0&quot; &quot;Mix2T0&quot;</code></pre>
+<pre class="r"><code>taxa_names(ps1.qmp) &lt;- gsub(&quot;_&quot;, &quot; &quot;, taxa_names(ps1.qmp))
+taxa_names(ps1.qmp)</code></pre>
+<pre><code> [1] &quot;Agathobacter rectalis&quot;               &quot;Faecalibacterium prausnitzii&quot;       
+ [3] &quot;Eubacterium siraeum&quot;                 &quot;Bacteroides xylanisolvens&quot;          
+ [5] &quot;Bacteroides ovatus&quot;                  &quot;Roseburia intestinalis&quot;             
+ [7] &quot;Lachnospiraceae bacterium 7 1 58FAA&quot; &quot;Subdoligranulum variabile&quot;          
+ [9] &quot;Anaerobutyricum soehngenii&quot;          &quot;Coprococcus catus&quot;                  </code></pre>
+<pre class="r"><code>taxa_names(ps1.qmp) &lt;- gsub(&quot;Lachnospiraceae bacterium 7 1 58FAA&quot;, &quot;Flavonifractor plautii&quot;, taxa_names(ps1.qmp)) </code></pre>
+<pre class="r"><code># Define a color for each strain used in the Db-MM 
+strain.colors &lt;- c(`Bacteroides ovatus` = &quot;#1F78B4&quot;, 
+                   `Bacteroides xylanisolvens` = &quot;#B2DF8A&quot;, 
+                   `Anaerobutyricum soehngenii` = &quot;#FDBF6F&quot;, 
+                   `Agathobacter rectalis`= &quot;#33A02C&quot;, 
+                   `Eubacterium siraeum` =&quot;#FB9A99&quot;, 
+                   `Faecalibacterium prausnitzii` = &quot;#A6CEE3&quot;, 
+                   `Flavonifractor plautii` = &quot;#E31A1C&quot;, 
+                   `Roseburia intestinalis` = &quot;#CAB2D6&quot;, 
+                   `Subdoligranulum variabile` = &quot;#FF7F00&quot;, 
+                   `Coprococcus catus` = &quot;#6A3D9A&quot;)</code></pre>
+</div>
+<div id="check-composition" class="section level2">
+<h2>Check composition</h2>
+<pre class="r"><code>#ps1.qmp.sub &lt;- subset_samples(ps1.qmp, sample_names(ps1.qmp)!=fil)
+#qmp_df &lt;- phy_to_ldf(ps1.qmp.sub, transform.counts = NULL)
+
+qmp_df &lt;- psmelt(ps1.qmp)</code></pre>
+<pre><code>Warning in psmelt(ps1.qmp): The rank names: 
+OTU
+ have been renamed to: 
+taxa_OTU
+to avoid conflicts with special phyloseq plot attribute names.</code></pre>
+<pre class="r"><code># remove the innoculum
+ps.df.qmp &lt;- subset(qmp_df, Timepoint != &quot;X&quot;)
+#ps.df.qmp$Species &lt;- gsub(&quot;_&quot;, &quot; &quot;, ps.df.qmp$Species)
+
+
+ps.df.qmp$TimepointNum &lt;- ps.df.qmp$Timepoint
+ps.df.qmp$TimepointNum &lt;- as.numeric(gsub(&quot;T&quot;, &quot;&quot;,ps.df.qmp$TimepointNum))
+comp_plot_qmp &lt;- ggline(ps.df.qmp, 
+                        x=&quot;TimepointNum&quot;, 
+                        y=&quot;Abundance&quot;, 
+                        add= &quot;mean_se&quot;,
+                        color = &quot;OTU&quot;, 
+                        palette = strain.colors,
+                        #linetype = 2,
+                        #shape= 1,
+                        #point.size=2,
+                        size= 1,
+                        show.line.label = F,
+                        #scales = &quot;free&quot;,
+                        add.params = list(group=&quot;Species&quot;),
+                        ylab = &quot;Abundance (log10)&quot;,
+                        xlab = &quot;Time (hours)&quot;) + theme_bw(base_size = 12) 
+comp_plot_qmp &lt;-  comp_plot_qmp +  geom_vline(aes(xintercept=1.5), linetype=&quot;dashed&quot;, alpha = 0.5) + geom_vline(aes(xintercept=2.5), linetype=&quot;dashed&quot;, alpha = 0.7) 
+
+comp_plot_qmp &lt;- ggpar(comp_plot_qmp, legend = &quot;right&quot;, font.legend = c(10, &quot;italic&quot;)
+                       #, yscale = &quot;log10&quot;
+                       )
+comp_plot_qmp &lt;- comp_plot_qmp + scale_y_log10(breaks = trans_breaks(&quot;log10&quot;, function(x) 10^x),
+              labels = trans_format(&quot;log10&quot;, math_format(10^.x)))
+comp_plot_qmp</code></pre>
+<pre><code>Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
+<pre><code>Warning: Transformation introduced infinite values in continuous y-axis
+
+Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
+<pre><code>Warning: Removed 23 rows containing non-finite values (stat_summary).</code></pre>
+<p><img src="figure/qmp_analysis.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/03_amplicon/figs/02_Fig_QMP_Composition_line_plot.pdf&quot;, height = 3, width = 7)</code></pre>
+<pre><code>Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
+<pre><code>Warning: Transformation introduced infinite values in continuous y-axis
+
+Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
+<pre><code>Warning: Removed 23 rows containing non-finite values (stat_summary).</code></pre>
+<pre class="r"><code>write.csv(ps.df.qmp, &quot;data/03_amplicon/tables/QMP_plot_data.csv&quot;)</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] scales_1.1.1                RColorBrewer_1.1-2         
+ [3] ggpubr_0.4.0                ggrepel_0.9.1              
+ [5] microbiomeutilities_1.00.14 microbiome_1.11.2          
+ [7] phyloseq_1.33.0             dplyr_1.0.2                
+ [9] ggplot2_3.3.2               DT_0.16                    
+
+loaded via a namespace (and not attached):
+ [1] nlme_3.1-149        fs_1.5.0            gghalves_0.1.0     
+ [4] rprojroot_1.3-2     tools_4.0.3         backports_1.2.0    
+ [7] R6_2.5.0            vegan_2.5-6         BiocGenerics_0.36.0
+[10] mgcv_1.8-33         colorspace_1.4-1    permute_0.9-5      
+[13] rhdf5filters_1.2.0  ade4_1.7-15         withr_2.3.0        
+[16] tidyselect_1.1.0    curl_4.3            compiler_4.0.3     
+[19] git2r_0.27.1        Biobase_2.50.0      labeling_0.4.2     
+[22] stringr_1.4.0       digest_0.6.27       foreign_0.8-80     
+[25] rmarkdown_2.4       rio_0.5.16          XVector_0.30.0     
+[28] pkgconfig_2.0.3     htmltools_0.5.1.1   htmlwidgets_1.5.2  
+[31] rlang_0.4.8         readxl_1.3.1        rstudioapi_0.11    
+[34] farver_2.0.3        generics_0.1.0      jsonlite_1.7.1     
+[37] crosstalk_1.1.0.1   zip_2.1.1           car_3.0-10         
+[40] magrittr_1.5        biomformat_1.17.0   Matrix_1.2-18      
+[43] Rcpp_1.0.5          munsell_0.5.0       S4Vectors_0.28.0   
+[46] Rhdf5lib_1.12.0     abind_1.4-5         ape_5.4-1          
+[49] lifecycle_0.2.0     stringi_1.5.3       yaml_2.2.1         
+[52] carData_3.0-4       MASS_7.3-53         zlibbioc_1.36.0    
+[55] rhdf5_2.34.0        Rtsne_0.15          plyr_1.8.6         
+[58] grid_4.0.3          parallel_4.0.3      promises_1.1.1     
+[61] forcats_0.5.0       crayon_1.3.4        lattice_0.20-41    
+[64] Biostrings_2.58.0   haven_2.3.1         splines_4.0.3      
+[67] multtest_2.45.0     hms_0.5.3           knitr_1.30         
+[70] pillar_1.4.6        igraph_1.2.6        ggsignif_0.6.0     
+[73] reshape2_1.4.4      codetools_0.2-16    stats4_4.0.3       
+[76] glue_1.4.2          evaluate_0.14       data.table_1.13.0  
+[79] vctrs_0.3.4         httpuv_1.5.4        foreach_1.5.1      
+[82] cellranger_1.1.0    gtable_0.3.0        purrr_0.3.4        
+[85] tidyr_1.1.2         xfun_0.17           openxlsx_4.2.2     
+[88] broom_0.7.1         rstatix_0.6.0       later_1.1.0.1      
+[91] survival_3.2-7      pheatmap_1.0.12     tibble_3.0.4       
+[94] iterators_1.0.13    IRanges_2.24.0      workflowr_1.6.2    
+[97] cluster_2.1.0       ellipsis_0.3.1     </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

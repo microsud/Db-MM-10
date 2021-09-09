@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sudarshan A. Shetty" />
+
+
+<title>Assembly diet based minimal microbiome (Db-MM10)</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DbMM Analysis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Exploration of Metagenomic Data
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="core_microbiota_metagenomic.html">Core Microbiota</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Growth, Metabolites and Composition
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="wetlab_anlaysis.html">Growth and Metabolites</a>
+    </li>
+    <li>
+      <a href="dada2_processing.html">DADA2 processing</a>
+    </li>
+    <li>
+      <a href="qmp_analysis.html">Microbiota profile</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Metatranscriptomics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="meta_counts.html">RNASeq processing</a>
+    </li>
+    <li>
+      <a href="active_composition_metatrans.html">RNAseq Active Contribution</a>
+    </li>
+    <li>
+      <a href="keeg_anlaysis_initiate.html">KEGG Analysis Setup</a>
+    </li>
+    <li>
+      <a href="kegg_pathway_analysis.html">KEGG Pathway Analysis</a>
+    </li>
+    <li>
+      <a href="reveco_anlaysis.html">Competition and Complimentarity</a>
+    </li>
+    <li>
+      <a href="gmm_species_function.html">Species Functions</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Assembly diet based minimal microbiome (Db-MM10)</h1>
+<h3 class="subtitle">DADA2 processing of Db-MM amplicon sequencing</h3>
+<h4 class="author">Sudarshan A. Shetty</h4>
+<h4 class="date">Sun Jul 18 00:43:55 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-07-18
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>DbMM/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210404code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210404)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210404code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210404)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongNocommitsyet"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> No commits yet </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongNocommitsyet" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  DbMM.Rproj
+    Untracked:  Ocucpancy_relationship.csv
+    Untracked:  README.md
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  bin/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  data_raw/
+    Untracked:  ko00010.Glycolysis.png
+    Untracked:  ko00010.png
+    Untracked:  ko00010.xml
+    Untracked:  ko00640.png
+    Untracked:  ko00640.propanoate_metabolism.png
+    Untracked:  ko00640.xml
+    Untracked:  ko00650.butanoate_metabolism.png
+    Untracked:  ko00650.png
+    Untracked:  ko00650.xml
+    Untracked:  output/
+    Untracked:  structure.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Raw data are stored in <code>data_raw/03_amplicon</code> and outputs of this document are stored in <code>data/03_amplicon</code></p>
+<div id="load-libraries" class="section level2">
+<h2>load libraries</h2>
+<pre class="r"><code>#library(&quot;devtools&quot;); 
+#devtools::install_github(&quot;timelyportfolio/sankeytree&quot;)
+
+library(DT) 
+library(ggplot2); packageVersion(&quot;ggplot2&quot;)</code></pre>
+<pre><code>[1] &#39;3.3.3&#39;</code></pre>
+<pre class="r"><code>library(dada2); packageVersion(&quot;dada2&quot;)</code></pre>
+<pre><code>[1] &#39;1.20.0&#39;</code></pre>
+<pre class="r"><code>library(dplyr)
+library(microbiome)
+library(microbiomeutilities)
+library(patchwork)
+library(phangorn)
+library(ggtree)
+library(DECIPHER)
+#library(ggrepel)</code></pre>
+<p>Copied the chunk from DADA2 tutorial and modified to this specific analysis.</p>
+</div>
+<div id="file-parsing" class="section level2">
+<h2>File parsing</h2>
+<p>The fastq files were demultiplex using NG_tax galaxy version and stored in <code>data/fastq</code> folder.</p>
+<pre class="r"><code># File parsing
+pathF &lt;- &quot;data_raw/03_amplicon/fastq/fwd/&quot; # CHANGE ME to the directory containing your demultiplexed forward-read fastqs
+pathR &lt;- &quot;data_raw/03_amplicon/fastq/rev/&quot; # CHANGE ME ...
+filtpathF &lt;- file.path(pathF, &quot;filtered&quot;) # Filtered forward files go into the pathF/filtered/ subdirectory
+filtpathR &lt;- file.path(pathR, &quot;filtered&quot;) # ...
+
+fastqFs &lt;- sort(list.files(pathF, pattern=&quot;.fastq&quot;))
+fastqRs &lt;- sort(list.files(pathR, pattern=&quot;.fastq&quot;))
+
+fwd.qc.plot &lt;- plotQualityProfile(&quot;data_raw/03_amplicon/fastq/fwd/B1T02_f.fastq&quot;, n = 5e+05, aggregate = F)
+rev.qc.plot &lt;- plotQualityProfile(&quot;data_raw/03_amplicon/fastq/rev/B1T02_r.fastq&quot;, n = 5e+05, aggregate = F)
+
+#fwd.qc.plot &lt;- plotQualityProfile(&quot;data_raw/03_amplicon/fastq/fwd/&quot;, n = 5e+05, aggregate = T)
+#rev.qc.plot &lt;- plotQualityProfile(&quot;data_raw/03_amplicon/fastq/rev/&quot;, n = 5e+05, aggregate = T)
+fwd.qc.plot + rev.qc.plot</code></pre>
+<pre class="r"><code>if(length(fastqFs) != length(fastqRs)) stop(&quot;Forward and reverse files do not match.&quot;)
+# Filtering: THESE PARAMETERS ARENT OPTIMAL FOR ALL DATASETS
+filtTrimOut &lt;- filterAndTrim(fwd=file.path(pathF, fastqFs), filt=file.path(filtpathF, fastqFs),
+                             rev=file.path(pathR, fastqRs), filt.rev=file.path(filtpathR, fastqRs),
+                             truncLen=c(90,90), maxEE=2, truncQ=2, maxN=0, rm.phix=TRUE,
+                             compress=FALSE, verbose=TRUE, multithread=F)
+
+write.csv(filtTrimOut, &quot;data/03_amplicon/tables/trim_out_dada2.txt&quot;)</code></pre>
+<pre class="r"><code># File parsing
+filtpathF &lt;- &quot;data_raw/03_amplicon/fastq/fwd/filtered&quot; # CHANGE ME to the directory containing your filtered forward fastqs
+filtpathR &lt;- &quot;data_raw/03_amplicon/fastq/rev/filtered&quot; # CHANGE ME ...
+filtFs &lt;- list.files(filtpathF, pattern=&quot;fastq&quot;, full.names = TRUE)
+filtRs &lt;- list.files(filtpathR, pattern=&quot;fastq&quot;, full.names = TRUE)
+
+
+sample.names &lt;- sapply(strsplit(basename(filtFs), &quot;_&quot;), `[`, 1) # Assumes filename = samplename_XXX.fastq.gz
+sample.namesR &lt;- sapply(strsplit(basename(filtRs), &quot;_&quot;), `[`, 1) # Assumes filename = samplename_XXX.fastq.gz
+
+if(!identical(sample.names, sample.namesR)) stop(&quot;Forward and reverse files do not match.&quot;)
+names(filtFs) &lt;- sample.names
+names(filtRs) &lt;- sample.names
+
+## Learn errors and make seq table  
+
+set.seed(19883)
+# Learn forward error rates
+# SOME ISSUE with MERGING so GOING FOR Forwards only Becuase of the reagion and chemmistry used for sequencing
+#errF &lt;- learnErrors(filtFs, nbases=1e8, multithread=F, randomize=TRUE)
+# Learn reverse error rates
+#errR &lt;- learnErrors(filtRs, nbases=1e8, multithread=F, randomize=TRUE)
+
+#err &lt;- learnErrors(filtFs, nbases = 1e8, multithread=F, randomize=TRUE)
+# Infer sequence variants
+#dds &lt;- vector(&quot;list&quot;, length(sample.names))
+#dds &lt;- vector(&quot;list&quot;, length(sample.names))
+#names(dds) &lt;- sample.names
+
+#for(sam in sample.names) {
+#  cat(&quot;Processing:&quot;, sam, &quot;\n&quot;)
+#  derep &lt;- derepFastq(filtFs[[sam]])
+#  dds[[sam]] &lt;- dada(derep, err=err, multithread=TRUE)
+#}
+# Construct sequence table and write to disk
+
+#seqtab &lt;- makeSequenceTable(seqtab)
+## Learn errors and make seq table  
+# Learn forward error rates
+errF &lt;- learnErrors(filtFs, nbases=1e8, multithread=F)
+# Learn reverse error rates
+errR &lt;- learnErrors(filtRs, nbases=1e8, multithread=F)
+# Sample inference and merger of paired-end reads
+mergers &lt;- vector(&quot;list&quot;, length(sample.names))
+names(mergers) &lt;- sample.names
+for(sam in sample.names) {
+  cat(&quot;Processing:&quot;, sam, &quot;\n&quot;)
+  derepF &lt;- derepFastq(filtFs[[sam]])
+  ddF &lt;- dada(derepF, err=errF, multithread=TRUE)
+  derepR &lt;- derepFastq(filtRs[[sam]])
+  ddR &lt;- dada(derepR, err=errR, multithread=TRUE)
+  merger &lt;- mergePairs(ddF, derepF, ddR, derepR, justConcatenate = TRUE)
+  mergers[[sam]] &lt;- merger
+}
+rm(derepF); rm(derepR)
+
+# Construct sequence table and remove chimeras
+seqtab &lt;- makeSequenceTable(mergers)
+#head(seqtab)
+
+saveRDS(seqtab, &quot;data/03_amplicon/rds/seqtab.rds&quot;)</code></pre>
+</div>
+<div id="remove-chimera-and-assign-taxonomy" class="section level2">
+<h2>Remove chimera and assign taxonomy</h2>
+<p>For taxonomy a custom file was created to included only 16S sequencing from species that are part of Db-MM.</p>
+<pre class="r"><code>set.seed(55536)
+seqtab2 &lt;- removeBimeraDenovo(seqtab, method=&quot;consensus&quot;, multithread=TRUE)
+# Assign taxonomy
+dbmmdb &lt;- &quot;data_raw/03_amplicon/rrna_MMDb/dbmm_tax_db.fas&quot;
+tax &lt;- assignTaxonomy(seqtab2, dbmmdb, 
+                      minBoot=50, verbose = T,
+                     outputBootstraps = F)
+
+# Write to disk
+saveRDS(tax, &quot;data/03_amplicon/rds/tax_final.rds&quot;) # CHANGE ME ...
+saveRDS(seqtab2, &quot;data/03_amplicon/rds/seqtab2.rds&quot;) </code></pre>
+</div>
+<div id="build-tree" class="section level2">
+<h2>Build tree</h2>
+<pre class="r"><code># maybe avoid this step
+library(DECIPHER)
+library(phangorn)
+unique(tax[,&quot;Genus&quot;])
+
+seqs &lt;- getSequences(seqtab2)
+names(seqs) &lt;- seqs # This propagates to the tip labels of the tree
+alignment &lt;- AlignSeqs(DNAStringSet(seqs), anchor=NA)
+
+phang.align &lt;- phyDat(as(alignment, &quot;matrix&quot;), type=&quot;DNA&quot;)
+dm &lt;- dist.ml(phang.align)
+treeNJ &lt;- NJ(dm) # Note, tip order != sequence order
+fit = pml(treeNJ, data=phang.align)
+
+## negative edges length changed to 0!
+
+fitGTR &lt;- update(fit, k=4, inv=0.2)
+fitGTR &lt;- optim.pml(fitGTR, model=&quot;GTR&quot;, optInv=TRUE, optGamma=TRUE,
+                      rearrangement = &quot;stochastic&quot;, control = pml.control(trace = 0))
+detach(&quot;package:phangorn&quot;, unload=TRUE)
+
+saveRDS(fitGTR, &quot;data/03_amplicon/rds/fitGTR_tree.rds&quot;) </code></pre>
+</div>
+</div>
+<div id="make-phyloseq-object" class="section level1">
+<h1>Make phyloseq object</h1>
+<pre class="r"><code>tax &lt;- readRDS(&quot;data/03_amplicon/rds/tax_final.rds&quot;) 
+seqtab2 &lt;-  readRDS(&quot;data/03_amplicon/rds/seqtab2.rds&quot;) 
+
+
+# read metadata table
+metatable &lt;- read.csv(&quot;data_raw/03_amplicon/map_dbmm.csv&quot;, stringsAsFactors = F, row.names = 1)
+samdat &lt;- sample_data(sample_data(metatable))
+rownames(samdat)</code></pre>
+<pre><code> [1] &quot;B1T0&quot;   &quot;B2T0&quot;   &quot;B3T0&quot;   &quot;B4T0&quot;   &quot;B1T24&quot;  &quot;B2T24&quot;  &quot;B3T24&quot;  &quot;B4T24&quot; 
+ [9] &quot;B1T48&quot;  &quot;B2T48&quot;  &quot;B3T48&quot;  &quot;B4T48&quot;  &quot;B1T72&quot;  &quot;B2T72&quot;  &quot;B3T72&quot;  &quot;B4T72&quot; 
+[17] &quot;B1T96&quot;  &quot;B2T96&quot;  &quot;B3T96&quot;  &quot;B4T96&quot;  &quot;Mix1T0&quot; &quot;Mix2T0&quot; &quot;B1T0_2&quot; &quot;MOCK3&quot; 
+[25] &quot;MOCK4&quot; </code></pre>
+<pre class="r"><code>rownames(seqtab2)</code></pre>
+<pre><code> [1] &quot;B1T0&quot;   &quot;B1T02&quot;  &quot;B1T24&quot;  &quot;B1T48&quot;  &quot;B1T72&quot;  &quot;B1T96&quot;  &quot;B2T0&quot;   &quot;B2T24&quot; 
+ [9] &quot;B2T48&quot;  &quot;B2T72&quot;  &quot;B2T96&quot;  &quot;B3T0&quot;   &quot;B3T24&quot;  &quot;B3T48&quot;  &quot;B3T72&quot;  &quot;B3T96&quot; 
+[17] &quot;B4T0&quot;   &quot;B4T24&quot;  &quot;B4T48&quot;  &quot;B4T72&quot;  &quot;B4T96&quot;  &quot;Mix1T0&quot; &quot;Mix2T0&quot; &quot;MOCK3&quot; </code></pre>
+<pre class="r"><code># make phyloseq object
+pseq01 &lt;- phyloseq(otu_table(t(seqtab2), taxa_are_rows=T), sample_data(samdat),
+               tax_table(tax))
+
+saveRDS(pseq01, &quot;data/03_amplicon/rds/pseq01.rds&quot;) </code></pre>
+<p>The phyloseq object pseq01 is the input for <code>qmp_analysis</code>.</p>
+<pre class="r"><code>table(tax_table(pseq01)[,&quot;Genus&quot;])</code></pre>
+<pre><code>
+              Agathobacter_rectalis          Anaerobutyricum_soehngenii 
+                                 22                                  27 
+                 Bacteroides_ovatus           Bacteroides_xylanisolvens 
+                                 34                                 166 
+                  Coprococcus_catus                 Eubacterium_siraeum 
+                                 70                                  87 
+       Faecalibacterium_prausnitzii Lachnospiraceae_bacterium 7_1_58FAA 
+                                 57                                  52 
+             Roseburia_intestinalis           Subdoligranulum_variabile 
+                                 31                                   4 </code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.0 (2021-05-18)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] DECIPHER_2.21.0             RSQLite_2.2.7              
+ [3] Biostrings_2.61.0           GenomeInfoDb_1.29.0        
+ [5] XVector_0.33.0              IRanges_2.27.0             
+ [7] S4Vectors_0.31.0            BiocGenerics_0.39.0        
+ [9] ggtree_3.0.2                phangorn_2.7.0             
+[11] ape_5.5                     patchwork_1.1.1            
+[13] microbiomeutilities_1.00.16 microbiome_1.14.0          
+[15] phyloseq_1.36.0             dplyr_1.0.6                
+[17] dada2_1.20.0                Rcpp_1.0.7                 
+[19] ggplot2_3.3.3               DT_0.18                    
+[21] workflowr_1.6.2            
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.3.1                backports_1.2.1            
+  [3] fastmatch_1.1-0             plyr_1.8.6                 
+  [5] igraph_1.2.6                lazyeval_0.2.2             
+  [7] splines_4.1.0               BiocParallel_1.27.0        
+  [9] digest_0.6.27               foreach_1.5.1              
+ [11] htmltools_0.5.1.1           fansi_0.5.0                
+ [13] memoise_2.0.0               magrittr_2.0.1             
+ [15] cluster_2.1.2               openxlsx_4.2.3             
+ [17] RcppParallel_5.1.4          matrixStats_0.59.0         
+ [19] prettyunits_1.1.1           jpeg_0.1-8.1               
+ [21] colorspace_2.0-1            blob_1.2.1                 
+ [23] ggrepel_0.9.1               haven_2.4.1                
+ [25] xfun_0.23                   crayon_1.4.1               
+ [27] RCurl_1.98-1.3              jsonlite_1.7.2             
+ [29] survival_3.2-11             iterators_1.0.13           
+ [31] glue_1.4.2                  gtable_0.3.0               
+ [33] zlibbioc_1.39.0             DelayedArray_0.19.0        
+ [35] car_3.0-10                  Rhdf5lib_1.14.1            
+ [37] abind_1.4-5                 scales_1.1.1               
+ [39] pheatmap_1.0.12             DBI_1.1.1                  
+ [41] rstatix_0.7.0               progress_1.2.2             
+ [43] tidytree_0.3.4              bit_4.0.4                  
+ [45] foreign_0.8-81              htmlwidgets_1.5.3          
+ [47] RColorBrewer_1.1-2          ellipsis_0.3.2             
+ [49] pkgconfig_2.0.3             sass_0.4.0                 
+ [51] utf8_1.2.1                  tidyselect_1.1.1           
+ [53] rlang_0.4.11                reshape2_1.4.4             
+ [55] later_1.2.0                 cachem_1.0.5               
+ [57] munsell_0.5.0               cellranger_1.1.0           
+ [59] tools_4.1.0                 generics_0.1.0             
+ [61] ade4_1.7-16                 broom_0.7.6                
+ [63] fastmap_1.1.0               evaluate_0.14              
+ [65] biomformat_1.20.0           stringr_1.4.0              
+ [67] yaml_2.2.1                  bit64_4.0.5                
+ [69] knitr_1.33                  fs_1.5.0                   
+ [71] zip_2.2.0                   purrr_0.3.4                
+ [73] nlme_3.1-152                aplot_0.0.6                
+ [75] compiler_4.1.0              curl_4.3.1                 
+ [77] png_0.1-7                   ggsignif_0.6.2             
+ [79] treeio_1.16.1               tibble_3.1.2               
+ [81] bslib_0.2.5.1               stringi_1.6.2              
+ [83] forcats_0.5.1               lattice_0.20-44            
+ [85] Matrix_1.3-3                vegan_2.5-7                
+ [87] permute_0.9-5               multtest_2.49.0            
+ [89] vctrs_0.3.8                 pillar_1.6.1               
+ [91] lifecycle_1.0.0             rhdf5filters_1.4.0         
+ [93] BiocManager_1.30.15         jquerylib_0.1.4            
+ [95] data.table_1.14.0           bitops_1.0-7               
+ [97] httpuv_1.6.1                GenomicRanges_1.45.0       
+ [99] R6_2.5.0                    latticeExtra_0.6-29        
+[101] hwriter_1.3.2               promises_1.2.0.1           
+[103] ShortRead_1.50.0            rio_0.5.26                 
+[105] codetools_0.2-18            MASS_7.3-54                
+[107] assertthat_0.2.1            rhdf5_2.36.0               
+[109] SummarizedExperiment_1.23.0 rprojroot_2.0.2            
+[111] withr_2.4.2                 GenomicAlignments_1.28.0   
+[113] Rsamtools_2.8.0             GenomeInfoDbData_1.2.6     
+[115] mgcv_1.8-35                 hms_1.1.0                  
+[117] quadprog_1.5-8              grid_4.1.0                 
+[119] gghalves_0.1.1              tidyr_1.1.3                
+[121] rmarkdown_2.8               rvcheck_0.1.8              
+[123] MatrixGenerics_1.5.0        carData_3.0-4              
+[125] Rtsne_0.15                  git2r_0.28.0               
+[127] ggpubr_0.4.0                Biobase_2.53.0             </code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.0 (2021-05-18)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] DECIPHER_2.21.0             RSQLite_2.2.7              
+ [3] Biostrings_2.61.0           GenomeInfoDb_1.29.0        
+ [5] XVector_0.33.0              IRanges_2.27.0             
+ [7] S4Vectors_0.31.0            BiocGenerics_0.39.0        
+ [9] ggtree_3.0.2                phangorn_2.7.0             
+[11] ape_5.5                     patchwork_1.1.1            
+[13] microbiomeutilities_1.00.16 microbiome_1.14.0          
+[15] phyloseq_1.36.0             dplyr_1.0.6                
+[17] dada2_1.20.0                Rcpp_1.0.7                 
+[19] ggplot2_3.3.3               DT_0.18                    
+[21] workflowr_1.6.2            
+
+loaded via a namespace (and not attached):
+  [1] readxl_1.3.1                backports_1.2.1            
+  [3] fastmatch_1.1-0             plyr_1.8.6                 
+  [5] igraph_1.2.6                lazyeval_0.2.2             
+  [7] splines_4.1.0               BiocParallel_1.27.0        
+  [9] digest_0.6.27               foreach_1.5.1              
+ [11] htmltools_0.5.1.1           fansi_0.5.0                
+ [13] memoise_2.0.0               magrittr_2.0.1             
+ [15] cluster_2.1.2               openxlsx_4.2.3             
+ [17] RcppParallel_5.1.4          matrixStats_0.59.0         
+ [19] prettyunits_1.1.1           jpeg_0.1-8.1               
+ [21] colorspace_2.0-1            blob_1.2.1                 
+ [23] ggrepel_0.9.1               haven_2.4.1                
+ [25] xfun_0.23                   crayon_1.4.1               
+ [27] RCurl_1.98-1.3              jsonlite_1.7.2             
+ [29] survival_3.2-11             iterators_1.0.13           
+ [31] glue_1.4.2                  gtable_0.3.0               
+ [33] zlibbioc_1.39.0             DelayedArray_0.19.0        
+ [35] car_3.0-10                  Rhdf5lib_1.14.1            
+ [37] abind_1.4-5                 scales_1.1.1               
+ [39] pheatmap_1.0.12             DBI_1.1.1                  
+ [41] rstatix_0.7.0               progress_1.2.2             
+ [43] tidytree_0.3.4              bit_4.0.4                  
+ [45] foreign_0.8-81              htmlwidgets_1.5.3          
+ [47] RColorBrewer_1.1-2          ellipsis_0.3.2             
+ [49] pkgconfig_2.0.3             sass_0.4.0                 
+ [51] utf8_1.2.1                  tidyselect_1.1.1           
+ [53] rlang_0.4.11                reshape2_1.4.4             
+ [55] later_1.2.0                 cachem_1.0.5               
+ [57] munsell_0.5.0               cellranger_1.1.0           
+ [59] tools_4.1.0                 generics_0.1.0             
+ [61] ade4_1.7-16                 broom_0.7.6                
+ [63] fastmap_1.1.0               evaluate_0.14              
+ [65] biomformat_1.20.0           stringr_1.4.0              
+ [67] yaml_2.2.1                  bit64_4.0.5                
+ [69] knitr_1.33                  fs_1.5.0                   
+ [71] zip_2.2.0                   purrr_0.3.4                
+ [73] nlme_3.1-152                aplot_0.0.6                
+ [75] compiler_4.1.0              curl_4.3.1                 
+ [77] png_0.1-7                   ggsignif_0.6.2             
+ [79] treeio_1.16.1               tibble_3.1.2               
+ [81] bslib_0.2.5.1               stringi_1.6.2              
+ [83] forcats_0.5.1               lattice_0.20-44            
+ [85] Matrix_1.3-3                vegan_2.5-7                
+ [87] permute_0.9-5               multtest_2.49.0            
+ [89] vctrs_0.3.8                 pillar_1.6.1               
+ [91] lifecycle_1.0.0             rhdf5filters_1.4.0         
+ [93] BiocManager_1.30.15         jquerylib_0.1.4            
+ [95] data.table_1.14.0           bitops_1.0-7               
+ [97] httpuv_1.6.1                GenomicRanges_1.45.0       
+ [99] R6_2.5.0                    latticeExtra_0.6-29        
+[101] hwriter_1.3.2               promises_1.2.0.1           
+[103] ShortRead_1.50.0            rio_0.5.26                 
+[105] codetools_0.2-18            MASS_7.3-54                
+[107] assertthat_0.2.1            rhdf5_2.36.0               
+[109] SummarizedExperiment_1.23.0 rprojroot_2.0.2            
+[111] withr_2.4.2                 GenomicAlignments_1.28.0   
+[113] Rsamtools_2.8.0             GenomeInfoDbData_1.2.6     
+[115] mgcv_1.8-35                 hms_1.1.0                  
+[117] quadprog_1.5-8              grid_4.1.0                 
+[119] gghalves_0.1.1              tidyr_1.1.3                
+[121] rmarkdown_2.8               rvcheck_0.1.8              
+[123] MatrixGenerics_1.5.0        carData_3.0-4              
+[125] Rtsne_0.15                  git2r_0.28.0               
+[127] ggpubr_0.4.0                Biobase_2.53.0             </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "Manuscript figures"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+
+Figure 2: Metabolite analysis of Db-MM strains grown in mono-cultures . a) Metabolites produced/consumed by Db-MM strains as mono-cultures grown in combination of xylan (beechwood), soluble starch (from potato), inulin (from chicory), pectin (apple), and cellobiose. The dotted lines represent 4mM concentration for reference. b) Changes in the concentration of acetate that was added at a level of ~30mM to support growth was determined for the mono-cultures of Db-MM strains that showed growth on polymers. Error bars indicate average measurements from duplicate cultures.   
+
+
+```{r}
+
+```
+

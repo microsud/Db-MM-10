@@ -1,0 +1,318 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "QMP anlaysis of Db-MM (post dada2)"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# Introduction  
+
+The 16S rRNA gene profiles are converted to `absolute counts` using total qPCR and copy number information of each bacterial strain from thier genome.   
+
+## load libraries  
+
+```{r, message=FALSE, warning=FALSE}
+#library("devtools"); 
+#devtools::install_github("timelyportfolio/sankeytree")
+
+library(DT) 
+library(ggplot2)
+library(dplyr)
+library(microbiome)
+library(microbiomeutilities)
+library(ggrepel)
+library(ggpubr)
+library(RColorBrewer)
+library(scales)
+```
+
+Read in the phyloseq object created in DADA2 analysis and stored in `output/rds/pseq01.rds`.  
+
+```{r}
+
+ps <- readRDS("data/03_amplicon/rds/pseq01.rds")
+#ps <- pseq01
+#summarize_phyloseq(ps)
+
+# remove the mock community samples
+fil.ps <- subset_samples(ps, CarbonSource != "Mck")
+fil.ps <- prune_taxa(taxa_sums(fil.ps) > 0, fil.ps)
+
+ps <- fil.ps
+
+print(ps)
+
+table(meta(fil.ps)$Timepoint)
+write_phyloseq(ps, "OTU", "data/03_amplicon/tables/" )
+#abundances(ps)
+```
+There are 41 ASVs in 22 samples.
+T0=4, T24=4, T48=4, T72=4, T96=4, X=2
+
+X is the innoculum serves as a technical a control for which DNA was extracted and PCR sequenced. This will give an idea of sequencing run replicability.     
+
+
+# check for genus
+```{r}
+
+table(tax_table(ps)[, "Genus"], exclude = NA)
+#tax_table(ps)
+```
+ 
+
+
+```{r}
+
+#Aggregate to speceis level
+# Format the taxonomic table to make it compatiable with aggregate_taxa function of microbiome R package.
+#head(abundances(ps))
+taxic <- as.data.frame(ps@tax_table) 
+taxic$OTU <- rownames(taxic)  # Add the OTU ids from OTU table into the taxa table at the end.
+
+colnames(taxic) <- c("Phylum",
+                     "Class", 
+                     "Order", 
+                     "Family",
+                     "Genus", 
+                     "Species",
+                     "OTU")
+colnames(taxic)
+taxmat <- as.matrix(taxic)  # convert it into a matrix.
+new.tax <- tax_table(taxmat)  # convert into phyloseq compatible file.
+tax_table(ps) <- new.tax  # incroporate into phyloseq Object
+
+
+ps1.a <- ps
+ps1.a@phy_tree <- NULL
+ps1 <- tax_glom(ps1.a, 
+                      "Species")
+
+head(tax_table(ps1)[1:5])
+
+write_phyloseq(ps1, 
+               "OTU", 
+               "data/03_amplicon/tables/")
+
+table(tax_table(ps1)[, "Species"], 
+      exclude = NULL)
+
+taxa_sums(ps1)
+#abundances(ps1)
+taxa_names(ps1) <- tax_table(ps1)[,"Species"]
+
+
+```
+
+
+Check for sequecing depth
+
+```{r}
+
+SeqDepth = colSums(otu_table(ps1))
+sample_data(ps1)$SeqDepth = SeqDepth
+sample_data(ps1)$SampleID = rownames(sample_data(ps1))
+ggbarplot(meta(ps1), 
+          "SampleID", 
+          "SeqDepth", 
+          fill = "Rep") + rotate_x_text() + coord_flip()
+ggsave("data/03_amplicon/figs/02_raw_Seq_depth.pdf", 
+       height = 6, 
+       width = 8)
+```
+
+## Copy number correction
+
+The copy numbers were obtained from IMG M/ER and Genome sequences.  
+
+```{r}
+
+copy_num <- read.csv("data_raw/03_amplicon/rrna_MMDb/dbmm_copynumbers.csv", 
+                     header = T, 
+                     row.names = 1, 
+                     stringsAsFactors = F)
+
+DT::datatable(copy_num)
+```
+
+The copy numbers for individial strains was estimated using barrnap.  
+
+```{r}
+
+# Exrtact strain counts from phyloseq object
+counts <- as.data.frame(abundances(ps1))
+copy_num_file <- copy_num
+column_with_ids = "Genus_species"
+# @parm counts otu tbale with rows are taxa
+# @parm copy_num_file file with information on copynumbers
+# @parm column_with_ids is the coulm in copy number file that contain names matching the rownames in OTU table
+intersect(rownames(counts), copy_num_file[,column_with_ids])
+
+taxa_names <- rownames(counts)
+  
+copy_num_file <- copy_num_file[ order(match(copy_num_file$Genus_species, rownames(counts))), ]
+  
+# The copy_number file needs to have a column matching the rownames of the otu_table.
+if (rownames(counts) != copy_num_file[, column_with_ids]) {
+print(
+"The copy_number file needs to have a column with matching values to the rownames of the otu_table."
+)
+}
+
+rownames(copy_num_file) <- copy_num_file[, column_with_ids]
+
+copy_num_file <- copy_num_file[taxa_names, ]
+
+corrected_tab <- ceiling((counts) / copy_num_file[, "copy_number"])
+
+# check
+head(corrected_tab)
+
+# check
+head(otu_table(ps1))
+
+# add copy number corrected
+otu_table(ps1) <- otu_table(as.matrix(corrected_tab), taxa_are_rows = T)
+
+saveRDS(ps1, "data/03_amplicon/rds/02_CP_corrected_ps1.rds") 
+
+write_phyloseq(ps1, "OTU", path = "data/03_amplicon/tables/")
+
+#ps1<- subset_samples(ps1, CarbonSource!="Mck")
+#abundances(ps1.mock)
+```
+
+Now read the copy number correct phyloseq object.  
+
+```{r}
+
+ps1 <- readRDS("data/03_amplicon/rds/02_CP_corrected_ps1.rds")
+#sample_data(ps1)
+df.met <- meta(ps1)
+#otu_table(ps1)
+
+```
+
+We did qPCR for total 16S rRNA copies in each of the samples. This will be used to correct of sequecing depth and obtain quantitative microbiota profiles.  
+
+```{r}
+# read in the function Doris Vandeputte obtained from github
+source("code/qmp_edit.r")
+
+# read the qPCR counts table
+counts_tables <- read.csv("data_raw/03_amplicon/copies_rrna_counts_qpcr.csv", 
+                          row.names = 1)
+
+otu_qmp <- t(abundances(ps1)) # extract abundance table form copy number corrected pseq object
+
+# Now rarefy to even sampling depth
+otu_w_qmp <- rarefy_even_sampling_depth(otu_qmp, 
+                                      counts_tables)
+
+#write.csv(t(ps1.qmp), "post_dada2/qmp_dbmm.csv")
+all(row.names(otu_w_qmp) == row.names(counts_tables))
+
+ps1.qmp <- ps1
+
+otu_qmp_A <- otu_table(t(otu_w_qmp), taxa_are_rows = T)
+otu_table(ps1.qmp) <- otu_qmp_A
+saveRDS(ps1.qmp, "data/03_amplicon/rds/02_ps1.qmp.rds")
+```
+
+## Edit names
+
+```{r}
+ps1.qmp <- readRDS("data/03_amplicon/rds/02_ps1.qmp.rds")
+ps1.qmp
+med <- meta(ps1.qmp)
+unique(med$SampleID)
+
+
+```
+
+```{r}
+taxa_names(ps1.qmp) <- gsub("_", " ", taxa_names(ps1.qmp))
+taxa_names(ps1.qmp)
+taxa_names(ps1.qmp) <- gsub("Lachnospiraceae bacterium 7 1 58FAA", "Flavonifractor plautii", taxa_names(ps1.qmp)) 
+```
+
+
+```{r}
+
+# Define a color for each strain used in the Db-MM 
+strain.colors <- c(`Bacteroides ovatus` = "#1F78B4", 
+                   `Bacteroides xylanisolvens` = "#B2DF8A", 
+                   `Anaerobutyricum soehngenii` = "#FDBF6F", 
+                   `Agathobacter rectalis`= "#33A02C", 
+                   `Eubacterium siraeum` ="#FB9A99", 
+                   `Faecalibacterium prausnitzii` = "#A6CEE3", 
+                   `Flavonifractor plautii` = "#E31A1C", 
+                   `Roseburia intestinalis` = "#CAB2D6", 
+                   `Subdoligranulum variabile` = "#FF7F00", 
+                   `Coprococcus catus` = "#6A3D9A")
+```
+
+
+## Check composition  
+```{r}
+
+#ps1.qmp.sub <- subset_samples(ps1.qmp, sample_names(ps1.qmp)!=fil)
+#qmp_df <- phy_to_ldf(ps1.qmp.sub, transform.counts = NULL)
+
+qmp_df <- psmelt(ps1.qmp)
+
+
+# remove the innoculum
+ps.df.qmp <- subset(qmp_df, Timepoint != "X")
+#ps.df.qmp$Species <- gsub("_", " ", ps.df.qmp$Species)
+
+
+ps.df.qmp$TimepointNum <- ps.df.qmp$Timepoint
+ps.df.qmp$TimepointNum <- as.numeric(gsub("T", "",ps.df.qmp$TimepointNum))
+comp_plot_qmp <- ggline(ps.df.qmp, 
+                        x="TimepointNum", 
+                        y="Abundance", 
+                        add= "mean_se",
+                        color = "OTU", 
+                        palette = strain.colors,
+                        #linetype = 2,
+                        #shape= 1,
+                        #point.size=2,
+                        size= 1,
+                        show.line.label = F,
+                        #scales = "free",
+                        add.params = list(group="Species"),
+                        ylab = "Abundance (log10)",
+                        xlab = "Time (hours)") + theme_bw(base_size = 12) 
+comp_plot_qmp <-  comp_plot_qmp +  geom_vline(aes(xintercept=1.5), linetype="dashed", alpha = 0.5) + geom_vline(aes(xintercept=2.5), linetype="dashed", alpha = 0.7) 
+
+comp_plot_qmp <- ggpar(comp_plot_qmp, legend = "right", font.legend = c(10, "italic")
+                       #, yscale = "log10"
+                       )
+comp_plot_qmp <- comp_plot_qmp + scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+              labels = trans_format("log10", math_format(10^.x)))
+comp_plot_qmp
+
+ggsave("data/03_amplicon/figs/02_Fig_QMP_Composition_line_plot.pdf", height = 3, width = 7)
+write.csv(ps.df.qmp, "data/03_amplicon/tables/QMP_plot_data.csv")
+```
+
+
+```{r eval=FALSE}
+sessionInfo()
+```
+
+
+
+
+
+
+
+
+

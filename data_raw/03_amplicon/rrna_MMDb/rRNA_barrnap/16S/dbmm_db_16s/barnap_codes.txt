@@ -1,0 +1,90 @@
+# barrnap 
+
+./barrnap ../../Roseburia_intestinalis.fna -outseq ../../RINT.fas > ../../gff/RINT.gff
+./barrnap ../../Subdoligranulum_variabile.fna -outseq ../../SVAR.fas > ../../gff/SVAR.gff
+./barrnap ../../Lachnospiraceae_bacterium_7_1_58FAA.fna -outseq ../../LACH.fas > ../../gff/LACH.gff
+./barrnap ../../Faecalibacterium_prausnitzii.fna -outseq ../../FPRA.fas > ../../gff/FPRA.gff
+./barrnap ../../Eubacterium_siraeum.fna -outseq ../../ESIR.> ../../gff/ESIR.gff  
+./barrnap ../../Coprococcus_catus.fna -outseq ../../CCAT.fas > ../../gff/CCAT.gff
+./barrnap ../../Bacteroides_xylanisolvens.fna -outseq ../../BXYL.fas > ../../gff/BXYL.gff
+./barrnap ../../Bacteroides_ovatus.fna -outseq ../../BOVA.fas > ../../gff/BOVA.gff   
+./barrnap ../../Anaerobutyricum_soehngenii.fna -outseq ../../ASOE.fas > ../../gff/ASOE.gff
+./barrnap ../../Agathobacter_rectalis.fna -outseq ../../AREC.fas > ../../gff/AREC.gff
+
+
+grep '16S' gff/RINT.gff > RINT_16S.gff
+bedtools getfasta -fi Roseburia_intestinalis.fna -bed RINT_16S.gff -fo RINT_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' RINT_16S-fasta.fna
+
+
+grep '16S' gff/SVAR.gff > SVAR_16S.gff
+bedtools getfasta -fi Subdoligranulum_variabile.fna -bed SVAR_16S.gff -fo SVAR_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' SVAR_16S-fasta.fna
+
+grep '16S' gff/LACH.gff > LACH_16S.gff
+bedtools getfasta -fi Lachnospiraceae_bacterium_7_1_58FAA.fna -bed LACH_16S.gff -fo LACH_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' LACH_16S-fasta.fna
+
+
+grep '16S' gff/FPRA.gff > FPRA_16S.gff
+bedtools getfasta -fi Faecalibacterium_prausnitzii.fna -bed FPRA_16S.gff -fo FPRA_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' FPRA_16S-fasta.fna
+
+grep '16S' gff/ESIR.gff > ESIR_16S.gff
+bedtools getfasta -fi Eubacterium_siraeum.fna -bed ESIR_16S.gff -fo ESIR_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' ESIR_16S-fasta.fna
+
+
+grep '16S' gff/CCAT.gff > CCAT_16S.gff
+bedtools getfasta -fi Coprococcus_catus.fna -bed CCAT_16S.gff -fo CCAT_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' CCAT_16S-fasta.fna
+
+grep '16S' gff/BXYL.gff > BXYL_16S.gff
+bedtools getfasta -fi Bacteroides_xylanisolvens.fna -bed BXYL_16S.gff -fo BXYL_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' BXYL_16S-fasta.fna
+
+grep '16S' gff/BOVA.gff > BOVA_16S.gff
+bedtools getfasta -fi Bacteroides_ovatus.fna -bed BOVA_16S.gff -fo BOVA_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' BOVA_16S-fasta.fna
+
+grep '16S' gff/ASOE.gff > ASOE_16S.gff
+bedtools getfasta -fi Anaerobutyricum_soehngenii.fna -bed ASOE_16S.gff -fo ASOE_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' ASOE_16S-fasta.fna
+
+
+grep '16S' gff/AREC.gff > AREC_16S.gff
+bedtools getfasta -fi Agathobacter_rectalis.fna -bed AREC_16S.gff -fo AREC_16S-fasta.fna
+awk '/>/{sub(">","&"FILENAME"_");sub(/\.fasta/,x)}1' AREC_16S-fasta.fna
+
+
+bedtools getfasta -fi Roseburia_intestinalis.fna -bed RINT_16S.gff -fo RINT_16S-fasta.fna
+bedtools getfasta -fi Subdoligranulum_variabile.fna -bed SVAR_16S.gff -fo SVAR_16S-fasta.fna
+bedtools getfasta -fi Lachnospiraceae_bacterium_7_1_58FAA.fna -bed LACH_16S.gff -fo LACH_16S-fasta.fna
+bedtools getfasta -fi Faecalibacterium_prausnitzii.fna -bed FPRA_16S.gff -fo FPRA_16S-fasta.fna
+bedtools getfasta -fi Eubacterium_siraeum.fna -bed ESIR_16S.gff -fo ESIR_16S-fasta.fna
+bedtools getfasta -fi Coprococcus_catus.fna -bed CCAT_16S.gff -fo CCAT_16S-fasta.fna
+bedtools getfasta -fi Bacteroides_xylanisolvens.fna -bed BOVA_16S.gff -fo BOVA_16S-fasta.fna
+bedtools getfasta -fi Bacteroides_ovatus.fna -bed BXYL_16S.gff -fo BXYL_16S-fasta.fna
+bedtools getfasta -fi Anaerobutyricum_soehngenii.fna -bed ASOE_16S.gff -fo ASOE_16S-fasta.fna
+bedtools getfasta -fi Agathobacter_rectalis.fna -bed AREC_16S.gff -fo AREC_16S-fasta.fna
+
+mkdir dbmm_db_16s
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Roseburia;Roseburia_intestinalis;/' RINT_16S-fasta.fna > dbmm_db_16s/RINT_16S-fasta.fna
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Ruminococcaceae;Subdoligranulum;Subdoligranulum_variabile;/' SVAR_16S-fasta.fna > dbmm_db_16s/SVAR_16S-fasta.fna
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Flavonifractor;Lachnospiraceae_bacterium 7_1_58FAA;/' LACH_16S-fasta.fna > dbmm_db_16s/LACH_16S-fasta.fna
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Ruminococcaceae;Faecalibacterium;Faecalibacterium_prausnitzii;/' FPRA_16S-fasta.fna > dbmm_db_16s/FPRA_16S-fasta.fna
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Eubacteriaceae;Eubacterium;Eubacterium_siraeum;/' ESIR_16S-fasta.fna > dbmm_db_16s/ESIR_16S-fasta.fna
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Coprococcus;Coprococcus_catus;/' CCAT_16S-fasta.fna > dbmm_db_16s/CCAT_16S-fasta.fna
+sed 's/>.*/>Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Bacteroides_ovatus;/' BOVA_16S-fasta.fna > dbmm_db_16s/BOVA_16S-fasta.fna
+sed 's/>.*/>Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Bacteroides_xylanisolvens;/' BXYL_16S-fasta.fna > dbmm_db_16s/BXYL_16S-fasta.fna
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Eubacteriaceae;Anaerobutyricum;Anaerobutyricum_soehngenii;/' ASOE_16S-fasta.fna > dbmm_db_16s/ASOE_16S-fasta.fna
+sed 's/>.*/>Firmicutes;Clostridia;Clostridiales;Eubacteriaceae;Agathobacter;Agathobacter_rectalis;/' AREC_16S-fasta.fna > dbmm_db_16s/AREC_16S-fasta.fna
+
+
+
+
+
+
+
+
+

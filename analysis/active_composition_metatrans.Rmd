@@ -1,0 +1,273 @@
+---
+title: "Assembly diet based minimal microbiome (Db-MM10)"
+subtitle: "Metatranscriptomics based active contribution"
+author: "Sudarshan A. Shetty"
+date: "`r date()`"
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Introduction  
+
+We use the output of SAMSA2 pipeline for organism hits to plot contribution of each strain to the total metatranscriptomics data.  
+
+# Setup  
+```{r}
+
+# import other necessary packages
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(ggplot2)
+  library(ggpubr)
+  library(tibble)
+  library(scales)
+  library(dplyr)
+})
+
+#library(optparse)
+```
+
+# Read files   
+The input files are stored in `04_metatrans/02_species_composition` folder.  
+
+```{r}
+# GET FILE NAMES Control 24h
+control_files <- list.files(path = "data_raw/04_metatrans/samsa_comp",
+                            pattern = "control_*", 
+                            full.names = T, recursive = FALSE)
+
+control_names <- ""
+for (name in control_files) {
+  
+  x <- gsub("data_raw/04_metatrans/samsa_comp/", "", name)
+  x <- gsub(".merged.RefSeq_annot_organism.tsv", "", x)
+  control_names <- c(control_names, x)
+}
+control_names
+
+control_names_trimmed <- control_names[-1]
+
+# Experimental 48h
+
+exp_files <- list.files(path = "data_raw/04_metatrans/samsa_comp",
+                        pattern = "experimental_*",
+                        full.names = T,
+                        recursive = FALSE)
+exp_names = ""
+for (name in exp_files) {
+  
+  x <- gsub("data_raw/04_metatrans/samsa_comp/", "", name)
+  x <- gsub(".merged.RefSeq_annot_organism.tsv", "", x)
+  exp_names <- c(exp_names, x)
+}
+
+
+exp_names_trimmed <- exp_names[-1]
+
+# sanity check
+if (length(exp_files) == 0 || length(control_files) == 0) {
+  print ("\nWARNING: No files found.  Is the directory correct?  Are the files named with 'control_' and 'experimental_' as prefixes?")
+  stop()
+}
+
+```
+
+
+## Read files 
+```{r}
+
+# READ IN FILES
+# loading the control table
+y <- 0
+for (x in control_files) {
+  y <- y + 1
+  if (y == 1) {
+    control_table <- read.table(file = x, header = F, quote = "", sep = "\t")
+    colnames(control_table) = c("DELETE", x, "V3")
+    control_table <- control_table[,c(3,2)]      }
+  if (y > 1) {
+    temp_table <- read.table(file = x, header = F, quote = "", sep = "\t")
+    colnames(temp_table) = c("DELETE", x, "V3")
+    temp_table <- temp_table[,c(2,3)]
+    control_table <- merge(control_table, temp_table, by = "V3", all = T)  }
+}
+control_table[is.na(control_table)] <- 0
+rownames(control_table) = control_table$V3
+control_table_trimmed <- data.frame(control_table[,-1])
+# this next step is for if there's only 1 control file (no replicates)
+if (y == 1) {
+  rownames(control_table_trimmed) = rownames(control_table)
+}
+
+# loading the experimental table
+z <- 0
+for (x in exp_files) {
+  z <- z + 1
+  if (z == 1) {
+    exp_table <- read.table(file = x, header=F, quote = "", sep = "\t")
+    colnames(exp_table) = c("DELETE", x, "V3")
+    exp_table <- exp_table[,c(2,3)]  }
+  if (z > 1) {
+    temp_table <- read.table(file = x, header = F, quote = "", sep = "\t")
+    colnames(temp_table) = c("DELETE", x, "V3")
+    exp_table <- merge(exp_table, temp_table[,c(2,3)], by = "V3", all = T)  }
+}
+exp_table[is.na(exp_table)] <- 0
+rownames(exp_table) = exp_table$V3
+exp_table_trimmed <- exp_table[,-1]
+
+# getting the column names simplified
+colnames(control_table_trimmed) = control_names_trimmed
+colnames(exp_table_trimmed) = exp_names_trimmed
+
+# merging the two tables
+complete_table <- merge(control_table_trimmed, exp_table_trimmed, by=0, all = TRUE)
+complete_table[is.na(complete_table)] <- 0
+# reducing stuff down to avoid duplicates
+complete_table <- aggregate(. ~  Row.names, data = complete_table, sum)
+rownames(complete_table) <- complete_table$Row.names
+complete_table <- complete_table[!(complete_table$Row.names == ""), ]
+# removing extra Row.names column
+complete_table <- complete_table[,-1]
+complete_table.a <- complete_table
+
+colnames(complete_table.a) 
+
+colnames(complete_table.a) <- gsub("control_", "", colnames(complete_table.a))
+colnames(complete_table.a) <- gsub("experimental_", "", colnames(complete_table.a))
+
+#Agathobacter_rectalis 3449685
+#Anaerobutyricum_soehngenii 3515670
+#Bacteroides_ovatus 6549480
+#Bacteroides_xylanisolvens 5912968
+#Coprococcus_catus 3629509
+#Eubacterium_siraeum 2664040
+#Faecalibacterium_prausnitzii 3090350
+#Lachnospiraceae_bacterium_7_1_58FAA 5622443
+#Roseburia_intestinalis 4411370 
+#Subdoligranulum_variabile 3237471
+```
+
+
+```{r}
+head(complete_table.a)
+```
+
+
+## Correct for genome size  
+Not required as these are mapped on protiens and not genomes (DNA)
+```{r eval=FALSE}
+complete_table.gsize <- complete_table.a
+
+#complete_table.gsize$GenomeSize <- c(3.4, 3.5, 6.5, 5.9, 3.6, 2.6,3.0, 5.6, 4.4, 3.2)
+# Use genome size to normalize the reads  
+complete_table.gsize <- c(3.4, 3.5, 6.5, 5.9, 3.6, 2.6,3.0, 5.6, 4.4, 3.2)
+
+#corrected_tab <- ceiling((complete_table.gsize) / complete_table.gsize[, "GenomeSize"])
+# calcualte transcripts per million  
+tpm <- function(counts, lengths) {
+  rate <- counts / lengths
+  rate / sum(rate) * 1e6
+}
+
+species_abund_tpm <- ceiling(tpm(complete_table.a, complete_table.gsize))
+species_abund_tpm.a <- as.data.frame(species_abund_tpm)
+```
+
+```{r}
+
+species_abund_tpm.a <- as.data.frame(complete_table.a)
+
+
+#DT::datatable(count.aggregate.kegg)
+
+coldata.df <- data.frame(SampleID = c("B1T24","B2T24","B3T24","B1T48","B2T48","B3T48"),
+                            condition = c("24h","24h","24h", "48h","48h","48h"))
+#coldata.df
+#write.table(coldata.df, "tables/coldata_df.txt", sep = "\t")
+dds <- DESeqDataSetFromMatrix(countData = species_abund_tpm.a,
+                              colData = coldata.df,
+                              design = ~ condition)
+dds
+dds <- DESeq(dds,fitType= "local")
+
+res <- results(dds)
+spces_results <- data.frame(res)
+spces_results <- spces_results[order(-spces_results$baseMean),]
+
+write.table(spces_results, "data/04_metatrans/tables/RNA_activity_DESeq2.txt", sep="\t")
+saveRDS(spces_results, "data/04_metatrans/rds/spces_results.rds")
+```
+
+Plot fold change
+```{r}
+
+spces_results <- spces_results %>% 
+  rownames_to_column("BacterialStrain") %>% 
+  mutate(Significant = ifelse(padj <= 0.05, "YES", "NO"))
+
+spces_results$BacterialStrain <-  gsub("Lachnospiraceae_bacterium_7_1_58FAA", "Flavonifractor_plautii",
+                                       spces_results$BacterialStrain )
+
+spces_results$BacterialStrain <- gsub("_", " ",
+                                       spces_results$BacterialStrain )
+
+p.chn <- ggplot(spces_results, 
+                aes(y= BacterialStrain, x= log2FoldChange)) +
+  geom_col(aes(fill=Significant)) + theme_classic2(base_size = 10) + 
+  scale_fill_manual(values=c("#264653", "#e76f51")) +
+  theme(axis.text.y = element_text(hjust=1, face = "italic")) + 
+  geom_text(data = data.frame(), aes(x = c(Inf, -Inf),
+                                     y = c(-Inf, -Inf),
+                                     hjust = c(1, 0),
+                                     vjust = c(-1, -1),
+                                     label = c("High 48hr","High 24hr"))) +
+  ylab("Bacterial Strain") 
+p.chn
+ggsave("data/04_metatrans/figs/RNA_activity_foldChange.pdf", height = 3, width = 5)
+
+```
+
+
+## Barplot    
+
+```{r}
+
+species_abund_tpm.a$BacterialStrain <- rownames(species_abund_tpm.a)
+
+species_abund_tpm_ldf <- reshape::melt(species_abund_tpm.a)
+
+# plotting
+
+species_abund_tpm_ldf$variable2 <- species_abund_tpm_ldf$variable
+
+species_abund_tpm_ldf$variable2 <- gsub("B1T", "",species_abund_tpm_ldf$variable2)
+species_abund_tpm_ldf$variable2 <- gsub("B2T", "",species_abund_tpm_ldf$variable2)
+species_abund_tpm_ldf$variable2 <- gsub("B3T", "",species_abund_tpm_ldf$variable2)
+
+head(species_abund_tpm_ldf)
+species_abund_tpm_ldf$BacterialStrain <- gsub("Lachnospiraceae_bacterium_7_1_58FAA", "Flavonifractor_plautii",species_abund_tpm_ldf$BacterialStrain)
+
+ggpubr::ggbarplot(species_abund_tpm_ldf, x ="BacterialStrain", y = "value", 
+                  color = "variable2",  
+                  add = "mean_se", 
+                  ylab = "Number of reads mapped",
+                  xlab  ="Bacterial strain",
+                  position = position_dodge(), 
+                  palette = c("#d6604d", "#4d4d4d")) + 
+  rotate_x_text() 
+
+ggsave("data/04_metatrans/figs/RNA_activity_Spps_barplot_comparison.pdf", height = 7, width = 6)
+```
+
+
+```{r}
+sessionInfo()
+```
+

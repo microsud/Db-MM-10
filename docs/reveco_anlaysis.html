@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sudarshan A. Shetty" />
+
+
+<title>Assembly diet based minimal microbiome (Db-MM10)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">DbMM</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Exploration of Metagenomic Data
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="core_microbiota_metagenomic.html">Core Microbiota</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Growth, Metabolites and Composition
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="wetlab_anlaysis.html">Growth and Metabolites</a>
+    </li>
+    <li>
+      <a href="dada2_processing.html">DADA2 processing</a>
+    </li>
+    <li>
+      <a href="qmp_analysis.html">Microbiota profile</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Metatranscriptomics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="meta_counts.html">RNASeq processing</a>
+    </li>
+    <li>
+      <a href="active_composition_metatrans.html">RNAseq Active Contribution</a>
+    </li>
+    <li>
+      <a href="keeg_anlaysis_initiate.html">KEGG Analysis Setup</a>
+    </li>
+    <li>
+      <a href="kegg_pathway_analysis.html">KEGG Pathway Analysis</a>
+    </li>
+    <li>
+      <a href="reveco_anlaysis.html">Competition and Complimentarity</a>
+    </li>
+    <li>
+      <a href="gmm_species_function.html">Species Functions</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Assembly diet based minimal microbiome (Db-MM10)</h1>
+<h3 class="subtitle">Reverse ecology based microbial interactions using metatranscriptome</h3>
+<h4 class="author">Sudarshan A. Shetty</h4>
+<h4 class="date">Mon Apr 05 13:21:21 2021</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2021-04-05
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>DbMM/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210404code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210404)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210404code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210404)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongNocommitsyet"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> No commits yet </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongNocommitsyet" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  .Rprofile
+    Untracked:  .gitattributes
+    Untracked:  .gitignore
+    Untracked:  DbMM.Rproj
+    Untracked:  Ocucpancy_relationship.csv
+    Untracked:  README.md
+    Untracked:  _workflowr.yml
+    Untracked:  analysis/
+    Untracked:  bin/
+    Untracked:  code/
+    Untracked:  data/
+    Untracked:  data_raw/
+    Untracked:  ko00010.Glycolysis.png
+    Untracked:  ko00010.png
+    Untracked:  ko00010.xml
+    Untracked:  ko00640.png
+    Untracked:  ko00640.propanoate_metabolism.png
+    Untracked:  ko00640.xml
+    Untracked:  ko00650.butanoate_metabolism.png
+    Untracked:  ko00650.png
+    Untracked:  ko00650.xml
+    Untracked:  output/
+    Untracked:  structure.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Following the approach using <a href="https://cran.r-project.org/web/packages/RevEcoR/vignettes/RevEcoR.html">RevEcoR</a>. The reverse ecology framework is used for reconstruction of metabolic networks and idenditifying the set of compounds which is used for predicting interactions between the species as described by <a href="https://www.pnas.org/content/105/38/14482.long">Borenstein E, Kupiec M, Feldman M W, et al. Large-scale reconstruction and phylogenetic analysis of metabolic environments. Proceedings of the National Academy of Sciences, 2008, 105(38): 14482-14487.</a></p>
+<p>Note: Requires Internet connection.</p>
+<div id="set-up" class="section level2">
+<h2>Set up</h2>
+<pre class="r"><code>suppressPackageStartupMessages({
+  library(RevEcoR)
+  library(tidyverse)
+  library(reshape2)
+  library(qgraph)
+  library(ggplot2)
+  #library(patchwork)
+  library(ggpubr)
+  library(RColorBrewer)
+  #library(tidyverse)
+})</code></pre>
+<p>Read the table with all KOs and species locus tags <code>complete_table_brite_filter.rds</code> located in the folder <code>data/04_metatrans/rds</code></p>
+<pre class="r"><code>complete_table.brite_filter &lt;- readRDS(&quot;data/04_metatrans/rds/complete_table_brite_filter.rds&quot;)
+
+#DT::datatable(complete_table.brite_filter)
+
+complete_table.brite_filter.uniq &lt;- complete_table.brite_filter %&gt;% distinct(LocusTag, .keep_all = TRUE)
+head(complete_table.brite_filter.uniq)</code></pre>
+<pre><code>      KO                           LocusTag B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+1 K00003        Agathobacter_rectalis_00645   476   612   783   324   699   856
+2 K00003   Anaerobutyricum_soehngenii_01021    21    62     9    14    35    52
+3 K00003          Eubacterium_siraeum_00090   852  1124   356   455   442   475
+4 K00003            Coprococcus_catus_01702    88   116    57    62    38   336
+5 K00003 Faecalibacterium_prausnitzii_01040   147   187   504   802   877   684
+6 K00003   Anaerobutyricum_soehngenii_02720    51    86    11    37    78   200
+           Level_1                     Level_2
+1 09100 Metabolism 09105 Amino acid metabolism
+2 09100 Metabolism 09105 Amino acid metabolism
+3 09100 Metabolism 09105 Amino acid metabolism
+4 09100 Metabolism 09105 Amino acid metabolism
+5 09100 Metabolism 09105 Amino acid metabolism
+6 09100 Metabolism 09105 Amino acid metabolism
+                                                  Level_3   KOID
+1 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+2 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+3 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+4 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+5 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+6 00270 Cysteine and methionine metabolism [PATH:ko00270] K00003
+                                     GeneName              BacterialStrain
+1  hom; homoserine dehydrogenase [EC:1.1.1.3]        Agathobacter_rectalis
+2  hom; homoserine dehydrogenase [EC:1.1.1.3]   Anaerobutyricum_soehngenii
+3  hom; homoserine dehydrogenase [EC:1.1.1.3]          Eubacterium_siraeum
+4  hom; homoserine dehydrogenase [EC:1.1.1.3]            Coprococcus_catus
+5  hom; homoserine dehydrogenase [EC:1.1.1.3] Faecalibacterium_prausnitzii
+6  hom; homoserine dehydrogenase [EC:1.1.1.3]   Anaerobutyricum_soehngenii</code></pre>
+<pre class="r"><code>dim(complete_table.brite_filter.uniq)</code></pre>
+<pre><code>[1] 14485    14</code></pre>
+<pre class="r"><code>colnames(complete_table.brite_filter.uniq)</code></pre>
+<pre><code> [1] &quot;KO&quot;              &quot;LocusTag&quot;        &quot;B1T24&quot;           &quot;B2T24&quot;          
+ [5] &quot;B3T24&quot;           &quot;B1T48&quot;           &quot;B2T48&quot;           &quot;B3T48&quot;          
+ [9] &quot;Level_1&quot;         &quot;Level_2&quot;         &quot;Level_3&quot;         &quot;KOID&quot;           
+[13] &quot;GeneName&quot;        &quot;BacterialStrain&quot;</code></pre>
+<pre class="r"><code>complete_table.brite_filter &lt;- complete_table.brite_filter.uniq</code></pre>
+<pre class="r"><code>#############################################################################################
+arec &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Agathobacter_rectalis&quot;)
+# write.csv(arec, &quot;arec_complete_table.csv&quot;)
+#arec &lt;- arec[,-9]
+arec &lt;- arec %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>head(arec)</code></pre>
+<pre><code># A tibble: 6 x 8
+# Groups:   KOID [6]
+  KOID  GeneName `sum(B1T24)` `sum(B2T24)` `sum(B3T24)` `sum(B1T48)`
+  &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+1 K000~ &quot; hom; ~          476          612          783          324
+2 K000~ &quot; SORD,~          139          156          415          211
+3 K000~ &quot; hisD;~          390          552          570          197
+4 K000~ &quot; aroE;~          546          630          990          540
+5 K000~ &quot; LDH, ~          353          423          865          223
+6 K000~ &quot; hprA;~          348          359          593          369
+# ... with 2 more variables: `sum(B2T48)` &lt;dbl&gt;, `sum(B3T48)` &lt;dbl&gt;</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+
+colnames(arec) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+
+#############################################################################################
+asoe &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Anaerobutyricum_soehngenii&quot;)
+#asoe &lt;- asoe[,-9]
+asoe &lt;- asoe %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(asoe) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+head(asoe)</code></pre>
+<pre><code># A tibble: 6 x 8
+# Groups:   KO ID [6]
+  `KO ID` Definition                         B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+  &lt;chr&gt;   &lt;chr&gt;                              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 K00003  &quot; hom; homoserine dehydrogenase [~    72   148    20    51   113   252
+2 K00005  &quot; gldA; glycerol dehydrogenase [E~   300   658    49   402   308  1083
+3 K00008  &quot; SORD, gutB; L-iditol 2-dehydrog~   118   225     6     8    44   429
+4 K00013  &quot; hisD; histidinol dehydrogenase ~   103   135   104   101   169   231
+5 K00014  &quot; aroE; shikimate dehydrogenase [~    39    85    21    48    82   161
+6 K00016  &quot; LDH, ldh; L-lactate dehydrogena~    38    74    14    28    80   156</code></pre>
+<pre class="r"><code>#############################################################################################
+
+bova &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Bacteroides_ovatus&quot;)
+#bova &lt;- bova[,-9]
+bova &lt;- bova %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(bova) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+
+#############################################################################################
+
+
+bxyl &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Bacteroides_xylanisolvens&quot;)
+#bxyl &lt;- bxyl[,-9]
+bxyl &lt;- bxyl %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(bxyl) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+#############################################################################################
+
+ccat &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Coprococcus_catus&quot;)
+#ccat &lt;- ccat[,-9]
+ccat &lt;- ccat %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(ccat) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+
+#############################################################################################
+
+esir &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Eubacterium_siraeum&quot;)
+#esir &lt;- esir[,-9]
+esir &lt;- esir %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(esir) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+#############################################################################################
+fpra &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Faecalibacterium_prausnitzii&quot;)
+#fpra &lt;- fpra[,-9]
+fpra &lt;- fpra %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(fpra) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+#############################################################################################
+
+lach &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Lachnospiraceae_bacterium&quot;)
+#lach &lt;- lach[,-9]
+lach &lt;- lach %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(lach) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+#############################################################################################
+
+
+rint &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Roseburia_intestinalis&quot;)
+#rint &lt;- rint[,-9]
+rint &lt;- rint %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(rint) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+
+#############################################################################################
+svar &lt;- subset(complete_table.brite_filter, BacterialStrain == &quot;Subdoligranulum_variabile&quot;)
+#svar &lt;- svar[,-9]
+svar &lt;- svar %&gt;% group_by(KOID, GeneName) %&gt;% 
+  summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))</code></pre>
+<pre><code>`summarise()` regrouping output by &#39;KOID&#39; (override with `.groups` argument)</code></pre>
+<pre class="r"><code>#head(df.gene_table.x)
+colnames(svar) &lt;- c(&quot;KO ID&quot;,&quot;Definition&quot;,&quot;B1T24&quot;,&quot;B2T24&quot;,&quot;B3T24&quot;,&quot;B1T48&quot;,&quot;B2T48&quot;,&quot;B3T48&quot;)
+head(svar)</code></pre>
+<pre><code># A tibble: 6 x 8
+# Groups:   KO ID [6]
+  `KO ID` Definition                         B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+  &lt;chr&gt;   &lt;chr&gt;                              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 K00003  &quot; hom; homoserine dehydrogenase [~    21    22    60   223   173   188
+2 K00012  &quot; UGDH, ugd; UDPglucose 6-dehydro~    28    36    68    87   103   301
+3 K00013  &quot; hisD; histidinol dehydrogenase ~    35    60   165   105   174   291
+4 K00014  &quot; aroE; shikimate dehydrogenase [~    59    48   129   115   163   387
+5 K00027  &quot; ME2, sfcA, maeA; malate dehydro~    40    47   111   163   191   304
+6 K00031  &quot; IDH1, IDH2, icd; isocitrate deh~    54    71   200   342   320   590</code></pre>
+<pre class="r"><code>head(bova)</code></pre>
+<pre><code># A tibble: 6 x 8
+# Groups:   KO ID [6]
+  `KO ID` Definition                         B1T24 B2T24 B3T24 B1T48 B2T48 B3T48
+  &lt;chr&gt;   &lt;chr&gt;                              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 K00008  &quot; SORD, gutB; L-iditol 2-dehydrog~    35    38    66   120   184   254
+2 K00012  &quot; UGDH, ugd; UDPglucose 6-dehydro~   219   220   629   484   692  1016
+3 K00013  &quot; hisD; histidinol dehydrogenase ~    56    82   248   173   204   331
+4 K00014  &quot; aroE; shikimate dehydrogenase [~    34    53   132    83    81   132
+5 K00018  &quot; hprA; glycerate dehydrogenase [~    50    46   148    72    79   122
+6 K00024  &quot; mdh; malate dehydrogenase [EC:1~  2002  3407 10219  1180   870  1028</code></pre>
+<pre class="r"><code>bova.s &lt;- as.data.frame(bova)
+rownames(bova.s) &lt;- bova.s$`KO ID`
+
+#bxyl
+bxyl.s &lt;- as.data.frame(bxyl)
+rownames(bxyl.s) &lt;- bxyl.s$`KO ID`
+
+arec.s &lt;- as.data.frame(arec)
+rownames(arec.s) &lt;- arec.s$`KO ID`
+
+asoe.s &lt;- as.data.frame(asoe)
+rownames(asoe.s) &lt;- asoe.s$`KO ID`
+
+ccat.s &lt;- as.data.frame(ccat)
+rownames(ccat.s) &lt;- ccat.s$`KO ID`
+
+esir.s &lt;- as.data.frame(esir)
+rownames(esir.s) &lt;- esir.s$`KO ID`
+
+fpra.s &lt;- as.data.frame(fpra)
+rownames(fpra.s) &lt;- fpra.s$`KO ID`
+
+lach.s &lt;- as.data.frame(lach)
+rownames(lach.s) &lt;- lach.s$`KO ID`
+
+
+rint.s &lt;- as.data.frame(rint)
+rownames(rint.s) &lt;- rint.s$`KO ID`
+
+svar.s &lt;- as.data.frame(svar)
+rownames(svar.s) &lt;- svar.s$`KO ID`</code></pre>
+</div>
+<div id="reconstruct-metabolic-network-for-each-bacterial-strain-using-transcript-data" class="section level2">
+<h2>Reconstruct metabolic network for each bacterial strain using transcript data</h2>
+<p>When running the codes for first time change the <code>eval=FALSE</code> to <code>TRUE</code></p>
+<pre class="r"><code>Bacteroides_ovatu_3_8_47FAA.net &lt;- reconstructGsMN(bova.s, RefData = RefDbcache) 
+
+
+Bacteroides_sp_2_1_22.net &lt;- reconstructGsMN(bxyl.s, RefData = RefDbcache) 
+
+#Bacteroides_sp_3_1_23.net &lt;- reconstructGsMN(Bacteroides_sp_3_1_23, RefData = RefDbcache)
+
+
+Coprococcus_catus.net &lt;- reconstructGsMN(ccat.s, RefData = RefDbcache)
+
+
+Eubacterium_hallii_L2_7.net &lt;- reconstructGsMN(asoe.s, RefData = RefDbcache)
+
+
+Eubacterium_rectale_DSM_17629.net &lt;- reconstructGsMN(arec.s, RefData = RefDbcache)
+
+
+Faecalibacterium_prausnitzii_A2_165.net  &lt;- reconstructGsMN(fpra.s, 
+                                                            RefData = RefDbcache)
+
+
+Lachnospiraceae_bacterium_7_1_58FAA.net &lt;- reconstructGsMN(lach.s,
+                                                           RefData = RefDbcache) 
+
+Roseburia_intestinalis_L1_82.net &lt;- reconstructGsMN(rint.s, 
+                                                    RefData = RefDbcache)
+
+#Ruminococcus_bromii_l2.net &lt;- reconstructGsMN(Ruminococcus_bromii_l2, 
+#                                    RefData = RefDbcache) 
+
+
+Subdoligranulum_variabile_DSM_15176.net &lt;- reconstructGsMN(svar.s,
+                                                           RefData = RefDbcache) 
+
+Eubacterium_siraeum_DSM_15702.net &lt;- reconstructGsMN(esir.s,
+                                                     RefData = RefDbcache)</code></pre>
+</div>
+</div>
+<div id="calculate-interaction-indices" class="section level1">
+<h1>Calculate interaction indices</h1>
+<p>When running the codes for first time change the <code>eval=FALSE</code> to <code>TRUE</code></p>
+<pre class="r"><code>cooperation.index&lt;-calculateCooperationIndex(Bacteroides_ovatu_3_8_47FAA.net,
+                                             Bacteroides_sp_2_1_22.net,
+                                             Coprococcus_catus.net,
+                                             Eubacterium_hallii_L2_7.net,
+                                             Eubacterium_rectale_DSM_17629.net,
+                                             Faecalibacterium_prausnitzii_A2_165.net,
+                                             Lachnospiraceae_bacterium_7_1_58FAA.net,
+                                             Roseburia_intestinalis_L1_82.net,
+                                             Subdoligranulum_variabile_DSM_15176.net,
+                                             Eubacterium_siraeum_DSM_15702.net)
+
+saveRDS(cooperation.index, &quot;data/04_metatrans/rds/RevEco_cooperation.index.rds&quot;)</code></pre>
+<p>Read in the stored cooperative indices</p>
+<pre class="r"><code>cooperation.index &lt;- readRDS(&quot;data/04_metatrans/rds/RevEco_cooperation.index.rds&quot;)
+
+
+complementarity.index_2018 &lt;- cooperation.index$complementarity.index
+
+competition.index_2018 &lt;- cooperation.index$competition.index
+
+write.csv(complementarity.index_2018, &quot;data/04_metatrans/tables/DbMM10_complementarity_index.csv&quot;) 
+
+write.csv(competition.index_2018, &quot;data/04_metatrans/tables/DbMM10_competition_index.csv&quot;) </code></pre>
+<p>add names to competition matrix</p>
+<pre class="r"><code>rownames(competition.index_2018) &lt;- c(&quot;Bacteroides_ovatus&quot;,
+                                      &quot;Bacteroides_xylanisolvens&quot;,
+                                      &quot;Coprococcus_catus&quot;,
+                                      &quot;Anaerobutyricum_soehngenii&quot;,
+                                      &quot;Agathobacter_rectalis&quot;,
+                                      &quot;Faecalibacterium_prausnitzii&quot;,
+                                      &quot;Flavonifractor_plautii&quot;,
+                                      &quot;Roseburia_intestinalis&quot;,
+                                      &quot;Subdoligranulum_variabile&quot;,
+                                      &quot;Eubacterium_siraeum&quot;)
+
+colnames(competition.index_2018) &lt;- c(&quot;Bacteroides_ovatus&quot;,
+                                      &quot;Bacteroides_xylanisolvens&quot;,
+                                      &quot;Coprococcus_catus&quot;,
+                                      &quot;Anaerobutyricum_soehngenii&quot;,
+                                      &quot;Agathobacter_rectalis&quot;,
+                                      &quot;Faecalibacterium_prausnitzii&quot;,
+                                      &quot;Flavonifractor_plautii&quot;,
+                                      &quot;Roseburia_intestinalis&quot;,
+                                      &quot;Subdoligranulum_variabile&quot;,
+                                      &quot;Eubacterium_siraeum&quot;)</code></pre>
+<p>add names to complementatrity matrix</p>
+<pre class="r"><code>rownames(complementarity.index_2018) &lt;- c(&quot;Bacteroides_ovatus&quot;,
+                                          &quot;Bacteroides_xylanisolvens&quot;,
+                                          &quot;Coprococcus_catus&quot;,
+                                          &quot;Anaerobutyricum_soehngenii&quot;,
+                                          &quot;Agathobacter_rectalis&quot;,
+                                          &quot;Faecalibacterium_prausnitzii&quot;,
+                                          &quot;Flavonifractor_plautii&quot;,
+                                          &quot;Roseburia_intestinalis&quot;,
+                                          &quot;Subdoligranulum_variabile&quot;,
+                                          &quot;Eubacterium_siraeum&quot;)
+
+
+colnames(complementarity.index_2018) &lt;- c(&quot;Bacteroides_ovatus&quot;,
+                                          &quot;Bacteroides_xylanisolvens&quot;,
+                                          &quot;Coprococcus_catus&quot;,
+                                          &quot;Anaerobutyricum_soehngenii&quot;,
+                                          &quot;Agathobacter_rectalis&quot;,
+                                          &quot;Faecalibacterium_prausnitzii&quot;,
+                                          &quot;Flavonifractor_plautii&quot;,
+                                          &quot;Roseburia_intestinalis&quot;,
+                                          &quot;Subdoligranulum_variabile&quot;,
+                                          &quot;Eubacterium_siraeum&quot;)</code></pre>
+<pre class="r"><code># set colors  
+strain.colors &lt;- c(Bacteroides_ovatus = &quot;#1F78B4&quot;, 
+                   Bacteroides_xylanisolvens = &quot;#B2DF8A&quot;, 
+                   Anaerobutyricum_soehngenii = &quot;#FDBF6F&quot;, 
+                   Agathobacter_rectalis= &quot;#33A02C&quot;, 
+                   Eubacterium_siraeum =&quot;#FB9A99&quot;, 
+                   Faecalibacterium_prausnitzii = &quot;#A6CEE3&quot;, 
+                   Flavonifractor_plautii = &quot;#E31A1C&quot;, 
+                   Roseburia_intestinalis= &quot;#CAB2D6&quot;, 
+                   Subdoligranulum_variabile = &quot;#FF7F00&quot;, 
+                   Coprococcus_catus = &quot;#6A3D9A&quot;)</code></pre>
+</div>
+<div id="plot-interaction-indices" class="section level1">
+<h1>Plot interaction indices</h1>
+<div id="competition" class="section level2">
+<h2>Competition</h2>
+<p><em>Network</em></p>
+<pre class="r"><code>rows_to_keep &lt;- c(&quot;Bacteroides_ovatus&quot;,
+                  &quot;Bacteroides_xylanisolvens&quot;,
+                  &quot;Coprococcus_catus&quot;,
+                  &quot;Anaerobutyricum_soehngenii&quot;,
+                  &quot;Agathobacter_rectalis&quot;,
+                  &quot;Faecalibacterium_prausnitzii&quot;,
+                  &quot;Flavonifractor_plautii&quot;,
+                  &quot;Roseburia_intestinalis&quot;,
+                  &quot;Subdoligranulum_variabile&quot;,
+                  &quot;Eubacterium_siraeum&quot;)
+
+competition.index_2018.a &lt;- competition.index_2018[rows_to_keep, ]
+dim(competition.index_2018.a)</code></pre>
+<pre><code>[1] 10 10</code></pre>
+<pre class="r"><code>competition.index_2018.a &lt;- competition.index_2018.a[, rows_to_keep]
+
+# paper ready labels
+labels_to_keep &lt;- c(&quot;Bacteroides_ovatus&quot;,
+                    &quot;Bacteroides_xylanisolvens&quot;,
+                    &quot;Coprococcus_catus&quot;,
+                    &quot;Anaerobutyricum_soehngenii&quot;,
+                    &quot;Agathobacter_rectalis&quot;,
+                    &quot;Faecalibacterium_prausnitzii&quot;,
+                    &quot;Flavonifractor_plautii&quot;,
+                    &quot;Roseburia_intestinalis&quot;,
+                    &quot;Subdoligranulum_variabile&quot;,
+                    &quot;Eubacterium_siraeum&quot;)
+
+rownames(competition.index_2018.a) &lt;- labels_to_keep
+colnames(competition.index_2018.a) &lt;- labels_to_keep
+
+Labels = rownames(competition.index_2018.a)</code></pre>
+<p><em>alternative plots</em></p>
+<pre class="r"><code>qgraph(competition.index_2018.a, #theme= &quot;TeamFortress&quot;,
+       edge.color = &quot;#ec7014&quot;,
+       labels = Labels, 
+       label.cex =3.0,
+       layout = &quot;circle&quot;,
+       label.scale = FALSE,
+       edge.labels = T,
+       minimum = 0.3,
+       title = &quot;Competition (Gene Expression)&quot;,
+       filetype= &#39;pdf&#39;,
+       filename = &quot;data/04_metatrans/figs/netowork_competition&quot;, 
+       height = 12, width = 28
+       )</code></pre>
+<pre class="r"><code>mcompetition &lt;- melt(as.matrix(competition.index_2018.a))
+
+#head(mcompetition)
+
+compet.plot &lt;- ggbarplot(mcompetition, &quot;Var1&quot;,  &quot;value&quot;, fill = &quot;Var1&quot;, 
+                         facet.by = &quot;Var2&quot;, palette = strain.colors,
+                         ylab = &quot;Compeition Index&quot;) + rremove(&quot;x.text&quot;)
+compet.plot</code></pre>
+<p><img src="figure/reveco_anlaysis.rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/04_metatrans/figs/competition_barplot.pdf&quot;, height = 4, width = 10)
+
+mcompetition$value &lt;- round(mcompetition$value, digits = 2)
+my_cols &lt;- c(&quot;grey&quot;, &quot;#abc9e9&quot;, &quot;#f5bfd7&quot;,&quot;#caefd7&quot;)</code></pre>
+</div>
+<div id="complementarity" class="section level2">
+<h2>Complementarity</h2>
+<pre class="r"><code>complementarity.index_2018.a &lt;- complementarity.index_2018[rows_to_keep, ]
+dim(complementarity.index_2018.a)</code></pre>
+<pre><code>[1] 10 10</code></pre>
+<pre class="r"><code>complementarity.index_2018.a &lt;- complementarity.index_2018.a[, rows_to_keep]
+dim(complementarity.index_2018.a)</code></pre>
+<pre><code>[1] 10 10</code></pre>
+<pre class="r"><code>rownames(complementarity.index_2018.a) &lt;- labels_to_keep
+colnames(complementarity.index_2018.a) &lt;- labels_to_keep
+
+Labels2 = rownames(complementarity.index_2018.a)
+
+mcompimentarity &lt;- melt(as.matrix(complementarity.index_2018.a))
+
+
+mcompimentarity$value &lt;- round(mcompimentarity$value, digits = 2)
+compliment.plot &lt;- ggbarplot(mcompimentarity, &quot;Var1&quot;,  &quot;value&quot;, fill = &quot;Var1&quot;, 
+                         facet.by = &quot;Var2&quot;, palette = strain.colors,
+                         ylab = &quot;Complimentarity Index&quot;) + rremove(&quot;x.text&quot;)
+compliment.plot</code></pre>
+<p><img src="figure/reveco_anlaysis.rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="ballon-plots" class="section level3">
+<h3>Ballon plots</h3>
+<pre class="r"><code>mcompetition$Var1 &lt;- gsub(&quot;_&quot;, &quot; &quot;, mcompetition$Var1)
+mcompetition$Var2 &lt;- gsub(&quot;_&quot;, &quot; &quot;, mcompetition$Var2)
+
+compet.plot &lt;- ggballoonplot(mcompetition, x = &quot;Var1&quot;, y = &quot;Var2&quot;, fill = &quot;value&quot;, 
+                         #facet.by = &quot;Var2&quot;, 
+                         #palette = &quot;Blues&quot;,
+                         ylab = &quot;Compeition Index&quot;,
+                         show.label = TRUE,
+                         font.label = 8,
+                         size = 10) +
+  labs(subtitle = &quot;Competition&quot;) +
+  gradient_fill(my_cols) 
+compet.plot</code></pre>
+<p><img src="figure/reveco_anlaysis.rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>mcompimentarity$Var1 &lt;- gsub(&quot;_&quot;, &quot; &quot;, mcompimentarity$Var1)
+mcompimentarity$Var2 &lt;- gsub(&quot;_&quot;, &quot; &quot;, mcompimentarity$Var2)</code></pre>
+<p>Join both the plots for competition and complimentary</p>
+<p>Used in Manuscript</p>
+<pre class="r"><code>mcompetition$Index = &quot;Competition&quot;
+mcompimentarity$Index = &quot;Complimentary&quot;
+
+all_indx &lt;- mcompimentarity %&gt;%
+  bind_rows(mcompetition)
+
+
+ggballoonplot(all_indx, x = &quot;Var1&quot;, y = &quot;Var2&quot;, fill = &quot;value&quot;, 
+              #facet.by = &quot;Var2&quot;, 
+              #palette = &quot;Blues&quot;,
+              ylab = &quot;Compeition Index&quot;,
+              show.label = TRUE,
+              font.label = 6,
+              size = 6,
+              facet.by = &quot;Index&quot;) +
+  gradient_fill(my_cols) +
+  theme(axis.text = element_text(face=&quot;italic&quot;, size = 8))</code></pre>
+<p><img src="figure/reveco_anlaysis.rmd/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;data/04_metatrans/figs/competition_complementarity.pdf&quot;, height =4, width = 8)</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.3 (2020-10-10)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_Netherlands.1252  LC_CTYPE=English_Netherlands.1252   
+[3] LC_MONETARY=English_Netherlands.1252 LC_NUMERIC=C                        
+[5] LC_TIME=English_Netherlands.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] RColorBrewer_1.1-2 ggpubr_0.4.0       qgraph_1.6.5       reshape2_1.4.4    
+ [5] forcats_0.5.0      stringr_1.4.0      dplyr_1.0.2        purrr_0.3.4       
+ [9] readr_1.4.0        tidyr_1.1.2        tibble_3.0.4       ggplot2_3.3.2     
+[13] tidyverse_1.3.0    RevEcoR_0.99.3     workflowr_1.6.2   
+
+loaded via a namespace (and not attached):
+  [1] colorspace_1.4-1    ggsignif_0.6.0      rjson_0.2.20       
+  [4] rio_0.5.16          ellipsis_0.3.1      rprojroot_1.3-2    
+  [7] htmlTable_2.1.0     corpcor_1.6.9       base64enc_0.1-3    
+ [10] fs_1.5.0            rstudioapi_0.11     farver_2.0.3       
+ [13] lavaan_0.6-7        fansi_0.4.1         lubridate_1.7.9    
+ [16] xml2_1.3.2          splines_4.0.3       mnormt_2.0.2       
+ [19] knitr_1.30          glasso_1.11         Formula_1.2-4      
+ [22] jsonlite_1.7.1      broom_0.7.1         cluster_2.1.0      
+ [25] dbplyr_1.4.4        png_0.1-7           compiler_4.0.3     
+ [28] httr_1.4.2          backports_1.2.0     assertthat_0.2.1   
+ [31] Matrix_1.2-18       cli_2.1.0           later_1.1.0.1      
+ [34] htmltools_0.5.1.1   tools_4.0.3         igraph_1.2.6       
+ [37] gtable_0.3.0        glue_1.4.2          Rcpp_1.0.5         
+ [40] carData_3.0-4       cellranger_1.1.0    vctrs_0.3.4        
+ [43] nlme_3.1-149        psych_2.0.9         xfun_0.17          
+ [46] ps_1.4.0            openxlsx_4.2.2      rvest_0.3.6        
+ [49] lifecycle_0.2.0     gtools_3.8.2        rstatix_0.6.0      
+ [52] XML_3.99-0.5        MASS_7.3-53         scales_1.1.1       
+ [55] BDgraph_2.63        hms_0.5.3           promises_1.1.1     
+ [58] parallel_4.0.3      huge_1.3.4.1        curl_4.3           
+ [61] yaml_2.2.1          pbapply_1.4-3       gridExtra_2.3      
+ [64] rpart_4.1-15        latticeExtra_0.6-29 stringi_1.5.3      
+ [67] checkmate_2.0.0     zip_2.1.1           rlang_0.4.8        
+ [70] pkgconfig_2.0.3     d3Network_0.5.2.1   evaluate_0.14      
+ [73] lattice_0.20-41     labeling_0.4.2      htmlwidgets_1.5.2  
+ [76] tidyselect_1.1.0    plyr_1.8.6          magrittr_1.5       
+ [79] R6_2.5.0            generics_0.1.0      Hmisc_4.4-1        
+ [82] DBI_1.1.0           whisker_0.4         pillar_1.4.6       
+ [85] haven_2.3.1         foreign_0.8-80      withr_2.3.0        
+ [88] abind_1.4-5         survival_3.2-7      nnet_7.3-14        
+ [91] car_3.0-10          modelr_0.1.8        crayon_1.3.4       
+ [94] utf8_1.1.4          fdrtool_1.2.15      tmvnsim_1.0-2      
+ [97] rmarkdown_2.4       jpeg_0.1-8.1        grid_4.0.3         
+[100] readxl_1.3.1        data.table_1.13.0   pbivnorm_0.6.0     
+[103] blob_1.2.1          git2r_0.27.1        reprex_0.3.0       
+[106] digest_0.6.27       httpuv_1.5.4        stats4_4.0.3       
+[109] munsell_0.5.0      </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

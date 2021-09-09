@@ -1,0 +1,24 @@
+---
+title: "About"
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+
+*Abstract:*   
+Our diet supports a diverse array of gut microbes many of which have a high niche overlap resulting in considerable competition at community level. Knowledge of the functional roles and inter-species interactions of the ecologically relevant microbes is crucial but hampered by the complexity and technical challenges in investigating the human gut microbiome. Here, in a proof of concept study, we rationally designed and assembled a synthetic Diet-based Minimal Microbiome (Db-MM) consisting of ten core colonic bacterial species that together are capable of converting dietary fibers into short chain fatty acids (SCFAs). Despite their genomic potential for metabolic competition, all ten bacteria coexisted during growth on a set mixture of dietary fibers, including pectin, inulin, xylan, cellobiose and starch. By integrating analyses of metabolites, community composition and community-wide gene expression based on RNA-seq, we identified coexistence of competitive species via transcriptional niche segregation. Furthermore, the metatranscriptomic analysis indicated successful in situ reconstruction of the inter-species metabolic interaction network predicted from in vivo and genome data, leading to the production of short chain fatty SCFA production from dietary fibres. While public goods are harvested by non-degraders, some species occupy occupied a rather energetically challenging niche. Our Together these observations improve our understanding of ecophysiology of core gut bacteria by leveraging minimal microbiomes as a bridge between holistic and reductionist approaches.  
+
+--------------------------
+** Analysis**  
+
+* Core Microbiota  
+* Growth and Metabolites  
+* DADA2 processing   
+* Microbiota profile  
+* RNASeq processing  
+* RNAseq Active  
+* KEGG Analysis Setup  
+* KEGG Pathway Analysis   

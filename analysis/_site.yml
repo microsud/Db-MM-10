@@ -1,0 +1,44 @@
+name: "Diet based minimal microbiome (DbMM)"
+output_dir: ../docs
+navbar:
+  title: "DbMM Analysis"
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: License
+    href: license.html
+  - text: "Exploration of Metagenomic Data"
+    menu:
+      - text: "Core Microbiota"
+        href: core_microbiota_metagenomic.html
+  - text: "Growth, Metabolites and Composition"
+    menu:
+      - text: "Growth and Metabolites"
+        href: wetlab_anlaysis.html
+      - text: "DADA2 processing"
+        href: dada2_processing.html
+      - text: "Microbiota profile"
+        href: qmp_analysis.html
+  - text: "Metatranscriptomics"
+    menu:
+      - text: "RNASeq processing"
+        href: meta_counts.html
+      - text: "RNAseq Active Contribution"
+        href: active_composition_metatrans.html
+      - text: "KEGG Analysis Setup"
+        href: keeg_anlaysis_initiate.html
+      - text: "KEGG Pathway Analysis"
+        href: kegg_pathway_analysis.html
+      - text: "Competition and Complimentarity"
+        href: reveco_anlaysis.html
+      - text: "Species Functions"
+        href: gmm_species_function.html
+
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate

@@ -1,0 +1,86 @@
+---
+title: "Structure of DbMM analysis"
+author: "Sudarshan"
+date: "4/4/2021"
+output: html_document
+---
+
+
+
+```{r eval=FALSE}
+DbMM/
+├── .gitignore
+├── .Rprofile
+├── _workflowr.yml
+├── analysis/
+│   ├── about.Rmd
+│   ├── index.Rmd
+│   ├── license.Rmd
+│   └── _site.yml
+├── code/
+│   ├── README.md
+├── data/
+│   └── README.md
+├── data_raw/
+│   └── README.md
+├── docs/
+├── myproject.Rproj
+├── output/
+│   └── README.md
+└── README.md
+```
+
+
+This base structure is modified to include specific analysis data.  
+```{r}
+# store r objects
+dir.create("data/01_exploratory")
+dir.create("data/01_exploratory/rds")
+dir.create("data/01_exploratory/tables")
+dir.create("data/01_exploratory/figs")
+
+```
+
+```{r}
+dir.create("data_raw/02_wetlab")
+
+dir.create("data/02_wetlab")
+dir.create("data/02_wetlab/rds")
+dir.create("data/02_wetlab/tables")
+dir.create("data/02_wetlab/figs")
+
+
+```
+
+```{r}
+
+dir.create("data_raw/03_amplicon")
+
+dir.create("data/03_amplicon")
+dir.create("data/03_amplicon/rds")
+dir.create("data/03_amplicon/tables")
+dir.create("data/03_amplicon/figs")
+
+```
+
+```{r}
+
+dir.create("data_raw/04_metatrans")
+
+dir.create("data/04_metatrans")
+dir.create("data/04_metatrans/rds")
+dir.create("data/04_metatrans/tables")
+dir.create("data/04_metatrans/figs")
+
+```
+
+```{r}
+
+dir.create("data_raw/05_gmm")
+
+dir.create("data/05_gmm")
+dir.create("data/05_gmm/rds")
+dir.create("data/05_gmm/tables")
+dir.create("data/05_gmm/figs")
+
+```
