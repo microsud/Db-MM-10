@@ -1,6 +1,6 @@
 ### Inter-species Metabolic Interactions in a Minimal Human Gut Microbiome of Core Bacteria
  
-Sudarshan A. Shetty<sup>1,#</sup>, Ben Kuipers<sup>1</sup>, Siavash Atashgahi1<sup>2</sup>, Steven Aalvink<sup>1</sup>, Hauke Smidt<sup>1</sup>, Willem M. de Vos1<sup>,3*</sup>
+Sudarshan A. Shetty<sup>1,#</sup>, Ben Kuipers<sup>1</sup>, Siavash Atashgahi1<sup>2</sup>, Steven Aalvink<sup>1</sup>, Hauke Smidt<sup>1</sup>, Willem M. de Vos<sup>1,3*</sup>
 
 <sup>1</sup>Laboratory of Microbiology, Wageningen University & Research, Wageningen, The Netherlands.
 <sup>2</sup>Department of Microbiology, Radboud University, Nijmegen, The Netherlands.
