@@ -11,10 +11,10 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
-  
+
 In this document we investigate the human gut metagenomics data to identify core species.  
 Originally created on `29 July 2019`    
- 
+
 # Introduction  
 We searched the `curatedMetagenomic` database for core microbiota  
 
@@ -33,6 +33,11 @@ library(dplyr)
 library(glue)
 library(ggtext)
 library(patchwork)
+library(ggpubr)
+library(cooccur)
+library(readr)
+source('code/custom_funs.R')
+
 ```
 
 ```{r eval=FALSE}
@@ -40,7 +45,7 @@ library(curatedMetagenomicData)
 ```
 
 
-## Download public metagenomic data  
+# Download public metagenomic data  
 
 Download the datasets for gut metagenomes from the `curatedMD` R package.  
 
@@ -141,7 +146,7 @@ schir.pseq1 = prune_taxa(taxa_sums(schir.eset.pseq1) > 0, schir.eset.pseq1)
 
 ```
 
-## Merge all data
+# Merge all data
 
 ```{r, eval=FALSE}
 
@@ -181,15 +186,14 @@ saveRDS(ps1a, "data/01_exploratory/rds/ps1a_taxglom_species.rds")
 
 ```
 
-The above chunks are not run in this workflowr project because the snapshot data for `curatedMD` on which the study was based is from 2018. 
+The above chunks are not run in this workflowr project because the snapshot data for `curatedMD` on which the study was based is from 2018.  
+
+# Read subset  
+Here we have the subset used for analysis.  
 
 ```{r}
-
 ps1a <- readRDS("data/01_exploratory/rds/ps1a_taxglom_species.rds")
 any(taxa_sums(ps1a) == 1)
-
-table(meta(ps1a)$country,meta(ps1a)$country)
-table(meta(ps1a)$disease)
 ```
 
 Convert to relative proportions  
@@ -197,9 +201,6 @@ Convert to relative proportions
 ```{r}
 
 ps1a.west <- microbiome::transform(ps1a, "compositional")
-
-#head(otu_table(ps1a.west))
-
 min(taxa_sums(ps1a.west))
 
 # final study detail
@@ -212,31 +213,43 @@ ps1a.west <- subset_samples(ps1a.west, disease == "healthy")
 nsamples(ps1a.west)
 ```
 CAN DEU DNK ESP FRA ITA NLD SWE USA 
-  3  97 177  71  61  11 471  70 194 
-  
-healthy 
-   1144  
-   
-## Average MGS in Western gut metagenome  
-```{r fig.height=4, fig.width=8}
+3  97 177  71  61  11 471  70 194 
 
+healthy 
+1144  
+
+## Average MGS in Western gut metagenome  
+How many species are observed in individual metagenomes? 
+```{r fig.height=4, fig.width=8}
 nspecies <- microbiome::richness(ps1a.west, "observed")
 median(nspecies$observed)
 summary(nspecies$observed)
+```
 
-hist(nspecies$observed, xlab = "Number of MGS", main="Average MGS in Western gut metagenome")
+Median = 87.00  
+Mean = 88.53  
+
+### Plot distribution  
+```{r}
+p1 <- gghistogram(nspecies, "observed") +
+  labs(x = "Number of Species", 
+       title="Average Number of Species in \nWestern Gut Metagenomes")
+p1
+ggsave("data/01_exploratory/figs/Avg-species--gut-metagenome.pdf", height = 4, width = 6)
 ```
 
 
-## Core anlaysis  
+# Core anlaysis  
 
 ```{r}
+taxa_names(ps1a.west) <- gsub("s__", "", taxa_names(ps1a.west))
 
+# ranges
 prevalences <- seq(.05, 1, .05)
-#detections <- 10^seq(log10(1e-5), log10(.2), length = 10)
-
 detections <- c(0.00001, 0.0001,0.001, 0.01)
-ps1a.core <- plot_core(ps1a.west, plot.type = "heatmap", 
+
+ps1a.core <- plot_core(ps1a.west, 
+                       plot.type = "heatmap", 
                        prevalences = prevalences,
                        detections = detections,
                        colours = rev(brewer.pal(9, "RdBu")),
@@ -245,120 +258,248 @@ ps1a.core <- plot_core(ps1a.west, plot.type = "heatmap",
 
 ps1a.core
 
+```
+
+Let's clean this figure later.
+
+We will highlight the core species we are interested. 
+
+# Co-occurance analysis  
+
+## Core species   
+```{r}
+# extract from 
+core.taxa.list <- as.character(unique(ps1a.core$data$Taxa))
+
+ps.core <- prune_taxa(core.taxa.list , ps1a.west)
+ps.core <- prune_samples(sample_sums(ps.core) > 0, ps.core)
+set.seed(1256)
+mat.core <- abundances(ps.core)
+mat.core <- ifelse(mat.core>0, 1, 0)
+cooccur.core <- cooccur(mat=mat.core, 
+                        type="spp_site",
+                        thresh=FALSE,
+                        spp_names=TRUE,
+                        prob="comb",
+                        only_effects = FALSE,
+                        eff_standard = FALSE, 
+                        eff_matrix = FALSE)
+summary(cooccur.core)
+#cooccur.core$results
+
 
 ```
 
-Let's clean this figure.
+All core taxa stats, min prev=60%:  
+1485 pairs were analyzed
 
-Extract the plot data 
+Cooccurrence Summary:
+Species:55.0  
+Sites:1144.0      
+Positive:1168.0
+Negative: 13.0        
+Random: 304.0   
+Unclassifiable: 0.0  
+Non-random (%): 79.5  
+                                                                        
+### Plot co-occurance stats 
+
 ```{r}
-ps.df <- ps1a.core$data
-
-#unique(newdata$Taxa)
-
-head(ps.df)
-#ps.df$Prevalence
-newdata <- ps.df[order(ps.df$Prevalence),] 
-
-newdata$Taxa <- gsub("s__", "", newdata$Taxa)
-head(newdata)
+core.pair.att.df <- pair.attributes(cooccur.core)
+core.pair.att.df %>% 
+  reshape2::melt() %>% 
+  filter(variable %in% c("num_pos","num_neg","num_rand")) %>% 
+  ggplot() +
+  geom_col(aes(x=value, y=sppname, fill=variable),position = "dodge") +
+  theme_minimal()
 ```
 
-
+## Db-MM species  
+Make a list of Db-MM species  
 ```{r}
-
 # mark Db-MM candidates 
-mmsp <- c("Coprococcus_catus","Lachnospiraceae_bacterium_7_1_58FAA","Eubacterium_hallii","Bacteroides_xylanisolvens", "Roseburia_intestinalis","Eubacterium_siraeum","Bacteroides_ovatus","Subdoligranulum_unclassified", "Faecalibacterium_prausnitzii","Eubacterium_rectale")
+mmsp <- c("Coprococcus_catus","Lachnospiraceae_bacterium_7_1_58FAA",
+          "Eubacterium_hallii","Bacteroides_xylanisolvens",
+          "Roseburia_intestinalis","Eubacterium_siraeum",
+          "Bacteroides_ovatus","Subdoligranulum_unclassified",
+          "Faecalibacterium_prausnitzii","Eubacterium_rectale")
+
+```
 
 
+```{r}
+ps.dmm <- prune_taxa(mmsp , ps.core)
+ps.dmm <- prune_samples(sample_sums(ps.dmm) > 0, ps.dmm)
+ps.dmm
+
+write_csv(get_tibble(ps.dmm, "tax_table"), "data/01_exploratory/tables/dbmm_taxonomy.csv")
+```
+
+First check in how many samples all 10 Species are present in >0 abundance 
+```{r}
+count.zeroes <- abundances(ps.dmm) %>% 
+  as_tibble() %>% 
+  lapply(function(x){ length(which(x==0))})
+non_zeroes <- bind_cols(count.zeroes) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  count(V1) %>% 
+  mutate(percent = n/length(count.zeroes) * 100,
+         present = 10-V1)
+
+write_csv(non_zeroes, "data/01_exploratory/tables/R1_DMM_species_metagenomes.csv")
+
+dbmm.in.meta <- qplot(non_zeroes$V1, non_zeroes$percent) +
+  theme_minimal() +
+  labs(x= "Number of DMM species missing", y = "Percent Samples") +
+  geom_text(aes(label=round(non_zeroes$percent, 2)), nudge_y = -1)
+dbmm.in.meta
+ggsave("data/01_exploratory/figs/R1_DMM_species_Present.pdf", h=3, w=5)
+
+```
+
+
+### Co-occurance stats  
+```{r}
+set.seed(1256)
+mat.dmm <- abundances(ps.dmm)
+mat.dmm <- ifelse(mat.dmm>0, 1, 0)
+cooccur.dbmm <- cooccur(mat=mat.dmm, 
+                        type="spp_site",
+                        thresh=FALSE,
+                        spp_names=TRUE,
+                        prob="comb",
+                        only_effects = FALSE,
+                        eff_standard = FALSE, 
+                        eff_matrix = FALSE)
+summary(cooccur.dbmm)
+pair.attributes(cooccur.dbmm)
+write_csv(pair.attributes(cooccur.dbmm), "data/01_exploratory/tables/co-occurance-dbmm-stats.csv")
+```
+
+### Plot co-occurance stats   
+```{r}
+
+plot.pairs <- pair.profile(cooccur.dbmm) + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(size=10),
+        axis.text.y = element_text(size=10, face="italic"),
+        axis.title.x = element_text(size=10),
+        axis.title.y = element_text(size=10),
+        plot.title = element_text(size=10),
+        legend.position = "none") + coord_flip()
+#ggsave("data/01_exploratory/figs/Reveiwer-1_Co-OcccuranceProb.pdf", height = 4, width = 6)
+
+plot.obs.exp <- obs.v.exp(cooccur.dbmm) + 
+  theme_minimal() +
+  theme(axis.text.x = element_text(size=10),
+        axis.text.y = element_text(size=10),
+        axis.title.x = element_text(size=10),
+        axis.title.y = element_text(size=10),
+        plot.title = element_text(size=10),
+        legend.text = element_text(size=10))
+#ggsave("data/01_exploratory/figs/Reveiwer-1_Co-OcccuranceObsVsExp.pdf", height = 4, width = 6)
+```
+
+
+combine co-occurance analysis figures.  
+```{r}
+
+(dbmm.in.meta + plot_spacer()) / (plot.pairs | plot.obs.exp) + plot_annotation(tag_levels = "a")
+
+ggsave("data/01_exploratory/figs/R1_Paired_ObsVsExp.pdf", height = 6, width = 12)
+```
+
+## General stats of select  
+Abundance distribution  
+```{r}
+ps.core.tx <- ps1a.west
+taxa_names(ps.core.tx) <- gsub("s__", "", taxa_names(ps.core.tx))
+ps.core.tx <- prune_taxa(unique(newdata$Taxa) , ps.core.tx)
+ps.core.tx <- prune_samples(sample_sums(ps.core.tx) > 0, ps.core.tx)
+coreDF <- get_tibble(ps.core) %>% 
+  reshape2::melt() %>% 
+  group_by(column_id) %>% 
+  summarise(mean.reab = mean(value),
+            median.reab = median(value),
+            sd.reab = sd(value)) %>% 
+  arrange(desc(mean.reab))
+#hist(log10(coreDF$mean.reab))
+hist(coreDF$mean.reab)
+```
+
+```{r}
+DT::datatable(coreDF)
+```
+
+# Plot Core    
+```{r}
+newdata <- ps1a.core$data
 newdata <- newdata %>% mutate(
   color = ifelse(Taxa %in% mmsp, "#D55E00", "#797979"),
   name = glue("<i style='color:{color}'>{Taxa}</i>")
   #name = fct_reorder(name, value)
 )
 
-p <- ggplot(newdata, aes(x=DetectionThreshold, reorder(name, Prevalence), fill=Prevalence))
+colnames(newdata)[3] <- "Occupancy"
+p <- ggplot(newdata, aes(x=DetectionThreshold, reorder(name, Occupancy), fill=Occupancy))
 p <- p + geom_tile(order =TRUE) + theme(axis.text.y = element_text(face="italic"))
-p <- p + xlab("Detection Threshold (Relative Abundance)") + ylab("Metagenomic species")
+p <- p + xlab("Detection Threshold (Relative Abundance)") + ylab("")
 p.core <- p + theme_bw(base_size = 8) + #scale_x_log10() +  
   scale_fill_gradientn(colours = rev(brewer.pal(5, "RdBu"))) +
-#  theme_bw(base_size=10) + 
+  #  theme_bw(base_size=10) + 
   theme(axis.text.y = element_markdown(size = 6),
         axis.text.x = element_text(size=8, angle = 90))  + 
   ggtitle(paste0("Metagenomics Core Microbiota")) 
 print(p.core)
+#ggsave("data/01_exploratory/figs/01_core_microbiota_species.tiff", height = 6, width = 6)
+ggsave("data/01_exploratory/figs/01_core_microbiota_species.pdf", height = 6, width = 6)
 ```
 
 
 Save data 
 ```{r}
-
 sink(file="data/01_exploratory/tables/01_core_species.txt")
 unique(p.core$data$Taxa)
 sink()
-
-
-ggsave("data/01_exploratory/figs/01_core_microbiota_species.tiff", height = 6, width = 6)
-ggsave("data/01_exploratory/figs/01_core_microbiota_species.pdf", height = 6, width = 6)
-
 write.csv(newdata, "data/01_exploratory/tables/01_Species_level_Core_micoribotaWest.csv")
 ```
 
 
-## Realtive abundance-occupancy
+# Abundance-occupancy
 ```{r}
-otu.abun = apply(otu_table(ps1a.west),1,mean)
+# prep_occupancy_data from custom funs
+keephyla <- c("Actinobacteria","Bacteroidetes","Firmicutes", "Proteobacteria","Verrucomicrobia")
 
-# Calculate the frequency of each OTU across all samples
-# 
-otu.freq = rowSums(otu_table(ps1a.west) != 0)/nsamples(ps1a.west)
-
-# Reassign names of phyla so we only color by the top 5 phyla and mark all others as "other"
-unique(tax_table(ps1a.west)[,2])
-phy <- tax_table(ps1a.west)[,2]
-phyla <- phy[,"Phylum"]
-#phyla = as.vector(data.frame(tax_table(ps1a.west))$Phylum)
-
-levels(phyla) = c(levels(phyla),"other")
-keephyla = c("Actinobacteria","Bacteroidetes","Firmicutes", "Proteobacteria","Verrucomicrobia")
-phyla[!(phyla %in% keephyla)] = "Other"
-phyla = as.vector(phyla)
-phyla=as.factor(phyla)
-
-otuabun = data.frame(abundance= otu.abun,Frequency=otu.freq,phyla)
+occ.abund.df <- prep_occupancy_data(ps1a.west, keephyla = keephyla)
+head(occ.abund.df)
+write.csv(occ.abund.df, "data/01_exploratory/tables/Ocucpancy_relationship.csv")
 
 # Use color brewer to pick a color scheme for the phyla
-brew = brewer.pal(7, "Paired")
-
-# Create a scatterplot of OTUs showing their average relative abundance and frequency 
-# This plot shows how rare and abundant OTUs are distributed across the
-# your study.
-
-write.csv(otuabun, "data/01_exploratory/tables/Ocucpancy_relationship.csv")
+#brew = brewer.pal(7, "Paired")
 
 ```
 
-
+## Plot  
 ```{r}
-p.occ <- ggplot(otuabun, aes(x= 100*(abundance),
-                             y=Frequency,color=phyla)) + 
+p.occ <- ggplot(occ.abund.df, aes(x= 100*(abundance),
+                                  y=Frequency,color=phyla)) + 
   geom_point(aes(size = Frequency), 
              shape = 21, 
              stroke = 1, alpha = 0.6) +
-    xlab("Average relative abundance (%)") + 
-    ylab("OTU frequency in gut metagenomes") + 
-    scale_colour_brewer("Phylum",palette="Dark2") +
-    theme_bw(base_size = 8) + geom_vline(xintercept = 0, 
-                            linetype="dashed", color = "grey")
+  xlab("Average relative abundance (%)") + 
+  ylab("Occupancy in gut metagenomes") + 
+  scale_colour_brewer("Phylum",palette="Dark2") +
+  theme_bw(base_size = 8) + 
+  geom_vline(xintercept = 0, 
+             linetype="dashed", color = "grey")
 
 # now add species
 p.occ$data$species <- rownames(p.occ$data)
 
 p.occ$data$species <- gsub("s__", "", p.occ$data$species)
 
-write.csv(otuabun, "Ocucpancy_relationship.csv")
-
-mmsp <- c("Coprococcus_catus","Lachnospiraceae_bacterium_7_1_58FAA","Eubacterium_hallii","Bacteroides_xylanisolvens", "Roseburia_intestinalis","Eubacterium_siraeum","Bacteroides_ovatus","Subdoligranulum_unclassified", "Faecalibacterium_prausnitzii","Eubacterium_rectale")
+write.csv(occ.abund.df, "Ocucpancy_relationship.csv")
 
 ```
 
@@ -367,15 +508,18 @@ Add labels of candidate species
 p.occ2 <- p.occ + ggrepel::geom_text_repel(segment.color = "grey50", 
                                            aes(label = species, fontface=3, size=2), 
                                            data = p.occ$data[p.occ$data$species %in% mmsp,], 
-                                           color = "black", size = 3,
+                                           color = "grey10", size = 3,
                                            force             = 0.5,
                                            nudge_y           = -0.5,
                                            direction         = "y",
                                            hjust             = 0,
                                            segment.linetype = 1,
                                            segment.curvature = -1e-20,
-                                           arrow = arrow(length = unit(0.02, "npc"))) 
-                                           
+                                           arrow = arrow(length = unit(0.02, "npc"))) +
+  theme(axis.text.x=element_text(colour="grey10", size = 11),
+        axis.text.y=element_text(colour="grey10", size = 11),
+        axis.title = element_text(colour="grey10", size = 11))
+
 p.occ2 
 
 ```
@@ -387,68 +531,65 @@ p.occ2
 p.core + p.occ2 + plot_annotation(tag_levels = "a") + 
   plot_layout(widths = c(0.5,1), guides = "collect") 
 
+#ggsave("data/01_exploratory/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.tiff", height = 5, width = 10)
 ggsave("data/01_exploratory/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf", height = 5, width = 10)
-ggsave("data/01_exploratory/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.tiff", height = 5, width = 10)
-ggsave("data/01_exploratory/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf", height = 5, width = 10)
 ```
 
 
-Older messier
-```{r eval=FALSE}
-p.occ2 <- p.occ + ggrepel::geom_text_repel(segment.color = "grey50", aes(label = species, fontface=3), 
-                                           data = p.occ$data[p.occ$data$species %in% mmsp,], 
-                                           color = "black", size = 4,
-                                           arrow = arrow(length = unit(0.02, "npc")), 
-                                           box.padding = 1.5,
-                                           nudge_x = 0.05) 
+# Reviewer-1 comments  
 
-p.occ2
+## Check top familites  
 
-ggsave("output/figs/01_RelAb_Occupancy_Abundance_relationship.tiff", height = 6, width = 10)
-ggsave("output/figs/01_RelAb_Occupancy_Abundance_relationship.pdf", height = 6, width = 10)
+```{r}
 
 
-ggarrange(p.core, p.occ2, labels = c("a", "b"), ncol = 2)
+ps.west.fam <- aggregate_taxa(ps1a.west, "Family")
+top_taxa(ps.west.fam, 10)
 
-ggsave("output/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf", height = 8, width = 18)
-ggsave("output/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.tiff", height = 8, width = 18)
-ggsave("output/figs/01_Figure_1_RelAb_Occupancy_Abundance_relationship.pdf", height = 8, width = 18)
+fams.prevs <- prevalence(ps.west.fam, detection = 0.0001)
+sort(fams.prevs) 
+
+Lachnospiraceae.prevs <- subset_taxa(ps1a.west, Family == "Lachnospiraceae")
+sort(prevalence(Lachnospiraceae.prevs, detection = 0.0001))
+
+Ruminococcaceae.prevs <- subset_taxa(ps1a.west, Family == "Ruminococcaceae")
+sort(prevalence(Ruminococcaceae.prevs, detection = 0.0001))
+
+Bacteroidaceae.prevs <- subset_taxa(ps1a.west, Family == "Bacteroidaceae")
+sort(prevalence(Bacteroidaceae.prevs, detection = 0.0001))
 
 ```
 
-### Get an overview of abundance distribution  
-```{r fig.width=8, fig.height=10}
-library(patchwork)
-mmsp <- c("Coprococcus_catus","Lachnospiraceae_bacterium_7_1_58FAA","Eubacterium_hallii","Bacteroides_xylanisolvens", "Roseburia_intestinalis","Eubacterium_siraeum","Bacteroides_ovatus","Subdoligranulum_unclassified", "Faecalibacterium_prausnitzii","Eubacterium_rectale")
+```{r}
+familyDF <- get_tibble(ps.west.fam) %>% 
+  reshape2::melt() %>% 
+  group_by(column_id) %>% 
+  summarise(mean.reab = mean(value),
+            median.reab = median(value),
+            sd.reab = sd(value)) %>% 
+  arrange(desc(mean.reab))
 
-taxa_names(ps1a.west) <- gsub("s__", "", taxa_names(ps1a.west))
-
-ccat.plot <- plot_density(ps1a.west, variable = "Coprococcus_catus", log10 = TRUE) +
-  theme_minimal()
-lach.plot <- plot_density(ps1a.west, variable = "Lachnospiraceae_bacterium_7_1_58FAA", log10 = TRUE)+
-  theme_minimal()
-ehal.plot <- plot_density(ps1a.west, variable = "Eubacterium_hallii", log10 = TRUE)+
-  theme_minimal()
-bxyl.plot <- plot_density(ps1a.west, variable = "Bacteroides_xylanisolvens", log10 = TRUE)+
-  theme_minimal()
-rint.plot <- plot_density(ps1a.west, variable = "Roseburia_intestinalis", log10 = TRUE)+
-  theme_minimal()
-esir.plot <- plot_density(ps1a.west, variable = "Eubacterium_siraeum", log10 = TRUE)+
-  theme_minimal()
-bova.plot <- plot_density(ps1a.west, variable = "Bacteroides_ovatus", log10 = TRUE)+
-  theme_minimal()
-svar.plot <- plot_density(ps1a.west, variable = "Subdoligranulum_unclassified", log10 = TRUE)+
-  theme_minimal()
-fpra.plot <- plot_density(ps1a.west, variable = "Faecalibacterium_prausnitzii", log10 = TRUE)+
-  theme_minimal()
-erec.plot <- plot_density(ps1a.west, variable = "Eubacterium_rectale", log10 = TRUE)+
-  theme_minimal()
-
-(ccat.plot + lach.plot) / (ehal.plot + bxyl.plot) / (rint.plot + esir.plot) / (bova.plot +svar.plot) / (fpra.plot + erec.plot)
+DT::datatable(familyDF)
+write.csv(familyDF, "data/01_exploratory/tables/TopFamilies_mean_relab_gut_metagenomes.csv")
 ```
 
+Mean relative abundances
+```{r}
+mat.dmm.df <- reshape2::melt(abundances(ps.dmm))
+
+gut_mean_relab <- mat.dmm.df %>% 
+  filter(value >0) %>% 
+  group_by(Var1) %>% 
+  summarise(mean.ab = mean(value),
+            sd.ab = mean(value),
+            mean.ab.pct = 100*mean(value))
+
+gut_mean_relab
+write.csv(gut_mean_relab, "data/01_exploratory/tables/Species_mean_relab_gut_metagenomes.csv")
+```
 
 ```{r eval=FALSE}
+
 sessionInfo()
 
 ```

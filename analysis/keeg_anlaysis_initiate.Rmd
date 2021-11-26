@@ -29,16 +29,17 @@ suppressPackageStartupMessages({
   #library(EnhancedVolcano)
   library(ggplot2)
   library(data.table)
+  library(qgraph)
 })
 
 #library(optparse)
 ```
 
-For this we need to first link the locus tags with respective KO ids that we identified by doing GhostKola for concatenated aminoacid seqences that was used as database for DIAMOND.  
+For this we need to first link the locus tags with respective KO ids that we identified by doing GhostKola for concatenated amino acid sequences that was used as database for DIAMOND.  
 
 Link the locus tags to KEGG orthologs.  
 
-## Read KEEG BRITE classification  
+# Read KEEG BRITE classification  
 The KEGG htext was downloaded from KEGG website.  
 
 ```{r}
@@ -67,8 +68,8 @@ keg.brite2 <- keg.brite %>% mutate(Level_4 = str_replace(Level_4, "\\s", "|")) %
 ```
 
 
-## GhostKola of Db-MM  
-Load the KO annotation for DB-MM locus tags obained form online GHOSTKola annotation. The concatenated amino acid fasta of all then strains was uploaded to GhostKola for annotation using default parameters. 
+# GhostKola of Db-MM  
+Load the KO annotation for DB-MM locus tags obtained form online GHOSTKola annotation. The concatenated amino acid fasta of all then strains was uploaded to GhostKola for annotation using default parameters. 
 
 ```{r}
 
@@ -79,18 +80,105 @@ colnames(ghostko) <- c("LocusTag", "KO")
 ```
 
 
+# Reviewers  
+Check for KO similarity between DbMM genomes.  
+##General all KOs
+```{r}
+ghostko.df <- as.data.frame(ghostko) 
+
+ghostko.df$LocusTag <- stringr::str_extract(ghostko.df$LocusTag, "[^_]*_[^_]*")
+ghostko.df <- ghostko.df %>% 
+  filter(!is.na(KO)) %>% 
+  group_by(LocusTag) %>% 
+  distinct(KO) %>% 
+  mutate(presence.absence = ifelse(is.na(KO), 0, 1)) %>% 
+  pivot_wider(id_cols = KO , names_from = LocusTag, values_from = presence.absence) %>% 
+  mutate(across(everything(), .fns = ~replace_na(.,0))) %>% 
+  column_to_rownames("KO")
+
+head(ghostko.df)
+#t(ghostko.df)
+# check for Genome KO similarity
+#dmm.dist <- vegan::vegdist(t(ghostko.df), method="jaccard") 
+#hist(dmm.dist, x="Jaccard distance")
+#head(dmm.dist)
+dist4 <- 1-dist(t(ghostko.df), method = "binary")
+dist4DF <- dist4 %>% as.matrix() %>%  
+  as.data.frame() %>% 
+  reshape2::melt() %>% 
+  group_by(variable) %>% 
+  filter(value !=0 & !variable %in% c("Bacteroides_ovatus", "Bacteroides_xylanisolvens")) %>% 
+  summarise(mean = mean(value),
+            median = median(value),
+            sd = sd(value)) %>% 
+  arrange(median)
+```
+
+### Plot all ko dist  
+
+```{r}
+qgraph(dist4, layout='spring', vsize=3, 
+       edge.labels=TRUE, labels= rownames(as.matrix(dist4)),
+       label.cex = 10,
+       edge.color = "brown3")
+```
+
+
+
+## Subset of KOs
+```{r}
+ghostko.df <- as.data.frame(ghostko) 
+ghostko.df$LocusTag <- stringr::str_extract(ghostko.df$LocusTag, "[^_]*_[^_]*")
+
+keg.brite.dmm <- subset(keg.brite2, KO %in% unique(ghostko.df$KO))
+#ghostko.df$KO <- rownames(ghostko.df)
+ghostko.df.brite <- merge(ghostko.df, keg.brite.dmm, by = "KO")
+unique(ghostko.df.brite$Level_2)
+sel <- c("09105 Amino acid metabolism", "09101 Carbohydrate metabolism", "09102 Energy metabolism",
+"09106 Metabolism of other amino acids","09141 Transport and catabolism","09106 Metabolism of other amino acids","09191 Unclassified: metabolism","09108 Metabolism of cofactors and vitamins","09107 Glycan biosynthesis and metabolism","09131 Membrane transport")
+ghostko.df.brite <- ghostko.df.brite %>% 
+  filter(Level_2 %in% sel)
+head(ghostko.df.brite)
+
+ghostko.df.brite <- select(ghostko.df.brite, c("KO", "LocusTag"))
+
+ghostko.df.brite$LocusTag <- stringr::str_extract(ghostko.df.brite$LocusTag, "[^_]*_[^_]*")
+ghostko.df.brite <- ghostko.df.brite %>% 
+  filter(!is.na(KO)) %>% 
+  group_by(LocusTag) %>% 
+  distinct(KO) %>% 
+  mutate(presence.absence = ifelse(is.na(KO), 0, 1)) %>% 
+  pivot_wider(id_cols = KO , names_from = LocusTag, values_from = presence.absence) %>% 
+  mutate(across(everything(), .fns = ~replace_na(.,0))) %>% 
+  column_to_rownames("KO")
+
+dist4.brite <- 1-dist(t(ghostko.df.brite), method = "binary")
+dist4DF.brite <- dist4.brite %>% as.matrix() %>%  
+  as.data.frame() %>% 
+  reshape2::melt() %>% 
+  group_by(variable) %>% 
+  filter(value !=0 & !variable %in% c("Bacteroides_ovatus", "Bacteroides_xylanisolvens")) %>% 
+  summarise(mean = mean(value),
+            median = median(value),
+            sd = sd(value))
+
+```
+
+### Plot subset ko dist   
+```{r}
+qgraph(dist4.brite, layout='spring', vsize=3, 
+       edge.labels=TRUE, labels= rownames(as.matrix(dist4.brite)),
+       label.cex = 10,
+       edge.color = "brown3")
+```
+
 Now read in this session, the `raw_counts_tables.rds` file created from `01_meta_counts.rmd` file.  
 
 ```{r}
 
 # Read the raw counts table 
-
 complete_table <- readRDS("data/04_metatrans/rds/raw_counts_tables.rds")
-
-#head(complete_table)
-
 # filter to keep only those that are annotated in Db-MM
-
 ko_locus <- subset(ghostko, ghostko$LocusTag %in% rownames(complete_table))
 
 dim(ko_locus)
@@ -122,8 +210,6 @@ keg.brite.sub <- subset(keg.brite2, KO %in% complete_table.ko$KO)
 keg.brite.sub.na <- subset(keg.brite.sub, !(is.na(KO)))
 dim(keg.brite.sub.na)
 
-
-
 complete_table.brite <- merge(complete_table.ko, keg.brite.sub, by = "KO")
 
 # Store all intermediate files to check and explore manually interesting features 
@@ -134,6 +220,10 @@ write.csv(complete_table.brite, "data/04_metatrans/tables/complete_table_ko_brit
 
 ```
 
+KEGG KO-metabolite mapping  
+```{r}
+head(complete_table.brite)
+```
 
 
 ## Prep file for input to gmm species-function anlaysis   
@@ -173,8 +263,8 @@ complete_table.brite_filter <- complete_table.brite[, c(-15)]
 head(complete_table.brite_filter)
 saveRDS(complete_table.brite_filter, "data/04_metatrans/rds/complete_table_brite_filter.rds")
 
-
 ```
+
 
 Next, we will prepare the files for KEGG mapping using `pathview R pkg`. This can take fold changes of KOs and mapping to KEGG maps.  
 This is at community level. Hence, we aggregate KO counts per sample.  
@@ -193,14 +283,12 @@ colnames(count.aggregate.kegg) <- c("KOID","B1T24","B2T24","B3T24","B1T48","B2T4
 # store this
 write.table(count.aggregate.kegg, "data/04_metatrans/tables/count_aggregate_kegg.txt", sep="\t", col.names = T, row.names = F)
 
-
+head(count.aggregate.kegg)
 ```
-
 
 ## DESeq2 analysis of KOs  
 
 ```{r}
-
 count.aggregate.kegg <- as.data.frame(count.aggregate.kegg)
 rownames(count.aggregate.kegg) <- count.aggregate.kegg$KOID
 count.aggregate.kegg <- count.aggregate.kegg[,-1]
@@ -218,7 +306,7 @@ dds
 
 ```
 
-Filter our KOOs with low counts across samples.  
+Filter our KOs with low counts across samples.  
 ```{r}
 keep <- rowSums(counts(dds)) >= 10
 dds <- dds[keep,]

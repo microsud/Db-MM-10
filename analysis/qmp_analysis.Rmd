@@ -31,26 +31,24 @@ library(ggrepel)
 library(ggpubr)
 library(RColorBrewer)
 library(scales)
+source('code/custom_funs.R')
+
 ```
 
 Read in the phyloseq object created in DADA2 analysis and stored in `output/rds/pseq01.rds`.  
 
+## Read Data  
 ```{r}
-
 ps <- readRDS("data/03_amplicon/rds/pseq01.rds")
-#ps <- pseq01
-#summarize_phyloseq(ps)
-
 # remove the mock community samples
 fil.ps <- subset_samples(ps, CarbonSource != "Mck")
 fil.ps <- prune_taxa(taxa_sums(fil.ps) > 0, fil.ps)
 
 ps <- fil.ps
-
 print(ps)
 
 table(meta(fil.ps)$Timepoint)
-write_phyloseq(ps, "OTU", "data/03_amplicon/tables/" )
+
 #abundances(ps)
 ```
 There are 41 ASVs in 22 samples.
@@ -58,15 +56,18 @@ T0=4, T24=4, T48=4, T72=4, T96=4, X=2
 
 X is the innoculum serves as a technical a control for which DNA was extracted and PCR sequenced. This will give an idea of sequencing run replicability.     
 
+```{r eval=FALSE}
+write_phyloseq(ps, "OTU", "data/03_amplicon/tables/" )
+```
 
-# check for genus
+
+## Check for genus
 ```{r}
-
 table(tax_table(ps)[, "Genus"], exclude = NA)
 #tax_table(ps)
 ```
- 
 
+# Aggregate to speceis level  
 
 ```{r}
 
@@ -91,10 +92,7 @@ tax_table(ps) <- new.tax  # incroporate into phyloseq Object
 
 ps1.a <- ps
 ps1.a@phy_tree <- NULL
-ps1 <- tax_glom(ps1.a, 
-                      "Species")
-
-head(tax_table(ps1)[1:5])
+ps1 <- tax_glom(ps1.a,"Species")
 
 write_phyloseq(ps1, 
                "OTU", 
@@ -107,14 +105,12 @@ taxa_sums(ps1)
 #abundances(ps1)
 taxa_names(ps1) <- tax_table(ps1)[,"Species"]
 
-
 ```
 
 
-Check for sequecing depth
+Check for sequencing depth
 
 ```{r}
-
 SeqDepth = colSums(otu_table(ps1))
 sample_data(ps1)$SeqDepth = SeqDepth
 sample_data(ps1)$SampleID = rownames(sample_data(ps1))
@@ -127,7 +123,8 @@ ggsave("data/03_amplicon/figs/02_raw_Seq_depth.pdf",
        width = 8)
 ```
 
-## Copy number correction
+
+# Copy number correction
 
 The copy numbers were obtained from IMG M/ER and Genome sequences.  
 
@@ -199,7 +196,7 @@ df.met <- meta(ps1)
 
 ```
 
-We did qPCR for total 16S rRNA copies in each of the samples. This will be used to correct of sequecing depth and obtain quantitative microbiota profiles.  
+We did qPCR for total 16S rRNA copies in each of the samples. This will be used to correct of sequencing depth and obtain quantitative microbiota profiles.  
 
 ```{r}
 # read in the function Doris Vandeputte obtained from github
@@ -259,15 +256,38 @@ strain.colors <- c(`Bacteroides ovatus` = "#1F78B4",
 ```
 
 
-## Check composition  
+# Check composition  
+
+## Reviewer 3  
+
 ```{r}
+qmp_df_inoc <- psmelt(microbiome::transform(ps1.qmp, "compositional"))
+# remove the innoculum
+ps.innoc <- subset(qmp_df_inoc, Timepoint == "X")
+ps.innoc %>% 
+  #filter(value >0) %>% 
+  group_by(OTU) %>% 
+  summarise(mean.ab = mean(Abundance),
+            sd.ab = mean(Abundance),
+            mean.ab.pct = 100*mean(Abundance))
 
-#ps1.qmp.sub <- subset_samples(ps1.qmp, sample_names(ps1.qmp)!=fil)
-#qmp_df <- phy_to_ldf(ps1.qmp.sub, transform.counts = NULL)
 
+ggbarplot(ps.innoc, 
+          x= "SampleID", 
+          y= "Abundance", 
+          fill="OTU", 
+          palette = strain.colors,
+          color=NA) +
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        legend.text = element_text(face="italic")) +
+  labs(x="Innoculum", y = "Relative Abundance")
+ggsave("data/03_amplicon/figs/R1_Fig_QMP_InnoculumBarplot.pdf", height = 4, width = 6)
+```
+
+## DbMM compositional dynamics  
+```{r}
 qmp_df <- psmelt(ps1.qmp)
-
-
 # remove the innoculum
 ps.df.qmp <- subset(qmp_df, Timepoint != "X")
 #ps.df.qmp$Species <- gsub("_", " ", ps.df.qmp$Species)
@@ -288,15 +308,19 @@ comp_plot_qmp <- ggline(ps.df.qmp,
                         show.line.label = F,
                         #scales = "free",
                         add.params = list(group="Species"),
-                        ylab = "Abundance (log10)",
-                        xlab = "Time (hours)") + theme_bw(base_size = 12) 
-comp_plot_qmp <-  comp_plot_qmp +  geom_vline(aes(xintercept=1.5), linetype="dashed", alpha = 0.5) + geom_vline(aes(xintercept=2.5), linetype="dashed", alpha = 0.7) 
+                        ylab = "16S rRNA gene copies/ml",
+                        xlab = "Time (hr)") + 
+  theme_bw(base_size = 12) 
+comp_plot_qmp <-  comp_plot_qmp + 
+  geom_vline(aes(xintercept=1.5), 
+             linetype="dashed", alpha = 0.5) + 
+  geom_vline(aes(xintercept=2.5), linetype="dashed", alpha = 0.7) 
 
-comp_plot_qmp <- ggpar(comp_plot_qmp, legend = "right", font.legend = c(10, "italic")
-                       #, yscale = "log10"
-                       )
-comp_plot_qmp <- comp_plot_qmp + scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-              labels = trans_format("log10", math_format(10^.x)))
+comp_plot_qmp <- ggpar(comp_plot_qmp, legend = "right", font.legend = c(10, "italic"))
+comp_plot_qmp <- comp_plot_qmp + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+              labels = trans_format("log10", math_format(10^.x))) +
+  theme(legend.title = element_blank())
 comp_plot_qmp
 
 ggsave("data/03_amplicon/figs/02_Fig_QMP_Composition_line_plot.pdf", height = 3, width = 7)

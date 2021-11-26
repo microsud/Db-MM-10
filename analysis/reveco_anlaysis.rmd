@@ -157,7 +157,7 @@ head(svar)
 head(bova)
 bova.s <- as.data.frame(bova)
 rownames(bova.s) <- bova.s$`KO ID`
-
+#which(bova.s[rowSums(bova.s[,3:8]) >10,])
 #bxyl
 bxyl.s <- as.data.frame(bxyl)
 rownames(bxyl.s) <- bxyl.s$`KO ID`
@@ -195,7 +195,7 @@ rownames(svar.s) <- svar.s$`KO ID`
 When running the codes for first time change the `eval=FALSE` to `TRUE` 
 ```{r eval=T}
 Bacteroides_ovatu_3_8_47FAA.net <- reconstructGsMN(bova.s, RefData = RefDbcache) 
-
+seed.set.bova <- getSeedSets(Bacteroides_ovatu_3_8_47FAA.net)
 
 Bacteroides_sp_2_1_22.net <- reconstructGsMN(bxyl.s, RefData = RefDbcache) 
 
@@ -339,166 +339,428 @@ strain.colors <- c(Bacteroides_ovatus = "#1F78B4",
 ```
 
 # Plot interaction indices 
-
-## Competition  
-
-*Network*  
-
-```{r}
-
-
-rows_to_keep <- c("Bacteroides_ovatus",
-                  "Bacteroides_xylanisolvens",
-                  "Coprococcus_catus",
-                  "Anaerobutyricum_soehngenii",
-                  "Agathobacter_rectalis",
-                  "Faecalibacterium_prausnitzii",
-                  "Flavonifractor_plautii",
-                  "Roseburia_intestinalis",
-                  "Subdoligranulum_variabile",
-                  "Eubacterium_siraeum")
-
-competition.index_2018.a <- competition.index_2018[rows_to_keep, ]
-dim(competition.index_2018.a)
-competition.index_2018.a <- competition.index_2018.a[, rows_to_keep]
-
-# paper ready labels
-labels_to_keep <- c("Bacteroides_ovatus",
-                    "Bacteroides_xylanisolvens",
-                    "Coprococcus_catus",
-                    "Anaerobutyricum_soehngenii",
-                    "Agathobacter_rectalis",
-                    "Faecalibacterium_prausnitzii",
-                    "Flavonifractor_plautii",
-                    "Roseburia_intestinalis",
-                    "Subdoligranulum_variabile",
-                    "Eubacterium_siraeum")
-
-rownames(competition.index_2018.a) <- labels_to_keep
-colnames(competition.index_2018.a) <- labels_to_keep
-
-Labels = rownames(competition.index_2018.a)
-
-```
-
-
-*alternative plots*  
-
-```{r message=FALSE, warning=FALSE}
-qgraph(competition.index_2018.a, #theme= "TeamFortress",
-       edge.color = "#ec7014",
-       labels = Labels, 
-       label.cex =3.0,
-       layout = "circle",
-       label.scale = FALSE,
-       edge.labels = T,
-       minimum = 0.3,
-       title = "Competition (Gene Expression)",
-       filetype= 'pdf',
-       filename = "data/04_metatrans/figs/netowork_competition", 
-       height = 12, width = 28
-       )
-
-```
-
-
-```{r}
-mcompetition <- melt(as.matrix(competition.index_2018.a))
-
-#head(mcompetition)
-
-compet.plot <- ggbarplot(mcompetition, "Var1",  "value", fill = "Var1", 
-                         facet.by = "Var2", palette = strain.colors,
-                         ylab = "Compeition Index") + rremove("x.text")
-compet.plot
-ggsave("data/04_metatrans/figs/competition_barplot.pdf", height = 4, width = 10)
-
-mcompetition$value <- round(mcompetition$value, digits = 2)
-my_cols <- c("grey", "#abc9e9", "#f5bfd7","#caefd7")
-
-
-```
-
-
-## Complementarity    
-
-```{r}
-
-complementarity.index_2018.a <- complementarity.index_2018[rows_to_keep, ]
-dim(complementarity.index_2018.a)
-complementarity.index_2018.a <- complementarity.index_2018.a[, rows_to_keep]
-dim(complementarity.index_2018.a)
-
-rownames(complementarity.index_2018.a) <- labels_to_keep
-colnames(complementarity.index_2018.a) <- labels_to_keep
-
-Labels2 = rownames(complementarity.index_2018.a)
-
-mcompimentarity <- melt(as.matrix(complementarity.index_2018.a))
-
-
-mcompimentarity$value <- round(mcompimentarity$value, digits = 2)
-compliment.plot <- ggbarplot(mcompimentarity, "Var1",  "value", fill = "Var1", 
-                         facet.by = "Var2", palette = strain.colors,
-                         ylab = "Complimentarity Index") + rremove("x.text")
-compliment.plot
-```
-
-### Ballon plots  
-
-
-```{r}
-mcompetition$Var1 <- gsub("_", " ", mcompetition$Var1)
-mcompetition$Var2 <- gsub("_", " ", mcompetition$Var2)
-
-compet.plot <- ggballoonplot(mcompetition, x = "Var1", y = "Var2", fill = "value", 
-                         #facet.by = "Var2", 
-                         #palette = "Blues",
-                         ylab = "Compeition Index",
-                         show.label = TRUE,
-                         font.label = 8,
-                         size = 10) +
-  labs(subtitle = "Competition") +
-  gradient_fill(my_cols) 
-compet.plot
-
-```
-
+# Transcriptomics
 
 
 ```{r}
 
-mcompimentarity$Var1 <- gsub("_", " ", mcompimentarity$Var1)
-mcompimentarity$Var2 <- gsub("_", " ", mcompimentarity$Var2)
+colnames(complementarity.index_2018) <- gsub("_", " ", colnames(complementarity.index_2018))
+rownames(complementarity.index_2018) <- gsub("_", " ", rownames(complementarity.index_2018))
+
+nums.a1 <- round(complementarity.index_2018, 3)
+pheatmap::pheatmap(as.matrix(complementarity.index_2018),
+                   display_numbers =nums.a1,
+                   filename = "data/04_metatrans/figs/R1_TranscriptComplementarity.pdf",
+                   height = 6, width = 8,
+                   main = "Transcriptome Complementarity")
+  
+colnames(competition.index_2018) <- gsub("_", " ", colnames(competition.index_2018))
+rownames(competition.index_2018) <- gsub("_", " ", rownames(competition.index_2018))
+
+
+nums.b1 <- round(competition.index_2018, 3)
+pheatmap::pheatmap(as.matrix(competition.index_2018),
+                   display_numbers =nums.b1,
+                   filename = "data/04_metatrans/figs/R1_TranscriptCompetition.pdf",
+                   height = 6, width = 8,
+                   main = "Transcriptome Competition")
+```
+
+
+# Genomic  
+
+## Reviewer-1  
+
+Reconstruct metabolic network for each bacterial strain using Genomics data  
+
+When running the codes for first time change the `eval=FALSE` to `TRUE`  
+
+```{r}
+library(data.table)
+# We need rownames and KO ID
+ghostko <- fread("data_raw/04_metatrans/kegg_brite/GhostKola_DbMM_ko_list.txt", header = F, sep = "\t")
+#head(ghostko)
+colnames(ghostko) <- c("LocusTag", "KO")
+ghostko.df <- as.data.frame(ghostko) 
+
+ghostko.df$LocusTag <- stringr::str_extract(ghostko.df$LocusTag, "[^_]*_[^_]*")
+ghostko.df <- ghostko.df %>% 
+  filter(!is.na(KO)) %>% 
+  group_by(LocusTag) %>% 
+  distinct(KO) %>% 
+  mutate(presence.absence = ifelse(is.na(KO), 0, 1)) %>% 
+  pivot_wider(id_cols = KO , names_from = LocusTag, values_from = presence.absence) %>% 
+  mutate(across(everything(), .fns = ~replace_na(.,0))) %>% 
+  column_to_rownames("KO")
+```
+
+```{r eval=T}
+
+genome_ko_df <- NULL
+subDF <- NULL
+for(i in colnames(ghostko.df)){
+  
+  subDF <-  as.data.frame(ghostko.df[,i])
+  colnames(subDF)[1] <- "binary"
+  rownames(subDF) <- rownames(ghostko.df)
+  subDF$`KO ID` <- rownames(subDF)
+  subDF <- subset(subDF, binary == 1)
+  subDF <- select(subDF, c("KO ID"))
+  genome_ko_df[[i]] <- subDF
+  
+}
+
+
+gBacteroides_ovatu_3_8_47FAA.net <- reconstructGsMN(genome_ko_df$Bacteroides_ovatus, RefData = RefDbcache) 
+
+
+gBacteroides_sp_2_1_22.net <- reconstructGsMN(genome_ko_df$Bacteroides_xylanisolvens, RefData = RefDbcache) 
+
+#Bacteroides_sp_3_1_23.net <- reconstructGsMN(Bacteroides_sp_3_1_23, RefData = RefDbcache)
+
+
+gCoprococcus_catus.net <- reconstructGsMN(genome_ko_df$Coprococcus_catus, RefData = RefDbcache)
+
+
+gEubacterium_hallii_L2_7.net <- reconstructGsMN(genome_ko_df$Anaerobutyricum_soehngenii, RefData = RefDbcache)
+
+
+gEubacterium_rectale_DSM_17629.net <- reconstructGsMN(genome_ko_df$Agathobacter_rectalis, RefData = RefDbcache)
+
+
+gFaecalibacterium_prausnitzii_A2_165.net  <- reconstructGsMN(genome_ko_df$Faecalibacterium_prausnitzii, 
+                                                             RefData = RefDbcache)
+
+
+gLachnospiraceae_bacterium_7_1_58FAA.net <- reconstructGsMN(genome_ko_df$Lachnospiraceae_bacterium,
+                                                            RefData = RefDbcache) 
+
+gRoseburia_intestinalis_L1_82.net <- reconstructGsMN(genome_ko_df$Roseburia_intestinalis, 
+                                                     RefData = RefDbcache)
+
+gSubdoligranulum_variabile_DSM_15176.net <- reconstructGsMN(genome_ko_df$Subdoligranulum_variabile,
+                                                            RefData = RefDbcache) 
+
+gEubacterium_siraeum_DSM_15702.net <- reconstructGsMN(genome_ko_df$Eubacterium_siraeum,
+                                                      RefData = RefDbcache)
+
+```
+
+
+# Calculate interaction indices   
+
+When running the codes for first time change the `eval=FALSE` to `TRUE` 
+```{r eval=T}
+
+gcooperation.index <- calculateCooperationIndex(gBacteroides_ovatu_3_8_47FAA.net,
+                                                gBacteroides_sp_2_1_22.net,
+                                                gCoprococcus_catus.net,
+                                                gEubacterium_hallii_L2_7.net,
+                                                gEubacterium_rectale_DSM_17629.net,
+                                                gFaecalibacterium_prausnitzii_A2_165.net,
+                                                gLachnospiraceae_bacterium_7_1_58FAA.net,
+                                                gRoseburia_intestinalis_L1_82.net,
+                                                gSubdoligranulum_variabile_DSM_15176.net,
+                                                gEubacterium_siraeum_DSM_15702.net)
+
+saveRDS(gcooperation.index, "data/04_metatrans/rds/GenomicRevEco_cooperation.index.rds")
 
 
 ```
 
-Join both the plots for competition and complimentary
+Read in the stored cooperative indices  
+```{r}
 
-Used in Manuscript   
+gcooperation.index <- readRDS("data/04_metatrans/rds/GenomicRevEco_cooperation.index.rds")
+
+
+gcomplementarity.index_2018 <- gcooperation.index$complementarity.index
+
+gcompetition.index_2018 <- gcooperation.index$competition.index
+
+write.csv(gcomplementarity.index_2018, "data/04_metatrans/tables/GenomicDbMM10_complementarity_index.csv") 
+
+write.csv(gcompetition.index_2018, "data/04_metatrans/tables/GenomicDbMM10_competition_index.csv") 
+```
+
+
+add names to competition matrix  
 
 ```{r}
-mcompetition$Index = "Competition"
-mcompimentarity$Index = "Complimentary"
+rownames(gcompetition.index_2018) <- c("Bacteroides_ovatus",
+                                      "Bacteroides_xylanisolvens",
+                                      "Coprococcus_catus",
+                                      "Anaerobutyricum_soehngenii",
+                                      "Agathobacter_rectalis",
+                                      "Faecalibacterium_prausnitzii",
+                                      "Flavonifractor_plautii",
+                                      "Roseburia_intestinalis",
+                                      "Subdoligranulum_variabile",
+                                      "Eubacterium_siraeum")
 
-all_indx <- mcompimentarity %>%
-  bind_rows(mcompetition)
+colnames(gcompetition.index_2018) <- c("Bacteroides_ovatus",
+                                      "Bacteroides_xylanisolvens",
+                                      "Coprococcus_catus",
+                                      "Anaerobutyricum_soehngenii",
+                                      "Agathobacter_rectalis",
+                                      "Faecalibacterium_prausnitzii",
+                                      "Flavonifractor_plautii",
+                                      "Roseburia_intestinalis",
+                                      "Subdoligranulum_variabile",
+                                      "Eubacterium_siraeum")
+```
+
+add names to complementatrity matrix
+```{r}
+
+rownames(gcomplementarity.index_2018) <- c("Bacteroides_ovatus",
+                                          "Bacteroides_xylanisolvens",
+                                          "Coprococcus_catus",
+                                          "Anaerobutyricum_soehngenii",
+                                          "Agathobacter_rectalis",
+                                          "Faecalibacterium_prausnitzii",
+                                          "Flavonifractor_plautii",
+                                          "Roseburia_intestinalis",
+                                          "Subdoligranulum_variabile",
+                                          "Eubacterium_siraeum")
 
 
-ggballoonplot(all_indx, x = "Var1", y = "Var2", fill = "value", 
-              #facet.by = "Var2", 
-              #palette = "Blues",
-              ylab = "Compeition Index",
-              show.label = TRUE,
-              font.label = 6,
-              size = 6,
-              facet.by = "Index") +
-  gradient_fill(my_cols) +
-  theme(axis.text = element_text(face="italic", size = 8))
+colnames(gcomplementarity.index_2018) <- c("Bacteroides_ovatus",
+                                          "Bacteroides_xylanisolvens",
+                                          "Coprococcus_catus",
+                                          "Anaerobutyricum_soehngenii",
+                                          "Agathobacter_rectalis",
+                                          "Faecalibacterium_prausnitzii",
+                                          "Flavonifractor_plautii",
+                                          "Roseburia_intestinalis",
+                                          "Subdoligranulum_variabile",
+                                          "Eubacterium_siraeum")
+```
 
-ggsave("data/04_metatrans/figs/competition_complementarity.pdf", height =4, width = 8)
 
+## Genomics
+```{r}
+
+colnames(gcomplementarity.index_2018) <- gsub("_", " ", colnames(gcomplementarity.index_2018))
+rownames(gcomplementarity.index_2018) <- gsub("_", " ", rownames(gcomplementarity.index_2018))
+
+nums.a <- round(gcomplementarity.index_2018, 3)
+pheatmap::pheatmap(as.matrix(gcomplementarity.index_2018),
+                   display_numbers =nums.a,
+                   filename = "data/04_metatrans/figs/R1_GenomicComplementarity.pdf",
+                   height = 6, width = 8,
+                   main = "Genome Complementarity")
+
+colnames(gcompetition.index_2018) <- gsub("_", " ", colnames(gcompetition.index_2018))
+rownames(gcompetition.index_2018) <- gsub("_", " ", rownames(gcompetition.index_2018))
+nums.b <- round(gcompetition.index_2018, 3)
+pheatmap::pheatmap(as.matrix(gcompetition.index_2018),
+                   display_numbers =nums.b,
+                   filename = "data/04_metatrans/figs/R1_GenomicCompetition.pdf",
+                   height = 6, width = 8,
+                  main = "Genome Competition")
+```
+
+
+
+
+## Reviewer-1  
+
+Reconstruct metabolic network for each bacterial strain using Genomics data  
+
+When running the codes for first time change the `eval=FALSE` to `TRUE`  
+
+
+### Caculate what percent of genome KO are used in transcriptome KOs  
+
+```{r}
+# Transcriptomics
+head(bova)
+b.ova.s.chk <- length(intersect(rownames(genome_ko_df$Bacteroides_ovatus),
+                                 bova.s[,1]))/length(rownames(genome_ko_df$Bacteroides_ovatus)) 
+
+b.xyl.chk <- length(intersect(rownames(genome_ko_df$Bacteroides_ovatus), 
+                              bxyl.s [,1]))/length(rownames(genome_ko_df$Bacteroides_xylanisolvens))
+
+arec.s.chk <- length(intersect(rownames(genome_ko_df$Agathobacter_rectalis), 
+                               arec.s[,1]))/length(rownames(genome_ko_df$Agathobacter_rectalis))
+
+asoe.s.chk <- length(intersect(rownames(genome_ko_df$Anaerobutyricum_soehngenii), 
+                               asoe.s [,1]))/length(rownames(genome_ko_df$Anaerobutyricum_soehngenii))
+
+ccat.s.chk <- length(intersect(rownames(genome_ko_df$Coprococcus_catus), 
+                               ccat.s [,1]))/length(rownames(genome_ko_df$Coprococcus_catus))
+
+esir.s.chk <- length(intersect(rownames(genome_ko_df$Eubacterium_siraeum), 
+                               esir.s [,1]))/length(rownames(genome_ko_df$Eubacterium_siraeum))
+
+fpra.s.chk <- length(intersect(rownames(genome_ko_df$Faecalibacterium_prausnitzii), 
+                               fpra.s [,1]))/length(rownames(genome_ko_df$Faecalibacterium_prausnitzii))
+
+lach.s.chk <- length(intersect(rownames(genome_ko_df$Lachnospiraceae_bacterium), 
+                               lach.s [,1]))/length(rownames(genome_ko_df$Lachnospiraceae_bacterium))
+
+rint.s.chk <- length(intersect(rownames(genome_ko_df$Roseburia_intestinalis), 
+                               rint.s [,1]))/length(rownames(genome_ko_df$Roseburia_intestinalis))
+
+svar.s.chk <- length(intersect(rownames(genome_ko_df$Subdoligranulum_variabile), 
+                               esir.s [,1]))/length(rownames(genome_ko_df$Subdoligranulum_variabile))
+
+pct_genome_expressed <- tibble(names= c("BOVA", "BXYL", "AREC","ASOE","CCAT",
+                                        "ESIR","FPRA","FPLA","RINT","SVAR"),
+                               pct_exps = c(b.ova.s.chk,b.xyl.chk,arec.s.chk,
+                                            asoe.s.chk, ccat.s.chk,esir.s.chk,
+                                            fpra.s.chk,lach.s.chk,rint.s.chk,
+                                            svar.s.chk))
+mean(pct_genome_expressed$pct_exps)
+sd(pct_genome_expressed$pct_exps)
+```
+0.9472932
+0.09726227
+
+## Reve 
+
+How much of human gut metagenome KO is coverred by Db-MM
+
+```{r}
+img_gut_ko <- fread("data_raw/hmp_img_ko_profile.txt", header = T, sep = "\t")
+head(img_gut_ko)
+img_gut_ko <- img_gut_ko %>% 
+  as.data.frame() 
+
+gut_ko <- gsub("KO:", "", img_gut_ko$`Function Id`)
+dbmm_ko <- rownames(ghostko.df)
+
+length(intersect(gut_ko, dbmm_ko))/length(gut_ko) *100
+
+length(which(rowSums(img_gut_ko[,-c(1:2, 103)]) >1))
+rownames(img_gut_ko) <- img_gut_ko$`Function Id`
+core.KO <- img_gut_ko[,-c(1:2, 103)]
+core.KO <- as.data.frame(lapply(core.KO, as.numeric))
+rownames(core.KO) <- gsub("KO:", "", img_gut_ko$`Function Id`)
+kos.p <- tibble(kos = rownames(core.KO),
+                prev = microbiome::prevalence(core.KO, 1, 
+                                              count= T, 
+                                              include.lowest = F)) %>% 
+  filter(prev > 75)
+
+length(intersect(kos.p$kos, dbmm_ko))/length(kos.p$kos) *100
+#71.7
+
+kos.p <- tibble(kos = rownames(core.KO),
+                prev = microbiome::prevalence(core.KO, 1, 
+                                              count= T, 
+                                              include.lowest = F)) %>% 
+  filter(prev > 50)
+length(intersect(kos.p$kos, dbmm_ko))/length(kos.p$kos) *100
+# 62.83
+
+kos.p <- tibble(kos = rownames(core.KO),
+                prev = microbiome::prevalence(core.KO, 1, 
+                                              count= T, 
+                                              include.lowest = F)) %>% 
+  filter(prev > 90)
+length(intersect(kos.p$kos, dbmm_ko))/length(kos.p$kos) *100
+#80.12
+```
+
+
+### Reviewer 2 n 3  
+Genome potential  
+
+```{r}
+library(data.table)
+# We need rownames and KO ID
+ghostko <- fread("data_raw/04_metatrans/kegg_brite/GhostKola_DbMM_ko_list.txt", header = F, sep = "\t")
+#head(ghostko)
+colnames(ghostko) <- c("LocusTag", "KO")
+ghostko.df <- as.data.frame(ghostko) 
+
+ghostko.df$LocusTag <- stringr::str_extract(ghostko.df$LocusTag, "[^_]*_[^_]*")
+ghostko.df <- ghostko.df %>% 
+  filter(!is.na(KO)) %>% 
+  group_by(LocusTag) %>% 
+  distinct(KO) %>% 
+  mutate(presence.absence = ifelse(is.na(KO), 0, 1)) %>% 
+  pivot_wider(id_cols = KO , names_from = LocusTag, values_from = presence.absence) %>% 
+  mutate(across(everything(), .fns = ~replace_na(.,0))) %>% 
+  column_to_rownames("KO")
+```
+
+GMM ko ids
+```{r}
+
+gmmko <- fread("data_raw/05_gmm/ModulesCustom/gmm_core_modules_koids.txt", header = T, sep = "\t")
+
+ghostko.df$KO <- rownames(ghostko.df)
+ghostko.df.sub <- filter(ghostko.df, KO %in% gmmko$ko)
+dim(ghostko.df)
+gmmko <- gmmko %>% 
+  left_join(ghostko.df.sub, by = c("ko" = "KO"))
+gmmko <- reshape2::melt(gmmko)
+head(gmmko)
+
+gmmko$module <- stringr::str_wrap(gmmko$module, width = 15) 
+  
+```
+
+### Carbs  
+
+```{r}
+gmmko %>% 
+  filter(type == "Carbohydrates") %>% 
+ggplot(aes(ko,variable)) +
+  geom_tile(aes(fill=as.factor(value))) +
+  facet_grid(~module, scales="free") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.text.y = element_text(face = "italic")) +
+  scale_fill_manual("Presence/Absence", values = c("1" = "steelblue", "0" = "grey70"),
+                    na.value = 'grey70') +
+  labs(x="", y ="")
+ggsave("data/04_metatrans/figs/reveiwer_carbs_gmm_genomic_potential.pdf", height =4, width = 10)
+```
+
+### Simpe sugars  
+
+```{r}
+gmmko %>% 
+  filter(type %in% c("Sugar Acid", "SimpleCarbohydrates")) %>% 
+ggplot(aes(ko,variable)) +
+  geom_tile(aes(fill=as.factor(value))) +
+  facet_wrap(~module, scales="free_x") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.text.y = element_text(face = "italic")) +
+  scale_fill_manual("Presence/Absence", values = c("1" = "steelblue", "0" = "grey70"),
+                    na.value = 'grey70')+
+  labs(x="", y ="")
+ggsave("data/04_metatrans/figs/reveiwer_simple_gmm_genomic_potential.pdf", height =8, width = 10)
+```
+
+### Fermentaation  
+
+```{r}
+gmmko %>% 
+  filter(type %in% c("Fermentation")) %>% 
+ggplot(aes(ko,variable)) +
+  geom_tile(aes(fill=as.factor(value))) +
+  facet_wrap(~module, scales="free_x") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.text.y = element_text(face = "italic")) +
+  scale_fill_manual("Presence/Absence", values = c("1" = "steelblue", "0" = "grey70"),
+                    na.value = 'grey70')+
+  labs(x="", y ="")
+ggsave("data/04_metatrans/figs/reveiwer_fermentation_gmm_genomic_potential.pdf", height =8, width = 10)
+```
+
+Group by module.  
+
+```{r}
+gmmko.grp <- gmmko %>% 
+  group_by(module, ko, variable) %>% 
+  mutate()
 ```
 
 

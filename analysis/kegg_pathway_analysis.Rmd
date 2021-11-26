@@ -23,18 +23,30 @@ Note: Requires internet connection for fetching KEGG pathway maps.
 
 ## Setup  
 ```{r, message=FALSE, warning=FALSE}
+.bioc_packages <- c("pathview",
+                    "clusterProfiler", 
+                    "gage", 
+                    "enrichplot")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
 
+
+.inst <- .bioc_packages %in% installed.packages()
+if(any(!.inst)) {
+  BiocManager::install(.bioc_packages[!.inst])
+}
 # import other necessary packages
 suppressPackageStartupMessages({
-  library(DESeq2)
+  #library(DESeq2)
   library(tidyverse)
   #library(EnhancedVolcano)
   library(ggplot2)
+  library(ggnewscale)
   library(data.table)
   library("pathview")
+  library(enrichplot)
   library(clusterProfiler)
   library(gage)
-  library(enrichplot)
   library(ggraph)
   library(RColorBrewer)
   library(viridis)
@@ -45,7 +57,7 @@ suppressPackageStartupMessages({
 
 # KEGG pathway analysis  
 
-The input is from `01_kegg_analysis_initiate.rmd` file. The DESeq2 anlaysis was done at KO level to identify enrichment of KOs between 24h and 48h
+The input is from `01_kegg_analysis_initiate.rmd` file. The DESeq2 analysis was done at KO level to identify enrichment of KOs between 24h and 48h
 
 ## Read file
 ```{r}
@@ -68,8 +80,13 @@ names(foldchanges) = rownames(sorted_ko_results)
 
 ```{r}
 # Select genes with >1.5 fold change  
-gene <- names(foldchanges)[abs(foldchanges) > 1.5]
+gene <- names(foldchanges)[abs(foldchanges) > 0.5]
 
+pdf("data/04_metatrans/figs/R1_log2FC_Hist.pdf", height = 4, width = 6)
+hist(foldchanges,
+       breaks = seq(5.5,from=-5.5,by=.5))
+abline(v=c(-0.5,0.5), col=c("blue", "blue"), lty=2, lwd=3)
+dev.off()
 # Check for enriched KEGG pathways
 kk <- enrichKEGG(gene         = gene,
                  organism     = 'ko',
@@ -90,6 +107,8 @@ set.seed(1930)
 kk.df <- as.data.frame(kk)
 write.csv(kk.df, "data/04_metatrans/tables/kegg_enriched_pathways.csv")
 cplot.heat <- heatplot(kk, foldChange=foldchanges)
+ggsave("data/04_metatrans/figs/R1_kk_enrich_heatmap.pdf", height = 6, width = 12, useDingbats=FALSE)
+
 cplot.dat <- cplot.heat$data
 ## Read KEEG BRITE classification  
 #The KEGG htext was downloaded from KEGG website.  
@@ -139,23 +158,58 @@ ggsave("data/04_metatrans/figs/kk_enrich_heatmap.pdf", height = 6, width = 7, us
 
 
 ```{r}
+library(tidygraph)
 cplot <- cnetplot(kk, 
                   categorySize="Count", 
-                  showCategory = 24, 
+                  showCategory = 20, 
                   foldChange=gene, 
                   vertex.label.font=6,
-                  circular = F, colorEdge = T) 
+                  node_label = 'category',
+                  circular = F, 
+                  colorEdge = T) 
 cplot
-ggsave("data/04_metatrans/figs/kk_enrich_network.pdf", height = 10, width = 18, useDingbats=FALSE)
+
+ggsave("data/04_metatrans/figs/R1 kk_enrich_network.pdf", height = 10, width = 18, useDingbats=FALSE)
 ggsave("data/04_metatrans/figs/kk_enrich_network.png", height = 10, width = 18)
+
+
+# Manual graph
+
+sub.nodes <- subset(cplot$data, .ggraph.index < 21)
+
+ggraph(cplot$data,layout = 'linear', circular = TRUE) + 
+  geom_edge_link(aes(colour = category)) +
+  ggraph::scale_edge_color_manual("Category", values = pals::cols25())+
+  geom_node_point(shape=21, alpha=0.7, color = "grey30") + 
+  theme_void() +
+  #geom_node_label(aes(label=name)) +
+  geom_node_label(data = sub.nodes, 
+                  aes(label = name), 
+                  label.size = NA, 
+                  alpha = 0.75, 
+                  fontface = 'bold', color = 'black',
+                  box.padding = 0.05, 
+                  point.padding = 0.5,
+                  repel = TRUE, 
+                  max.overlaps=10000000,
+                  #nudge_x=0.2,
+                  size=2,
+                  #segment.curvature = -0.1,
+                  #direction         = "y",
+                  hjust             = 1,
+                  segment.size      = 0.1) +
+  # coord_fixed() +
+  theme(legend.text = element_text(size=6)) 
+
+ggsave("data/04_metatrans/figs/R1_kk_enrich_network_gg.pdf",height = 5, width = 8)
+
 #ggsave("02_pathway_anlaysis/figs/kk_enrich_network.tiff", height = 10, width = 18)
 
 ```
 
 ## KEGG pathview maps  
-  
-```{r}
 
+```{r}
 foldchanges.view = sorted_ko_results$log2FoldChange
 
 write.csv(as.data.frame(foldchanges.view), "data/04_metatrans/tables/KEGG_pathways_KO_foldchanges_view.csv")
@@ -172,25 +226,25 @@ Plot fold-changes on maps
 ```{r}
 
 Glycolysis <- pathview(gene.data  = foldchanges.view,
-                     pathway.id = "00010",
-                     species    = "ko",
-                     limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
-                     out.suffix = "Glycolysis", 
-                     low = "#d73027", mid = "#fee090", high = "#4575b4")
+                       pathway.id = "00010",
+                       species    = "ko",
+                       limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
+                       out.suffix = "Glycolysis", 
+                       low = "#d73027", mid = "#fee090", high = "#4575b4")
 
 butanoate <- pathview(gene.data  = foldchanges.view,
-                     pathway.id = "00650",
-                     species    = "ko",
-                     limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
-                     out.suffix = "butanoate_metabolism", 
-                     low = "#d73027", mid = "#fee090", high = "#4575b4")
+                      pathway.id = "00650",
+                      species    = "ko",
+                      limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
+                      out.suffix = "butanoate_metabolism", 
+                      low = "#d73027", mid = "#fee090", high = "#4575b4")
 
 propanoate <- pathview(gene.data  = foldchanges.view,
-                     pathway.id = "00640",
-                     species    = "ko",
-                     limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
-                     out.suffix = "propanoate_metabolism",
-                     low = "#d73027", mid = "#fee090", high = "#4575b4")
+                       pathway.id = "00640",
+                       species    = "ko",
+                       limit      = list(gene=max(abs(foldchanges.view)), cpd=1),
+                       out.suffix = "propanoate_metabolism",
+                       low = "#d73027", mid = "#fee090", high = "#4575b4")
 # The plots are located in the same folder as this rmarkdown file.
 
 ```

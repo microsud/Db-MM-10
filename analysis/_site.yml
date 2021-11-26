@@ -10,9 +10,7 @@ navbar:
   - text: License
     href: license.html
   - text: "Exploration of Metagenomic Data"
-    menu:
-      - text: "Core Microbiota"
-        href: core_microbiota_metagenomic.html
+    href: core_microbiota_metagenomic.html
   - text: "Growth, Metabolites and Composition"
     menu:
       - text: "Growth and Metabolites"

@@ -28,7 +28,10 @@ suppressPackageStartupMessages({
   library(edgeR)
   library(reshape2)
   library(patchwork)
+  library(ggalluvial)
 })
+source('code/gmm_plots.R')
+source('code/custom_funs.R')
 ```
 
 
@@ -43,20 +46,13 @@ Convert the KEGG annotation and counts file in input format required by `omixerR
 
 ```{r}
 
-#dir.create("gmm_input")
-
 complete_table_brite <- readRDS("data/04_metatrans/rds/complete_table_brite_filter.rds")
-#head(tpm_table_brite)
-#DT::datatable(complete_table_brite)
-#DT::datatable(complete_table_brite_sum)
-complete_table_brite_sum <- complete_table_brite %>% group_by(KO, BacterialStrain) %>% 
+
+complete_table_brite_sum <- complete_table_brite %>% 
+  group_by(KO, BacterialStrain) %>% 
   summarize(sum(B1T24), sum(B2T24), sum(B3T24),sum(B1T48), sum(B2T48), sum(B3T48))
 
-#head(complete_table_brite)
-
 table_brite <- complete_table_brite_sum[,c(3:8)]
-
-#head(table_brite)
 
 rownames(table_brite) <- table_brite$KO
 
@@ -100,10 +96,9 @@ colnames(brite_gmm) <-
 
 head(brite_gmm)
 
-
 ```
 
-
+Prepare file for GMM calculations
 ```{r}
 
 brite_gmm <-separate(brite_gmm, species, c("Bacteria", "Locus"), 
@@ -117,11 +112,15 @@ brite_gmm <- brite_gmm %>% unite(Species, Bacteria,Species)
 
 brite_gmm <- brite_gmm[,-3]
 head(brite_gmm)
+
+```
+
+```{r eval=FALSE}
 write.table(brite_gmm, file='data_raw/05_gmm/brite_gmm_server_filtered.tsv', 
             quote=FALSE, 
             sep='\t', col.names = NA)
-
 ```
+
 
 Upload this file to `micro3` server.
 
@@ -145,9 +144,9 @@ saveRDS(mods, "data_raw/05_gmm/mods_gmm_aa.rds")
 ```
 
 ## Read GMMs  
+The GMM calulation was done on server due to issues with java windows pc. the `mods_gmm_aa.rds` file was copied to `05_gmm`   
 
 ```{r}
-# the GMM cal was done on server due to issues with java windows pc. the mods_gmm_aa.rds file was copied to gmm 
 # read file from server
 #mods <- readRDS("03_gmm_anlaysis/data/mods_gmm.rds")
 mods <- readRDS("data_raw/05_gmm/mods_gmm_aa.rds")
@@ -157,6 +156,83 @@ write.table(modsDF, file='data/05_gmm/tables/modsDF_gmm_linux.tsv',
             quote=FALSE, sep='\t', col.names = NA)
 
 #head(modsDF)
+```
+
+```{r}
+# Read names of modules
+curatedGMM_names <- read.table("data_raw/05_gmm/ModulesCustom/CuratedGMM_names.txt", header=F, sep="\t")
+#head(curatedGMM_names)
+
+```
+
+
+```{r}
+head(modsDF)
+
+global.gmm <- modsDF %>% 
+  select(-Taxon) %>% 
+  group_by(Module) %>% 
+  summarize_if(is.numeric, sum) %>% 
+  pivot_longer(-Module, names_to = "sample", values_to = "abundance") %>%
+  separate(sample, c("replicate", "time"), sep= "T")
+
+sel.gmm <- subset(curatedGMM_names, V1 %in% unique(global.gmm$Module))
+
+global.gmm <- global.gmm %>% 
+  left_join(sel.gmm, by = c("Module" = "V1"))
+
+```
+
+
+
+
+## Plot global  
+
+### Carbs  
+
+```{r}
+
+carbs.l <- c("arabinoxylan degradation", "fructan degradation (Curated)",
+             "pectin degradation I", "pectin degradation II",
+             "starch degradation","cellobiose degradation I (curated)")
+
+global.gmm %>% 
+  filter(V2 %in% carbs.l) %>% 
+  mutate(V2 = stringr::str_wrap(V2, width = 15)) %>% 
+  ggplot(aes(time, abundance)) +
+  geom_boxplot(width=0.3, fatten=0.6) +
+  geom_point(alpha=0.5) +
+  theme_dbmm() +
+  facet_wrap(~V2, scales = "free") +
+  theme(legend.text = element_text(face = "italic")) +
+  scale_color_manual("Taxon", values = strain.colors) +
+  labs(x="Time (hr)", y= paste("Module abundance (CPM)", sep = "\u00B1"))
+ggsave("data/05_gmm/figs/gmm_global_carbs.pdf")
+
+```
+
+### VFA
+```{r}
+vfas.mods <- c("propionate production IV (1,2-PD)",
+               "propionate production I", "propionate production II",
+               "propionate production III", "acetyl-CoA to acetate",
+               "lactate production", "lactate consumption II",
+               "acetyl-CoA to crotonyl-CoA", 
+               "lactate consumption III (lctABCDEF, Curated)",
+               "pyruvate:formate lyase")
+global.gmm %>% 
+  filter(V2 %in% vfas.mods) %>% 
+  mutate(V2 = stringr::str_wrap(V2, width = 15)) %>% 
+  ggplot(aes(time, abundance)) +
+  geom_boxplot(width=0.3, fatten=0.6) +
+  geom_point(alpha=0.5) +
+  theme_dbmm() +
+  facet_wrap(~V2, scales = "free") +
+  theme(legend.text = element_text(face = "italic")) +
+  scale_color_manual("Taxon", values = strain.colors) +
+  labs(x="Time (hr)", y= paste("Module abundance (CPM)", sep = "\u00B1")) 
+ggsave("data/05_gmm/figs/gmm_global_vfa.pdf")
+
 ```
 
 
@@ -176,14 +252,19 @@ modsDF2 <- modsDF2[,-1]
 ```
 
 
+```{r}
+head(modsDF2)
+```
+
 Check fold change  
 ```{r}
 
 source("code/check_wilcox.r")
-
+# specify order of samples and groups
 pval <- check_wilcoxon(modsDF2, c("48h","48h","24h","48h", "24h","24h"))
 
 #head(pval)
+#hist(pval$p.value)
 summary(pval$p.value)
 
 pval$Taxon <- modsDF$Taxon
@@ -195,38 +276,28 @@ colnames(mat) <- c("from", "to", "Difference", "P-value")
 
 ```
 
+Now add classifications.  
 ```{r}
-# Read names of modules
-curatedGMM_names <- read.table("data_raw/05_gmm/ModulesCustom/CuratedGMM_names.txt", header=F, sep="\t")
-#head(curatedGMM_names)
 
 fil_list <- pval$Module
 curatedGMM_names_filt <- filter(curatedGMM_names, curatedGMM_names$V1 %in% fil_list)
 
-#dim(curatedGMM_names_filt)
-#curatedGMM_names_filt$V1
 colnames(curatedGMM_names_filt) <- c("Module", "Names", "Category")
-#unique(mat$from)
-#dim(pval)
 mat_df <- merge(pval, curatedGMM_names_filt, by.x="Module")
-#dim(mat_df)
-#head(mat_df)
 
+# Select specific cols and order them 
 mat_df <- mat_df[,c("Taxon", "Names", "fold.change.log10", "p.value", "Module", "Category")]
-#mat_df <- mat_df[,c("Taxon", "Module", "fold.change.log10", "p.value", "Names")]
+
 colnames(mat_df) <- c("from", "to", "Difference", "P-value", "ModuleName", "Category")
 
-#mat <- subset(mat_df, abs(Difference) > 0.5)
 ```
 
-Specify colors  
+Specify colors.    
 ```{r}
 #head(mat_df)
 
-# Change name 
+# Change name and clean
 mat_df$from <- gsub("Lachnospiraceae_bacterium", "Flavonifractor_plautii",mat_df$from)
-
-head(mat_df)
 mat_df$from <- gsub("_"," ",mat_df$from)
 # set colors  
 strain.colors <- c('Bacteroides ovatus' = "#1F78B4", 
@@ -242,180 +313,138 @@ strain.colors <- c('Bacteroides ovatus' = "#1F78B4",
 
 ```
 
+# Reviewers  
+Change original choord diagram to alluvial plots for clarity.   
 
+```{r}
+# Read names of modules classification
+gmm_levs <- read.table("data_raw/05_gmm/ModulesCustom/curated_gmm_levels.txt", 
+                       header=T, sep="\t")
 
-## Plot Chords   
-```{r warning=FALSE, message=FALSE,fig.width=16, fig.height=16}
+gmm_levs_filt <- filter(gmm_levs, 
+                        gmm_levs$module_id %in% unique(mat_df$ModuleName))
 
-# Split the data to positive and negative change. Anything below 0 (negative values is higher in 24h while positive are higher in 48h samples)
-mat.pos <- subset(mat_df, Difference > 0)
-mat.neg <- subset(mat_df, Difference < 0)
+mat_df_gmm <- mat_df %>% 
+  left_join(gmm_levs_filt, by = c("ModuleName"= "module_id")) 
 
-mat.pos_other <- subset(mat.pos, Category== "Other")
-mat.neg_other <- subset(mat.neg, Category== "Other")
-#subset(mat_df, Category== "Other" & abs(Difference) >= 0.2) %>% 
-#  ggplot(aes(Difference, to)) +
-#  geom_col() + facet_grid(~ from, scales = "free_y")
+unique(mat_df_gmm$category_1)
+unique(mat_df_gmm$category_2)
+str(mat_df_gmm.pos)
 
-mat.pos_other <- mat.pos_other %>% select(-"P-value")
+# order so that fiber mods are first
+all.mods <- unique(mat_df_gmm$module_name)
+carbs.l <- c("arabinoxylan degradation", "fructan degradation (Curated)",
+             "pectin degradation I", "pectin degradation II",
+             "starch degradation","cellobiose degradation I (curated)")
+others.l <- all.mods[!all.mods %in% carbs.l]
 
-circos.par(start.degree = 180, gap.degree =3)
-chordDiagram(mat.pos_other, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.8, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
+mat_df_gmm$module_name<- factor(mat_df_gmm$module_name, levels = c(carbs.l,others.l))
 
-############################ SAVE PLOT ####################################################
-pdf("data/05_gmm/figs/GMM_positive_chord_other.pdf", height = 6, width = 10)
-#par(mar=c(4.5, 0.5, 0.5, 0.5))
-circos.par(start.degree = 180, gap.degree =3)
-chordDiagram(mat.pos_other, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
-dev.off()
-circos.clear()
-
-#########################################################################################
-
-#########################################################################################
-circos.par(start.degree = 180, gap.degree =3)
-chordDiagram(mat.neg_other, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
-
-############################ SAVE PLOT ####################################################
-pdf("data/05_gmm/figs/GMM_negative_chord_other.pdf", height = 6, width = 10)
-#par(mar=c(4.5, 0.5, 0.5, 0.5))
-circos.par(start.degree = 180, gap.degree =3)
-chordDiagram(mat.neg_other, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
-dev.off()
-circos.clear()
+mat_df_gmm <- mat_df_gmm %>% 
+  filter(Difference != 0) %>% 
+  mutate(Time = ifelse(Difference > 0, "48h", "24h"))
+# up and down
+mat_df_gmm.pos <- subset(mat_df_gmm, Difference > 0)
+mat_df_gmm.neg <- subset(mat_df_gmm, Difference < 0)
 
 ```
 
-```{r warning=FALSE, message=FALSE,fig.width=16, fig.height=16}
-mat.pos_aa <- subset(mat.pos, Category != "Other")
-mat.neg_aa <- subset(mat.neg, Category != "Other")
+# Alluvial plots 
 
-mat.pos_aa <- mat.pos_aa %>% select(-"P-value")
-mat.neg_aa <- mat.neg_aa %>% select(-"P-value")
+### carbohydrate degradation   
 
-circos.par(start.degree = 180, gap.degree =2)
-chordDiagram(mat.pos_aa, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.3, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
+```{r}
+carbs.level.1 <- mat_df_gmm %>% 
+  subset(to %in% carbs.l) %>% 
+  plot_alluv() + facet_grid(~Time)
+ggsave("data/05_gmm/figs/gmm_carbs_alluvial_1.pdf")
 
-############################ SAVE PLOT ####################################################
+carbs.level.2 <- mat_df_gmm %>% 
+  subset(category_1 == "carbohydrate degradation") %>%
+  subset(!to %in% carbs.l) %>% 
+  plot_alluv() + facet_grid(~Time)
+ggsave("data/05_gmm/figs/gmm_carbs_alluvial_2.pdf")
 
-pdf("data/05_gmm/figs/GMM_positive_chord_AA.pdf", height = 6, width = 10)
-#par(mar=c(4.5, 0.5, 0.5, 0.5))
-circos.par(start.degree = 180, gap.degree =2)
-chordDiagram(mat.pos_aa, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.pos))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.3, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
-dev.off()
-circos.clear()
 
-###############################################################################################
+((carbs.level.1) / (carbs.level.2) ) + plot_layout(heights = c(1,2))
+ggsave("data/05_gmm/figs/gmm_carbs_alluvial.pdf")
 
-###############################################################################################
-circos.par(start.degree = 180, gap.degree =2)
-chordDiagram(mat.neg_aa, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.3, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
+carbs.pos <- mat_df_gmm.pos %>% 
+  subset(category_1 == "carbohydrate degradation") %>% 
+  plot_alluv() +
+  labs(subtitle = "48 h") 
 
-############################ SAVE PLOT ####################################################
+carbs.neg <- mat_df_gmm.neg %>% 
+  subset(category_1 == "carbohydrate degradation") %>% 
+  plot_alluv() +
+  labs(subtitle = "24 h")
 
-pdf("data/05_gmm/figs/GMM_negative_chord_AA.pdf", height = 6, width = 10)
-#par(mar=c(4.5, 0.5, 0.5, 0.5))
-circos.par(start.degree = 180, gap.degree =3)
-chordDiagram(mat.neg_aa, annotationTrack = "grid", big.gap = 10,
-             transparency = 0.1, grid.col = strain.colors,
-             preAllocateTracks = list(track.height = max(strwidth(unlist(dimnames(mat.neg))))))
-for(si in get.all.sector.index()) {
-  xlim = get.cell.meta.data("xlim", sector.index = si, track.index = 1)
-  ylim = get.cell.meta.data("ylim", sector.index = si, track.index = 1)
-  circos.text(mean(xlim), mean(ylim), si, sector.index = si, track.index = 1, 
-              facing = "bending.inside", niceFacing = TRUE, col = "white")
-}
-circos.track(track.index = 1, panel.fun = function(x, y) {
-  circos.text(CELL_META$xcenter, CELL_META$ylim[1], CELL_META$sector.index, cex = 0.4, 
-              facing = "clockwise", niceFacing = TRUE, adj = c(0, 0.5))
-}, bg.border = NA)
-dev.off()
-circos.clear()
+carbs.neg + carbs.pos
+ggsave("data/05_gmm/figs/gmm_carbs_alluvial.pdf")
+#ggsave("data/05_gmm/figs/gmm_carbs_alluvial.pdf", height = 6, width = 10)
+
+
 ```
+
+### amino acid degradation  
+```{r}
+aa.deg.pos <- mat_df_gmm %>% 
+  subset(category_1 == "amino acid degradation") %>% 
+  plot_alluv() + facet_grid(~Time, scales = "free_y")
+ggsave("data/05_gmm/figs/gmm_aa.deg_alluvial.pdf")
+
+#ggsave("data/05_gmm/figs/gmm_aa.deg_alluvial.pdf")
+#ggsave("data/05_gmm/figs/gmm_aa.deg_alluvial.pdf", height = 6, width = 10)
+
+```
+
+### organic acid metabolism 
+```{r}
+org.acid.pos <- mat_df_gmm %>%  
+  subset(category_1 == "organic acid metabolism") %>%  
+  plot_alluv() + facet_grid(~Time)
+ggsave("data/05_gmm/figs/gmm_org.acid_alluvial.pdf")
+
+org.acid.neg <- mat_df_gmm.neg %>% 
+  subset(category_1 == "organic acid metabolism") %>%  
+  plot_alluv() +
+  labs(subtitle = "24 h")
+org.acid.neg + org.acid.pos
+ggsave("data/05_gmm/figs/gmm_org.acid_alluvial.pdf")
+#ggsave("data/05_gmm/figs/gmm_org.acid_alluvial.pdf", height = 6, width = 10)
+```
+
+```{r}
+
+bac.metab <- mat_df_gmm %>%
+  subset(Time == "24h") %>% 
+  dplyr::select(c("from","to", "category_1"))
+
+# vfa 
+vfa.list <- bac.metab %>%
+  subset(category_1 == "organic acid metabolism") %>% 
+  pull(to)
+
+bac.metab.carb <- bac.metab %>%
+  filter(category_1 %in% c("carbohydrate degradation", "organic acid metabolism"))
+
+carbs.level.1 <- mat_df_gmm %>% 
+  subset(to %in% carbs.l) %>% 
+  plot_alluv() + facet_grid(~Time) +
+  labs(subtitle = "a) Carbohydrate degradation")
+
+org.acid.pos <- mat_df_gmm %>%  
+  subset(category_1 == "organic acid metabolism") %>%  
+  plot_alluv() + facet_grid(~Time) +
+  labs(subtitle = "b) Organic acid metabolism")
+
+
+carbs.level.1 / org.acid.pos + plot_layout(heights = c(1,2))
+ggsave("data/05_gmm/figs/gmm_carb_vfa_alluvial.pdf", h=5, w=6)
+
+```
+
+
 
 # Species Function Contributions   
 
@@ -440,9 +469,9 @@ module_df <- merge(modsDF, curatedGMM_names_filt, by.x="Module")
 #count.module <- module_df %>% group_by(Names, Taxon) %>% 
 #  summarise(mean(B1T24), mean(B2T24), mean(B3T24),mean(B1T48), mean(B2T48), mean(B3T48))
 
-module_df_lng <- melt(module_df)
+module_df_lng <- reshape2::melt(module_df)
 head(module_df_lng)
-count.module <- dcast(module_df_lng, Taxon + Names + Module ~ variable, value.var="value")
+count.module <- reshape2::dcast(module_df_lng, Taxon + Names + Module ~ variable, value.var="value")
 
 #head(count.module)
 
@@ -459,27 +488,21 @@ count.module.df1 <- reshape2::melt(count.module)
 
 #head(count.module.df1)
 count.module.df1 <- count.module.df1 %>% tidyr::separate(variable, c("Rep", "TimePoint"), "T")
-#head(count.module.df1)
-#hist(count.module.df1$value)
 
 count.module.df1$Taxon <- gsub("Lachnospiraceae_bacterium", "Flavonifractor_plautii", count.module.df1$Taxon)
 
 
-#tax.labs <- c("AREC","ASOE","BOVA", "BXYL","CCAT","ESIR",
-#               "FRAU", "LACH","RINT", "SVAR")
 unique(count.module.df1$Taxon)
 
 count.module.df2 <-count.module.df1
-#levels(count.module.df2$Taxon) <- c("AREC","ASOE","BOVA", "BXYL","CCAT","ESIR",
-#               "FRAU", "FPLA","RINT", "SVAR")
+
 mod.heat <- ggplot(count.module.df2, aes(TimePoint, Module)) +
   geom_tile(aes(fill = log(value)), color = "white", size = 0.9) + 
-  theme_classic2(base_size = 12) + rotate_x_text() + 
+  theme_dbmm() + rotate_x_text() + 
   scale_fill_gradientn("Median abundance (log10)",
                        colors = brewer.pal(9, 'BuPu'),
                        na.value = '#f0f0f0') + facet_grid( ~ Taxon) + ylab("Metabolic Module") + xlab("Time (hr)")
 
-# + scale_fill_gradient(high = brewer.pal(10, 'Spectral')[4], low='white', na.value = 'white')
 mod.heat
 ggsave("data/05_gmm/figs/module_abund_heatmap.pdf", height = 12, width = 12)
 
@@ -506,82 +529,79 @@ count.module.df2$Taxon <- gsub("_", " ",count.module.df2$Taxon)
 
 #str.short.colors <- c(BOVA = "#1F78B4",BXYL = "#B2DF8A",ASOE = "#FDBF6F",   AREC= "#33A02C", ESIR ="#FB9A99",  FRAU = "#A6CEE3",  FPLA = "#E31A1C",  RINT= "#CAB2D6",  SVAR = "#FF7F00",  CCAT = "#6A3D9A")
 
-custom_theme <- theme_bw() +
-  theme(panel.grid.major = element_line(colour = "#d3d3d3"),
+custom_theme <- theme_minimal() +
+  theme(panel.border = element_rect(colour = "grey50", fill=NA),
+        panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        #panel.border = element_blank(), panel.background = element_blank(),
-        #plot.title = element_text(size = 14, family = "Tahoma", face = "bold"),
         #text=element_text(family="Tahoma"),
-        axis.title = element_text(face="bold"),
-        axis.text.x=element_text(colour="black", size = 11),
-        axis.text.y=element_text(colour="black", size = 9),
-        axis.line = element_line(size=0.5, colour = "black"),
-        strip.background = element_rect(color="black", fill="white" #, size=1.5, linetype="solid"
-        )
-  )
-
+        #axis.title = element_text(face="bold"),
+        axis.text.x=element_text(colour="grey30", size = 11),
+        axis.text.y=element_text(colour="grey30", size = 9))
 ```
 
-
+### Reviewer-2
+Text labels unlcear. 
 
 ## Degradation  
 
 ```{r fig.width=12, fig.height=8}
 #count.module.df2
 
-module.fiber <- subset(count.module.df2, Module == "pectin degradation I" | Module == "pectin degradation II"| Module == "fructan degradation (Curated)"| Module == "arabinoxylan degradation" | Module =="starch degradation" | Module == "cellobiose degradation I (curated)")
+carbs.comps <- c("pectin degradation I", "pectin degradation II",
+                 "fructan degradation (Curated)", "arabinoxylan degradation",
+                 "starch degradation", "cellobiose degradation I (curated)")
+
+module.fiber <- subset(count.module.df2, Module %in% carbs.comps)
 module.fiber[module.fiber ==0]<- NA
 
-module.fiber.plot <- ggboxplot(module.fiber, "TimePoint","value", 
-                               facet.by = "Module", 
-                               fill = "Taxon",
-                               color = NULL,
-                               palette = strain.colors, width = 0.5,
-                               add= "dotplot",
-                               xlab = "Time (hr)",
-                               ylab = "Median module abundance",
-                               scales = "free") + custom_theme +  theme(legend.text = element_text(face = "italic")) #+ theme_classic2(base_size = 12)
-
-# + scale_fill_gradient(high = brewer.pal(10, 'Spectral')[4], low='white', na.value = 'white')
-module.fiber.plot 
-ggsave("data/05_gmm/figs/module_fiber_plot.pdf", height = 6, width = 12)
+module.fiber$Module <- stringr::str_wrap(module.fiber$Module, width = 15) 
 
 ```
+
+
+
+```{r}
+fib.plot <- plot_gmm_comparison(module.fiber)
+fib.plot
+ggsave("data/05_gmm/figs/module_fiber_plot.pdf")
+
+```
+
 
 
 ## SCFA production  
 ```{r fig.width=16, fig.height=12}
 #count.module.df2
-module.vfa <- subset(count.module.df2, Module == "propionate production IV (1,2-PD)" | Module == "propionate production I"| Module == "propionate production II"| Module == "propionate production III" | Module =="acetyl-CoA to acetate"| Module=="lactate production"| Module == "lactate consumption II" | Module=="acetyl-CoA to crotonyl-CoA" | Module == "lactate consumption III (lctABCDEF, Curated)" | Module == "pyruvate:formate lyase")
+
+vfas.mods <- c("propionate production IV (1,2-PD)",
+               "propionate production I", "propionate production II",
+               "propionate production III", "acetyl-CoA to acetate",
+               "lactate production", "lactate consumption II",
+               "acetyl-CoA to crotonyl-CoA", 
+               "lactate consumption III (lctABCDEF, Curated)",
+               "pyruvate:formate lyase")
+
+module.vfa <- subset(count.module.df2, Module %in% vfas.mods)
+
 module.vfa[module.vfa ==0]<- NA
+module.vfa$Module <- stringr::str_wrap(module.vfa$Module, width = 15)
 
-module.vfa.plot <- ggboxplot(module.vfa, "TimePoint","value", 
-                             facet.by = "Module", 
-                             fill = "Taxon", width = 0.5,
-                             palette = strain.colors,
-                             add= "dotplot",
-                             xlab = "Time (hr)",
-                             ylab = "Median module abundance",
-                             scales = "free") + custom_theme +  theme(legend.text = element_text(face = "italic")) #+ theme_minimal(base_size = 12)
+```
+NEW plot  
 
+```{r}
+vfa.plot <- plot_gmm_comparison(module.vfa)
+vfa.plot
+ggsave("data/05_gmm/figs/module_vfa_plot.pdf")
 
-module.vfa.plot 
-ggsave("data/05_gmm/figs/module_vfa_plot.pdf", height = 6, width = 12)
-
-#ggarrange(module.fiber.plot, module.vfa.plot, 
-#          ncol = 1, 
-#          nrow=2, 
-#          common.legend = F,
-#          labels = c("a", "b"), legend = "right")
-#ggsave("03_gmm_anlaysis/figs/module_fibre_vfa_plot.pdf", height = 10, width = 12)
-#ggsave("03_gmm_anlaysis/figs/module.fibre.vfa.plot.tiff", height = 10, width = 12)
 ```
 
 
 ```{r fig.width=16, fig.height=12}
-module.fiber.plot + module.vfa.plot + plot_layout(ncol = 1, heights = c(1, 2.5))
+fib.plot + (vfa.plot + theme(legend.position = "none")) + 
+  plot_layout(ncol = 1, heights = c(1, 2.5))
 
-ggsave("data/05_gmm/figs/module.fibre.vfa.plot2.pdf", height = 10, width = 12)
+ggsave("data/05_gmm/figs/module.fibre.vfa.plot2.pdf", height = 8, width = 8)
 ```
 
 
@@ -594,23 +614,17 @@ list.carbs <- c("xylose degradation", "galacturonate degradation I", "galacturon
 
 module.carbs <- subset(count.module.df2, Module %in% list.carbs)
 module.carbs[module.carbs ==0]<- NA
-module.carbs.plot <- ggboxplot(module.carbs, "TimePoint","value", 
-                               facet.by = "Module", 
-                               fill = "Taxon",
-                               palette = strain.colors, width = 0.5,
-                               add= "dotplot",
-                               xlab = "Time (hr)",
-                               ylab = "Median module abundance",
-                               scales = "free")+ custom_theme +  theme(legend.text = element_text(face = "italic"))
-
-# + scale_fill_gradient(high = brewer.pal(10, 'Spectral')[4], low='white', na.value = 'white')
-#module.carbs.plot
-module.carbs.plot
-ggsave("data/05_gmm/figs/module_monosac_plot.pdf", height = 6, width = 10,
-       useDingbats = FALSE)
+module.carbs$Module <- stringr::str_wrap(module.carbs$Module, width = 15)
 
 ```
 
+NEW
+```{r}
+sug.plot <- plot_gmm_comparison(module.carbs)
+sug.plot
+ggsave("data/05_gmm/figs/module_sugar_plot.pdf")
+
+```
 
 ## Amino acid degradation  
 
@@ -648,7 +662,8 @@ module.aa.plot <- ggboxplot(module.aa, "TimePoint","value",
                             add= "dotplot",
                             xlab = "Time (hr)",
                             ylab = "Median module abundance",
-                            scales = "free")+ custom_theme +  theme(legend.text = element_text(face = "italic")) 
+                            scales = "free")+ theme_minimal() +  
+  theme(legend.text = element_text(face = "italic")) 
 
 # + scale_fill_gradient(high = brewer.pal(10, 'Spectral')[4], low='white', na.value = 'white')
 module.aa.plot
@@ -664,57 +679,47 @@ ggsave("data/05_gmm/figs/moduleaminoacids_plot.pdf",
 module.aa$taxa_ab <- toupper(abbreviate(module.aa$Taxon,method = "both.sides", minlength = 3))
 module.aa.plot <- ggplot(module.aa, aes(TimePoint, Module)) +  
   geom_tile(aes(fill = log2(value)), color="white", size = 2) + 
-  theme_classic2(base_size = 10) + rotate_x_text() + 
+  theme_dbmm() + rotate_x_text() + 
   scale_fill_gradientn("Median counts (log2)",
-                       colors = brewer.pal(9, 'Greys'), 
+                       colors = pals::coolwarm(100), 
                        na.value = '#f0f0f0') + 
   facet_grid(~ taxa_ab, scales = "free") + 
-  ylab("Metabolic Module") + 
-  xlab("Time (hr)") + 
-  theme(axis.text.x=element_text(size=10)) 
-
-ggsave("data/05_gmm/figs/moduleaminoacids_heatmap_plot.pdf", height = 6, width = 8)
-ggsave("data/05_gmm/figs/moduleaminoacids_heatmap_plot.png", height = 6, width = 8)
+  ylab("") + 
+  xlab("Time (hr)") #+ 
+#theme(axis.text.x=element_text(size=10)) 
+ggsave("data/05_gmm/figs/module_aminoacids_degradation_heatmap_plot.pdf",width = 8)
+#ggsave("data/05_gmm/figs/moduleaminoacids_heatmap_plot.pdf", height = 6, width = 8)
+#ggsave("data/05_gmm/figs/moduleaminoacids_heatmap_plot.png", height = 6, width = 8)
 
 ```
 
 
 ## Amino acids biosynthesis  
-```{r fig.width=16, fig.height=12}
+```{r fig.width=16, fig.height=12 }
 count.module.aab <- filter(count.module.df2, grepl("biosynthesis",Module))
 head(count.module.aab)
 count.module.aab[count.module.aab ==0]<- NA
-
-module.aab.plot <- ggboxplot(count.module.aab, "TimePoint","value", 
-                             facet.by = "Module", 
-                             fill = "Taxon",
-                             palette = strain.colors, width = 0.5,
-                             add= "dotplot",
-                             xlab = "Time (hr)",
-                             ylab = "Median module abundance",
-                             scales = "free")+ custom_theme + theme(legend.text = element_text(face = "italic"))
-
-module.aab.plot
-ggsave("data/05_gmm/figs/moduleaminoacids_biosynth_plot.pdf", 
-       height = 15, width = 20,
-       useDingbats = FALSE)
 ```
 
 
-```{r fig.width=16, fig.height=12}
+```{r fig.width=16, fig.height=12 }
 count.module.aab$taxa_ab <- toupper(abbreviate(count.module.aab$Taxon,method = "both.sides", minlength = 3))
+
+count.module.aab$Module <- gsub(".*,", "", count.module.aab$Module)
 
 module.aab.plot <- ggplot(count.module.aab, aes(TimePoint, Module)) +  
   geom_tile(aes(fill = log2(value)), color="white", size = 2) + 
-  theme_classic2(base_size = 10) + rotate_x_text() + 
-  scale_fill_gradientn("Median counts (log2)",colors = brewer.pal(9, 'Greys'), na.value = '#f0f0f0') + 
+  theme_dbmm() + 
+  rotate_x_text() + 
+  scale_fill_gradientn("Median counts (log2)",
+                       colors = pals::coolwarm(100), 
+                       na.value = '#f0f0f0') + 
   facet_grid(~ taxa_ab, scales = "free") + 
-  ylab("Metabolic Module") + 
-  xlab("Time (hr)") + 
-  theme(axis.text.x=element_text(size=12))
-
-ggsave("data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.pdf", height = 6, width = 10)
-ggsave("data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.png", height = 6, width = 10)
+  ylab("") + 
+  xlab("Time (hr)") 
+ggsave("data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.pdf",  width = 10)
+#ggsave("data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.pdf", height = 6, width = 10)
+ggsave("data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.png",  width = 10)
 ```
 
 
@@ -723,28 +728,26 @@ ggsave("data/05_gmm/figs/moduleaminoacids_biosynthetsis_heatmap_plot.png", heigh
 ```{r fig.width=8, fig.height=6}
 ## Amino acids biosynthesis  
 
-count.module.lys <- filter(count.module.df2, grepl("Lysine", ignore.case = TRUE,Module) )
-head(count.module.lys)
-unique(count.module.lys$Module)
+count.module.lys <- filter(count.module.df2, 
+                           grepl("Lysine", ignore.case = TRUE,Module) )
+count.module.lys$Module <- gsub("lysine biosynthesis, ", "", count.module.lys$Module)
+
+#head(count.module.lys)
+#unique(count.module.lys$Module)
 
 count.module.lys[count.module.lys ==0]<- NA
+count.module.lys$Module <- stringr::str_wrap(count.module.lys$Module, width = 25)
 
-count.module.lys.plot <- ggboxplot(count.module.lys, "TimePoint","value", 
-                                   facet.by = "Module", 
-                                   fill = "Taxon",
-                                   palette = strain.colors, width = 0.5,
-                                   add= "dotplot",
-                                   xlab = "Time (hr)",
-                                   ylab = "Median module abundance",
-                                   scales = "free")+ custom_theme + theme(legend.text = element_text(face = "italic"))
-count.module.lys.plot
+plot_gmm_comparison(count.module.lys)
+ggsave("data/05_gmm/figs/module_lysine_plot.pdf", width = 6)
+
 ggsave("data/05_gmm/figs/module_lysine_plot.pdf", height = 5, width = 12)
 
 ```
 
 
 
-## Arabinoxylan   
+## Individual KOs  
 
 Below are the KOs that are considered for each of the complex substrate degradation.  
 
@@ -769,7 +772,7 @@ K01730
 K01815  
 K00874  
 K01625 K17463  
- 
+
 **MF0005	starch degradation**  
 K01176 K07405 K05343   
 K01200 K01208  
@@ -825,10 +828,12 @@ deg <- deg %>%
 
 #DT::datatable(deg)
 deg <- reshape2::melt(deg)
-deg <- deg %>% tidyr::separate(variable, c("Rep", "TimePoint"), "T")
+deg <- deg %>% 
+  tidyr::separate(variable, c("Rep", "TimePoint"), "T")
 head(deg)
 
-deg <- deg %>% mutate(value = replace_na(value, 0))
+deg <- deg %>% 
+  mutate(value = replace_na(value, 0))
 deg[deg ==0]<- NA 
 
 write.csv(deg, "data/05_gmm/tables/GMM_Deg.csv")
@@ -844,83 +849,40 @@ deg2 <- deg
 deg2$Species<- gsub("_", " ", deg2$Species)
 
 unique(deg2$TimePoint)
+unique(deg2$Module)
+deg2$GeneName <- stringr::str_wrap(deg2$GeneName, width = 20)
 
-# create graphing function
-module.graph <- function(df, na.rm = TRUE, ...){
-  
-  # create list of counties in data to loop over 
-  mod_list <- unique(df$Module)
-  
-  for (i in seq_along(mod_list)) { 
-    
-    # create plot for each county in df 
-    plot <- 
-      ggboxplot(subset(df, df$Module==mod_list[i]), "TimePoint","value", 
-                facet.by = "GeneName", 
-                fill = "Species",
-                palette = strain.colors, width = 0.5,
-                add= "dotplot",
-                xlab = "Time (hr)",
-                ylab = "Median module abundance",
-                scales = "free")+ custom_theme + theme(legend.text = element_text(face = "italic"), panel.grid = element_blank(),
-                                                       panel.spacing = unit(0.3, "line"),strip.background = element_blank(),
-                                                       strip.text = element_text(size = 6)) 
-    
-    
-    # save plots as .png
-    # ggsave(plot, file=paste(results, 
-    #                        'projection_graphs/county_graphs/',
-    #                        county_list[i], ".png", sep=''), scale=2)
-    
-    # save plots as .pdf
-    ggsave(
-      plot,
-      file = paste('data/05_gmm/figs/',
-                   mod_list[i], ".pdf", sep = ''),
-      height = 6,
-      width = 12,
-      useDingbats = FALSE
-    )
-    
-    # print plots to screen
-    print(plot)
-  }
-  
-}
+starch.deg <- deg2 %>% 
+  filter(Module == "starch_degradation") %>% 
+  plot_module_ko() +
+  labs(subtitle = "Starch degradation")
 
-#pdf("03_gmm_anlaysis/figs/module_kos_carbs_plot.pdf", height = 6, width = 12)
-module.graph(deg2)
-#dev.off()
+ggsave("data/05_gmm/figs/strach_kos.pdf", h=6, w=10)
 
+fructan.deg <- deg2 %>% 
+  filter(Module == "fructan_degradation") %>% 
+  plot_module_ko() +
+  labs(subtitle = "Fructan degradation")
 
-mod_list <- unique(deg2$Module)
-de3 <- subset(deg2, Module=="pectin degradationI" && Module=="pectin degradationII")
-pect1 <- 
-  ggboxplot(subset(deg2, Module=="pectindegradationI" | Module=="pectindegradationII"), "TimePoint","value", 
-            facet.by = "GeneName", 
-            fill = "Species",
-            palette = strain.colors, width = 0.5,
-            add= "dotplot",
-            xlab = "Time (hr)",
-            ylab = "Median module abundance",
-            scales = "free")+ 
-  custom_theme + 
-  theme(legend.text = element_text(face = "italic"), 
-        panel.grid = element_blank(),
-        panel.spacing = unit(0.3, "line"),
-        strip.background = element_blank(),
-        strip.text = element_text(size = 6)) 
+ggsave("data/05_gmm/figs/fructan_kos.pdf", h=6, w=10)
 
-ggsave("data/05_gmm/figs/pectindegradationI_n_II.pdf",
-       height = 4,
-       width = 8,
-       useDingbats = FALSE
-)
+pectin.deg <- deg2 %>% 
+  filter(Module %in% c("pectindegradationII", "pectindegradationI")) %>% 
+  plot_module_ko() +
+  labs(subtitle = "Pectin degradation")
+
+ggsave("data/05_gmm/figs/pectin_kos.pdf", h=6, w=8)
+
+xylan.deg <- deg2 %>% 
+  filter(Module =="Arabinoxylan_degradation") %>% 
+  plot_module_ko() +
+  labs(subtitle = "Arabinoxylan degradation")
+
+ggsave("data/05_gmm/figs/arabinoxylan_kos.pdf", h=6, w=10)
 
 ```
 
-
-#### Lysine degration KOs
+## Lysine degration KOs
 ```{r fig.width=16, fig.height=12}
 
 lysine_KO <- c("K01843","K01844","K18011","K18012","K18013", "K18014")
@@ -929,8 +891,6 @@ lysine_KO <- c("K01843","K01844","K18011","K18012","K18013", "K18014")
 brite_names2 <- subset(complete_table_brite, KO %in% lysine_KO)
 #brite_names
 colnames(brite_names2)
-
-head(brite_gmm)
 
 brite_names2 <- brite_names2[,c("KO","GeneName")]
 
@@ -951,30 +911,34 @@ head(Lysdeg)
 Lysdeg <- Lysdeg %>% mutate(value = replace_na(value, 0))
 Lysdeg[Lysdeg ==0]<- NA 
 
-
-head(Lysdeg)
-#Lysdeg$Species <- Lysdeg$BacterialStrain
 Lysdeg$Species <- gsub("Lachnospiraceae_bacterium", "Flavonifractor_plautii",Lysdeg$Species)
 
 Lysdeg$Species <- gsub("_"," ",Lysdeg$Species)
+Lysdeg$GeneName <- stringr::str_wrap(Lysdeg$GeneName, width = 20)
 
-lysplot <- 
-  ggboxplot(Lysdeg, "TimePoint","value", 
-            facet.by = "GeneName", 
-            fill = "Species",
-            palette = strain.colors, width = 0.5,
-            add= "dotplot",
-            xlab = "Time (hr)",
-            ylab = "Median module abundance",
-            scales = "free")+ custom_theme + 
-  theme(legend.text = element_text(face = "italic"), panel.grid = element_blank(),
-        panel.spacing = unit(0.3, "line"),strip.background = element_blank(),
-        strip.text = element_text(size = 8)) 
+lysplot <- Lysdeg %>%
+  group_by(GeneName,TimePoint, Species) %>%
+  summarise(
+    sd = sd(value, na.rm = TRUE),
+    value.mean = mean(value)
+  ) %>%
+  ggplot(aes(TimePoint, value.mean)) +
+  geom_pointrange(aes(x = TimePoint,
+                      y = value.mean,
+                      ymin = value.mean - sd,
+                      ymax = value.mean + sd, color = Species),
+                  size = 1.5, alpha = 0.5, fatten = .9,
+                  position = position_dodge(width = 0.5)) +
+  #geom_point(aes(color = Taxon),
+  #          position = position_dodge(width = 0.5)) +
+  facet_wrap(~GeneName, scales = "free_y") +
+  theme_dbmm() +
+  theme(legend.text = element_text(face = "italic")) +
+  scale_color_manual("Taxon", values = strain.colors) +
+  labs(x="Time (hr)", y= paste("Module abundance (CPM mean", "sd)", sep = "\u00B1"))
 
 ggsave("data/05_gmm/figs/lysine_deg_KO.pdf",
-       height = 7,
-       width = 14,
-       useDingbats = FALSE)
+       h=6, w=10)
 
 ```
 
